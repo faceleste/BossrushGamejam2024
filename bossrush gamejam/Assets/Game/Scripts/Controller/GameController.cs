@@ -10,6 +10,7 @@ public class PlayerSettings
     public float forceDash;
     public float hp;
     public float cooldownDash;
+    public float dano;
 }
 
 [System.Serializable]
