@@ -8,7 +8,11 @@ public class PlayerAttack : MonoBehaviour
     public float attackRange;
     public float attackRate;
     public float timeToAttack;
+    public float dano;
+
     public bool canBasicAttack;
+    public bool canAttackAgain;
+    
 
     [Header("Special Attack")]
     public float timeSpecialAttack;
@@ -25,6 +29,8 @@ public class PlayerAttack : MonoBehaviour
     public GameObject attackPointBasicAttack;
     public GameObject attackPointSpecialAttack;
     public LineRenderer line;
+    public GameController gameController;
+    private GameObject gameControllerObj;
 
     [Header("cooldownTwoAttacks")]
     public float cooldownAtks = 1;
@@ -32,10 +38,18 @@ public class PlayerAttack : MonoBehaviour
     public float specialAttackSpeed;
 
     private float currentAttack;
-
+    public Animator animPlayer;
+    public Player playerScript;
+    public Rigidbody2D rb2d;
+    public bool canArmaReturn = false;
     void Start()
     {
         cooldownSpecialAttack = timeSpecialAttack;
+        gameControllerObj = GameObject.FindWithTag("GameController");
+        gameController = gameControllerObj.GetComponent<GameController>();
+
+        dano = gameController.playerSettings.dano;
+
     }
 
     void FixedUpdate()
@@ -54,7 +68,9 @@ public class PlayerAttack : MonoBehaviour
                 isAttackNoRange = false;
                 isInSpecialAtk = true;
                 canBasicAttack = false;   
-                attackPointSpecialAttack.SetActive(true);
+                //attackPointSpecialAttack.SetActive(true);
+                attackPointSpecialAttack.GetComponent<SpriteRenderer>().enabled = true;
+                attackPointSpecialAttack.GetComponent<BoxCollider2D>().enabled = true;
                 RangeManagement();
             }
         }
@@ -65,7 +81,9 @@ public class PlayerAttack : MonoBehaviour
             {
                 cooldownSpecialAttack = timeSpecialAttack;
                 currentAttack = timeToAttack;
-                attackPointSpecialAttack.SetActive(false);
+                //attackPointSpecialAttack.SetActive(false);
+                attackPointSpecialAttack.GetComponent<SpriteRenderer>().enabled = false;
+                attackPointSpecialAttack.GetComponent<BoxCollider2D>().enabled = false;
                 canBasicAttack = true; 
                 isInSpecialAtk = false;
             } 
@@ -76,10 +94,14 @@ public class PlayerAttack : MonoBehaviour
             isInSpecialAtk = false;
             if(currentCooldownAtk < cooldownAtks && canBasicAttack == true) 
             {
+                
                 // ATAQUE NORMAL
+
                 currentAttack -= Time.deltaTime;
                 Attack();
                 currentCooldownAtk = cooldownAtks;
+
+
             }
             else
             {
@@ -106,7 +128,9 @@ public class PlayerAttack : MonoBehaviour
             
             cooldownSpecialAttack -= Time.deltaTime;
             isInRange = Physics2D.OverlapCircle(this.transform.position, rangeSpecialAttack, attackLayer);
-            attackPointSpecialAttack.SetActive(true);
+            //attackPointSpecialAttack.SetActive(true);
+            attackPointSpecialAttack.GetComponent<SpriteRenderer>().enabled = true;
+            attackPointSpecialAttack.GetComponent<BoxCollider2D>().enabled = true;
             float tempoDecorrido = 0f;      
             CalculeRotation();
 
@@ -120,12 +144,24 @@ public class PlayerAttack : MonoBehaviour
                 }
                 if(cooldownSpecialAttack < 0)
                 {
-                    attackPointSpecialAttack.transform.position = Vector3.Lerp(attackPointSpecialAttack.transform.position, this.transform.position, specialAttackSpeed/8);
+                    
+                    if(canArmaReturn == true)
+                    {
+                        target = new Vector2(this.transform.position.x, this.transform.position.y);
+                        attackPointSpecialAttack.transform.position = Vector3.Lerp(attackPointSpecialAttack.transform.position,  target, specialAttackSpeed/8);
+                    }
+                    else
+                    {
+                        //target = new Vector2(attackPointSpecialAttack.transform.position.x, attackPointSpecialAttack.transform.position.y);
+                    }
+
                     if(attackPointSpecialAttack.transform.position == this.transform.position)
                     {
-                        attackPointSpecialAttack.SetActive(false);
+                        //attackPointSpecialAttack.SetActive(false);
+                        attackPointSpecialAttack.GetComponent<SpriteRenderer>().enabled = false;
+                        attackPointSpecialAttack.GetComponent<BoxCollider2D>().enabled = false;
                         isInSpecialAtk = false;
-
+                        canArmaReturn = false;
                     }   
                 }
             }
@@ -135,12 +171,15 @@ public class PlayerAttack : MonoBehaviour
                 if(cooldownSpecialAttack < -0.2f)
                 {
                     isInRange = Physics2D.OverlapCircle(this.transform.position, rangeSpecialAttack, attackLayer); 
-                    attackPointSpecialAttack.transform.position = Vector3.MoveTowards(attackPointSpecialAttack.transform.position, this.transform.position, specialAttackSpeed / 1.2f);
+                    target = new Vector2(this.transform.position.x, this.transform.position.y);
+                    attackPointSpecialAttack.transform.position = Vector3.MoveTowards(attackPointSpecialAttack.transform.position,  target, specialAttackSpeed / 1.2f);
                     if(attackPointSpecialAttack.transform.position == this.transform.position)
                     {
                         
                         cooldownSpecialAttack = timeSpecialAttack;
-                        attackPointSpecialAttack.SetActive(false);
+                        //attackPointSpecialAttack.SetActive(false);
+                        attackPointSpecialAttack.GetComponent<SpriteRenderer>().enabled = false;
+                        attackPointSpecialAttack.GetComponent<BoxCollider2D>().enabled = false;
                         canBasicAttack = true; 
                         isInSpecialAtk = false;
                     }   
@@ -151,7 +190,8 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
-           attackPointSpecialAttack.transform.position = Vector3.MoveTowards(attackPointSpecialAttack.transform.position, this.transform.position, specialAttackSpeed  / 1.2f);
+            target = new Vector2(this.transform.position.x, this.transform.position.y);
+           attackPointSpecialAttack.transform.position = Vector3.MoveTowards(attackPointSpecialAttack.transform.position,  target, specialAttackSpeed  / 1.2f);
         }
         //currentCooldownAtk = cooldownAtks;
     }
@@ -179,22 +219,36 @@ public class PlayerAttack : MonoBehaviour
         //     Debug.Log("Acertou: " + enemy.name);
         //     enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
         // }
+        if(canAttackAgain == true)
+        {
+            StartCoroutine(DelayAttack());
+        }
 
-        StartCoroutine(DelayAttack());
+
     }
 
     private IEnumerator DelayAttack()
     {
-        yield return new WaitForSeconds(0.1f);
+        canAttackAgain = false;
+        playerScript.canWalk = false;
+        rb2d.velocity = Vector3.zero;
+        animPlayer.SetTrigger("Attacking");
+         yield return new WaitForSeconds(0.1f);
         attackPointBasicAttack.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         attackPointBasicAttack.SetActive(false);
+        canAttackAgain = true;
+        if(playerScript.isDied == false)
+        {
+            playerScript.canWalk = true;
+        }
+
     }
 
     private void CreateLineBetweenPlayerAndSpecial()
     {
 
-        line.SetPosition(0, transform.position);
+        line.SetPosition(0, new Vector2(this.transform.position.x, this.transform.position.y + 0.5f));
         line.SetPosition(1, attackPointSpecialAttack.transform.position);
 
     }
