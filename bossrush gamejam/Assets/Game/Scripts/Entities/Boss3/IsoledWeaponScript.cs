@@ -12,6 +12,7 @@ public class IsoledWeaponScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        arma.GetComponent<BoxCollider2D>().enabled = false;
         timeActive = 1f;
         //sr = this.transform.Find("sprite").GetComponent<SpriteRenderer>();
         //arma = this.transform.Find("sprite").GetComponent<GameObject>();
@@ -32,7 +33,10 @@ public class IsoledWeaponScript : MonoBehaviour
         Destroy(bo);
         arma.SetActive(true);
         sr.color = new Color(1f, 1f, 1f, 1f);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.6f);
+        arma.GetComponent<BoxCollider2D>().enabled = true;
+        yield return new WaitForSeconds(0.6f);
+        arma.GetComponent<BoxCollider2D>().enabled = false;
         sr.color = new Color(1f, 1f, 1f, 0.25f);
         yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);

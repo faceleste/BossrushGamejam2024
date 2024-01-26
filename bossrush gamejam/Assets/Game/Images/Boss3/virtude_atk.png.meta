@@ -134,7 +134,196 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: virtude_atk_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 7
+        width: 184
+        height: 184
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6b3d1e5ad7dcc24598bcb73193533a6
+      internalID: 110555512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: virtude_atk_1
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 7
+        width: 184
+        height: 184
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3db6395f07df4de4b9b10e3148612ebe
+      internalID: -1848204796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: virtude_atk_2
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 7
+        width: 184
+        height: 184
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61c94a763b1930444b6262b01cd5492a
+      internalID: 1240608920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: virtude_atk_3
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 7
+        width: 184
+        height: 184
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 906ee28be1606ba4bbcc2a6751437e2d
+      internalID: 1857374673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: virtude_atk_4
+      rect:
+        serializedVersion: 2
+        x: 766
+        y: 7
+        width: 184
+        height: 184
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a7c2e21ccfd40f4990be659f9041a53
+      internalID: -131909133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: virtude_atk_5
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 7
+        width: 184
+        height: 184
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 333946b61116c584586b9dc880225c67
+      internalID: -1018763577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: virtude_atk_6
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 7
+        width: 184
+        height: 184
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80be1f513ce10a94bae74f8ffbbf4263
+      internalID: -1043109109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: virtude_atk_7
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 7
+        width: 184
+        height: 184
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b4ec159552d94b42be6b9436aca1f66
+      internalID: -2095726340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: virtude_atk_8
+      rect:
+        serializedVersion: 2
+        x: 1526
+        y: 7
+        width: 184
+        height: 184
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 477570ae994e93d4c9dc2b220ca5cec1
+      internalID: 1897581505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +334,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      virtude_atk_0: 110555512
+      virtude_atk_1: -1848204796
+      virtude_atk_2: 1240608920
+      virtude_atk_3: 1857374673
+      virtude_atk_4: -131909133
+      virtude_atk_5: -1018763577
+      virtude_atk_6: -1043109109
+      virtude_atk_7: -2095726340
+      virtude_atk_8: 1897581505
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

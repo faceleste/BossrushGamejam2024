@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss3Script : MonoBehaviour
 {
+    public Image barraVida;
+    public float vida;
+    public float currentVida;
     public float speed = 0f; 
     public Color defaultColor;
     public PlayerAttack pAttack;
     public Animator animCam;
     public SpriteRenderer sr;
+    public Animator anim;
     public bool atk01;
     public bool atk02;
     public bool atk03;
@@ -29,32 +34,66 @@ public class Boss3Script : MonoBehaviour
     public int numArmasSpawnadas;
 
     public float timeChangeAtks = 10;
+
+    public GameObject[] sangue;
+    public GameObject marcaSangue;
+
+    public bool isFliped;
+    public GameObject splashSangue;
+    public Transform centerBoss;
     
     // Start is called before the first frame update
     IEnumerator Rotine()
     {
+        yield return new WaitForSeconds(timeChangeAtks/3);
         atk01 = true;
         yield return new WaitForSeconds(timeChangeAtks);
         atk01 = false;
+        yield return new WaitForSeconds(timeChangeAtks/3);
         atk02 = true;
         yield return new WaitForSeconds(timeChangeAtks);
         atk02 = false;
+        animCam.SetBool("canMoveNext", true);
+        yield return new WaitForSeconds(timeChangeAtks/3);
         atk03 = true;
         yield return new WaitForSeconds(timeChangeAtks);
+        animCam.SetBool("canMoveNext", false);
         atk03 = false;
         StartCoroutine(Rotine());
     }
     void Start()
     {
+        currentVida = vida;
+        anim = this.GetComponent<Animator>();
         sr = this.GetComponent<SpriteRenderer>();
         armaMaca = GameObject.FindGameObjectWithTag("Arma").GetComponent<Transform>();
         playerPosition = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         defaultColor = sr.color;
         pAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         animCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
-        StartCoroutine(Rotine());
+        //if(atk01 == true)
+        //{
+            StartCoroutine(Rotine());
+        //}
     }
 
+    void Update()
+    {
+        if(playerPosition.transform.position.x < this.transform.position.x)
+        {
+            //sr.flipX = true;
+            //Quaternion target = Quaternion.Euler(0, -180, 0);
+            //transform.rotation = Quaternion.Slerp(target, target,  Time.deltaTime * 20f);
+            isFliped = true;
+        }
+        if(playerPosition.transform.position.x > this.transform.position.x)
+        {
+            //sr.flipX = false;
+            //Quaternion target = Quaternion.Euler(0, 0, 0);
+            //transform.rotation = Quaternion.Slerp(target, target,  Time.deltaTime * 20f);
+            isFliped = false;
+        }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -91,6 +130,7 @@ public class Boss3Script : MonoBehaviour
 
     IEnumerator AtkSpawnArmaCirculo()
     {
+        anim.SetTrigger("Atacking");
         canSpawnAtkArma2 = false;
         Instantiate(spawnArma2, playerPosition.transform.position, transform.rotation);
         yield return new WaitForSeconds(delaySpawnArma2Again);
@@ -98,10 +138,88 @@ public class Boss3Script : MonoBehaviour
     }
     IEnumerator AtkSpawnArmaSegue()
     {
+        anim.SetTrigger("Atacking");
         canSpawnAtkArmaSegue = false;
         int r = Random.Range(0, armasPosition.Length);
         Instantiate(spawnArma3, armasPosition[r].transform.position, transform.rotation);
         yield return new WaitForSeconds(delaySpawnArma3Again);
         canSpawnAtkArmaSegue = true;
     }
+
+
+    void OnCollisionEnter2D(Collision2D collision) 
+    { 
+        if (collision.gameObject.CompareTag("Arma")) 
+        { 
+            
+            // 1 - vida
+            // x   currentvida
+            StartCoroutine(DelayTakeDmg());
+            
+            if(currentVida <= 0)
+            {
+                anim.SetTrigger("Morrendo");
+                Time.timeScale = 1f;
+                StartCoroutine(TimeToDie());
+            }
+            
+            Instantiate(splashSangue, centerBoss.transform.position, transform.rotation);
+            animCam.SetTrigger("Shake");
+            Debug.Log("Acertado");
+            StartCoroutine(SwitchColor());
+            Vector3 direcao = armaMaca.transform.position - this.transform.position;
+            direcao = direcao.normalized * -1; // Normaliza a direção e inverte
+            float distancia = 0.05f; // Define a distância que você quer mover para trás
+            this.transform.position = this.transform.position + direcao * distancia;
+        } 
+    } 
+    IEnumerator TimeToDie()
+    {
+        yield return new WaitForSeconds(1f);
+        Time.timeScale = 1f;
+        Destroy(this);
+    }
+    IEnumerator DelayTakeDmg()
+    {
+        for(float i = currentVida; i > currentVida - pAttack.dano;  i-=0.6f)
+        {
+            barraVida.fillAmount = i / vida;
+            yield return new WaitForSeconds(0.000005f);
+        }
+        currentVida -= pAttack.dano;
+    }
+    IEnumerator SwitchColor()
+    {
+        
+        int rand = Random.Range(0, sangue.Length);
+        //sangue[rand].SetActive(true);
+        if(isFliped == true)
+        {   
+            Instantiate(sangue[rand], new Vector2(this.transform.position.x, this.transform.position.y+1.2f), Quaternion.Euler(0, 180, 0)).transform.parent = gameObject.transform;
+        }
+        else
+        {
+            Instantiate(sangue[rand], new Vector2(this.transform.position.x, this.transform.position.y+1.2f), Quaternion.Euler(0, 0, 0)).transform.parent = gameObject.transform;
+        }
+
+        Time.timeScale = 0.02f;
+        for(int i = 0; i < 1; i++)
+        {
+            sr.color = new Color(1f, 0.30196078f, 0.30196078f);
+            yield return new WaitForSeconds(0.001f);
+        }
+        Time.timeScale = 1;
+        for(int i = 0; i < 1; i++)
+        {
+            sr.color = new Color(1f, 0.30196078f, 0.30196078f);
+            yield return new WaitForSeconds(0.2f);
+            sr.color = defaultColor;
+            yield return new WaitForSeconds(0.2f);
+        }
+        Instantiate(marcaSangue, new Vector2(this.transform.position.x, this.transform.position.y+0.3f), Quaternion.Euler(0, 0, 0));
+        yield return new WaitForSeconds(1f);
+        //Destroy(t);
+        //sangue[rand].SetActive(false);
+    }
+
 }

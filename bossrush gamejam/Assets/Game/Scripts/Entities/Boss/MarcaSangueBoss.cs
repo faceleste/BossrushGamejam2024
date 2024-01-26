@@ -39,7 +39,7 @@ public class MarcaSangueBoss : MonoBehaviour
             transform.rotation = Quaternion.Slerp(target, target,  Time.deltaTime * 20f);
             transform.localScale = new Vector3(7, 7, 0);
         }*/
-
+      
     }
 
     // Update is called once per frame

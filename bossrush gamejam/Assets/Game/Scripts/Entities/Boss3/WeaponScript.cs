@@ -7,10 +7,12 @@ public class WeaponScript : MonoBehaviour
     public GameObject[] armas;
     public float delaySpawnArma;
     public float timeDestroy = 5f;
+    
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnArma());
+        
     }
 
     // Update is called once per frame

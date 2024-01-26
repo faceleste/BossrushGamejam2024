@@ -254,7 +254,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         animCam.SetTrigger("Pmorrendo");
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("Boss02");
+        SceneManager.LoadScene("Boss03");
         //this.transform.position = localTpMorte.transform.position;
         
     }
