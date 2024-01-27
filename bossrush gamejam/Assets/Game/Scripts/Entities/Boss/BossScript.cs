@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossScript : MonoBehaviour
 {
+    public Image barraVida;
     public bool meleeMoment;
     public bool cruzMoment;
     public bool circleMoment;
@@ -54,10 +56,16 @@ public class BossScript : MonoBehaviour
     public GameObject marcaSangue;
     public float cooldownChangeAtk = 12f;
     public Transform armaMaca;
+
+    public Transform centerBoss;
+    public float vida;
+    public float currentVida;
+    public GameObject splashSangue;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentVida = vida;   
         cooldownToAtkAgain = timeToAtkAgain;
         defaultColor = sr.color;
         StartCoroutine(Rotine());
@@ -293,15 +301,49 @@ public class BossScript : MonoBehaviour
     { 
         if (collision.gameObject.CompareTag("Arma")) 
         { 
+            StartCoroutine(DelayTakeDmg());
+            
+            if(currentVida <= 0)
+            {
+                anim.SetTrigger("Morrendo");
+                //Time.timeScale = 1f;
+                StartCoroutine(TimeToDie());
+            }
+
             animCam.SetTrigger("Shake");
             Debug.Log("Acertado");
             StartCoroutine(SwitchColor());
+            Instantiate(splashSangue, centerBoss.transform.position, transform.rotation);
             Vector3 direcao = armaMaca.transform.position - this.transform.position;
             direcao = direcao.normalized * -1; // Normaliza a direção e inverte
             float distancia = 0.5f; // Define a distância que você quer mover para trás
             this.transform.position = this.transform.position + direcao * distancia;
         } 
     } 
+
+    IEnumerator TimeToDie()
+    {
+        playerMove.canWalk = false;
+        Time.timeScale = 0.4f;
+        playerMove.playerAnim.SetBool("isMoving", false);
+        playerMove.animDie.SetActive(true);
+        playerMove.rb2d.velocity = new Vector2(0, 0);
+        playerMove.sr.sortingOrder = 2050;
+        sr.sortingOrder = playerMove.sr.sortingOrder;
+        
+        yield return new WaitForSeconds(1f);
+        Time.timeScale = 1f;
+        Destroy(this);
+    }
+    IEnumerator DelayTakeDmg()
+    {
+        for(float i = currentVida; i > currentVida - player.dano;  i-=0.6f)
+        {
+            barraVida.fillAmount = i / vida;
+            yield return new WaitForSeconds(0.000005f);
+        }
+        currentVida -= player.dano;
+    }
 
     IEnumerator SwitchColor()
     {

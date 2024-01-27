@@ -18,13 +18,20 @@ public class DinamicOrder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.transform.position.y > this.transform.position.y)
+        if(playerSr.sortingOrder < 2000)
         {
-            sr.sortingOrder = playerSr.sortingOrder + 1;
+            if(player.transform.position.y > this.transform.position.y)
+            {
+                sr.sortingOrder = playerSr.sortingOrder + 5;
+            }
+            if(player.transform.position.y < this.transform.position.y)
+            {
+                sr.sortingOrder = playerSr.sortingOrder - 5;
+            }
         }
-        if(player.transform.position.y < this.transform.position.y)
+        else
         {
-            sr.sortingOrder = playerSr.sortingOrder - 1;
+            sr.sortingOrder = 0;
         }
     }
 }

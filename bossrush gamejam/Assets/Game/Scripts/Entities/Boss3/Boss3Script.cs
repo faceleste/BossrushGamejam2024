@@ -41,6 +41,7 @@ public class Boss3Script : MonoBehaviour
     public bool isFliped;
     public GameObject splashSangue;
     public Transform centerBoss;
+    public Player player;
     
     // Start is called before the first frame update
     IEnumerator Rotine()
@@ -71,6 +72,7 @@ public class Boss3Script : MonoBehaviour
         defaultColor = sr.color;
         pAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         animCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         //if(atk01 == true)
         //{
             StartCoroutine(Rotine());
@@ -159,7 +161,7 @@ public class Boss3Script : MonoBehaviour
             if(currentVida <= 0)
             {
                 anim.SetTrigger("Morrendo");
-                Time.timeScale = 1f;
+                //Time.timeScale = 1f;
                 StartCoroutine(TimeToDie());
             }
             
@@ -175,6 +177,14 @@ public class Boss3Script : MonoBehaviour
     } 
     IEnumerator TimeToDie()
     {
+        player.canWalk = false;
+        Time.timeScale = 0.4f;
+        player.playerAnim.SetBool("isMoving", false);
+        player.animDie.SetActive(true);
+        player.rb2d.velocity = new Vector2(0, 0);
+        player.sr.sortingOrder = 2050;
+        sr.sortingOrder = player.sr.sortingOrder;
+        
         yield return new WaitForSeconds(1f);
         Time.timeScale = 1f;
         Destroy(this);
