@@ -12,6 +12,49 @@ public class PlayerSettings
     public float cooldownDash;
     public float dano;
     public int numEstagiosConcluidos;
+    public float weaponSpeed;
+    public float cdrAttack;
+    public float speedDash;
+    public float attackRange;
+    public int qtdDash;
+    public int qtdCubHead;
+    public bool canMove = false;
+    public bool canSecondAttack;
+    public bool canAttackBlood;
+    public bool canAttackFire;
+
+    public List<Card> inventory = new List<Card>();
+    public bool isInventoryChanged = false;
+    public Player player;
+    public PlayerAttack playerAttack;
+    public void UpdateStatus()
+    {
+        player.playerSpeed = speed;
+        player.forceDash = forceDash;
+        player.hp = hp;
+        player.cooldownDash = cooldownDash;
+
+        playerAttack.attackDamage = dano;
+        playerAttack.attackRange = attackRange;
+        playerAttack.cooldownAtks = weaponSpeed;
+    }
+
+    public void AddToInventory(Card newCard)
+    {
+        string cardsInInventory = "";
+        inventory.Add(newCard);
+        Debug.Log("Card adicionado ao inventário");
+
+        Debug.Log("Inventário: " + inventory.Count);
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            string cardTitle = inventory[i].title;
+            cardsInInventory += cardTitle + " | ";
+        }
+        Debug.Log("Cartas no inventário: " + cardsInInventory); 
+
+        isInventoryChanged = true;
+    }
 }
 
 [System.Serializable]
@@ -26,7 +69,7 @@ public class TimeSettings
 public class SkillSettings : MonoBehaviour
 {
     [Header("Skills")]
-    public List<Skill> skills ; 
+    public List<Skill> skills;
 }
 
 public class GameController : MonoBehaviour

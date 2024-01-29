@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEditor.Rendering;
 
 
 public class Player : MonoBehaviour
@@ -59,6 +60,10 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
+
+        if(!gameController.playerSettings.canMove){ 
+            playerSpeed = 0 ; 
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isDashing = true;
