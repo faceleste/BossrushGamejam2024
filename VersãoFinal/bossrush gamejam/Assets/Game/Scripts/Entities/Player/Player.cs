@@ -51,10 +51,15 @@ public class Player : MonoBehaviour
         forceDash = gameController.playerSettings.forceDash;
         hp = gameController.playerSettings.hp;
         cooldownDash = gameController.playerSettings.cooldownDash;
-
+        bool isFirstTime = gameController.playerSettings.isFirstTime;
         if(isInCutscene)
         {
-            StartCoroutine(Cutscene());
+            canWalk = false;
+            if(!isFirstTime)
+            {
+                StartCoroutine(Cutscene());
+            }
+            //StartCoroutine(Cutscene());
         }
     }
 
@@ -72,7 +77,12 @@ public class Player : MonoBehaviour
         
         
     }
-    IEnumerator Cutscene()
+    public void FCutscene()
+    {
+        StartCoroutine(Cutscene());
+    }
+    
+    public IEnumerator Cutscene()
     {
         canWalk = false;
         yield return new WaitForSeconds(1.5f);
@@ -281,8 +291,43 @@ public class Player : MonoBehaviour
             //SceneManager.LoadScene("Boss01");
             StartCoroutine(PlayerDied());
         } 
-    } 
 
+        if (collision.gameObject.CompareTag("Door")) 
+        { 
+            Debug.Log("Acertado");
+            canWalk = false;
+            rb2d.velocity = new Vector2(0, 0);
+            //SceneManager.LoadScene("Boss01");
+            StartCoroutine(ChangeScene());
+        } 
+    } 
+    IEnumerator ChangeScene()
+    {
+        playerAnim.SetBool("isMoving", false);
+        //animCam.SetTrigger("Pmorrendo");
+        yield return new WaitForSeconds(1f);
+        //sr.sortingOrder = 2050;
+        animDie.SetActive(true);
+        
+        yield return new WaitForSeconds(2.5f);
+        if(gameController.playerSettings.numEstagiosConcluidos == 0)
+        {
+            SceneManager.LoadScene("Boss01");
+        }
+        if(gameController.playerSettings.numEstagiosConcluidos == 1)
+        {
+            SceneManager.LoadScene("Boss03");
+        }
+        if(gameController.playerSettings.numEstagiosConcluidos == 2)
+        {
+            //SceneManager.LoadScene("Boss02");
+        }
+        if(gameController.playerSettings.numEstagiosConcluidos == 4)
+        {
+            //SceneManager.LoadScene("Boss04");
+        }
+        
+    }
     IEnumerator PlayerDied()
     {
         isDied = true;
@@ -292,7 +337,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         animCam.SetTrigger("Pmorrendo");
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("Boss03");
+        SceneManager.LoadScene("TrueLobby");
         //this.transform.position = localTpMorte.transform.position;
         
     }

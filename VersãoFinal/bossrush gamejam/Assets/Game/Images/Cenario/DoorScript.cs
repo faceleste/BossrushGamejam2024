@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DoorScript : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class DoorScript : MonoBehaviour
     public SpriteRenderer srp1, srp2, srp3, srp4;
     public GameObject p1, p2, p3, p4;
 
+    public GameObject cutsceneFrames;
     public int numEstagiosConcluidos = 0;
     public GameController gameController;
 
@@ -18,11 +20,17 @@ public class DoorScript : MonoBehaviour
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         numEstagiosConcluidos = gameController.playerSettings.numEstagiosConcluidos;
 
+        if(gameController.playerSettings.isFirstTime == true)
+        {
+            cutsceneFrames.SetActive(true);
+        }
+
         if(numEstagiosConcluidos == 1)
         {
             p1.GetComponent<Animator>().enabled = false;
             p1.SetActive(true);
             srp1.color = new Color(0.4f, 0.4f, 0.4f, 1);
+            p1.GetComponent<BoxCollider2D>().enabled = false;
         
         }
         if(numEstagiosConcluidos == 2)
@@ -33,6 +41,8 @@ public class DoorScript : MonoBehaviour
             p2.SetActive(true);
             srp1.color = new Color(0.4f, 0.4f, 0.4f, 1);
             srp2.color = new Color(0.4f, 0.4f, 0.4f, 1);
+            p1.GetComponent<BoxCollider2D>().enabled = false;
+            p2.GetComponent<BoxCollider2D>().enabled = false;
         }
         if(numEstagiosConcluidos == 3)
         {
@@ -45,6 +55,9 @@ public class DoorScript : MonoBehaviour
             srp1.color = new Color(0.4f, 0.4f, 0.4f, 1);
             srp2.color = new Color(0.4f, 0.4f, 0.4f, 1);
             srp3.color = new Color(0.4f, 0.4f, 0.4f, 1);
+            p1.GetComponent<BoxCollider2D>().enabled = false;
+            p2.GetComponent<BoxCollider2D>().enabled = false;
+            p3.GetComponent<BoxCollider2D>().enabled = false;
         }
         if(numEstagiosConcluidos == 4)
         {
@@ -59,13 +72,19 @@ public class DoorScript : MonoBehaviour
             srp1.color = new Color(0.4f, 0.4f, 0.4f, 1);
             srp2.color = new Color(0.4f, 0.4f, 0.4f, 1);
             srp3.color = new Color(0.4f, 0.4f, 0.4f, 1);
+            srp4.color = new Color(0.4f, 0.4f, 0.4f, 1);
+
+            p1.GetComponent<BoxCollider2D>().enabled = false;
+            p2.GetComponent<BoxCollider2D>().enabled = false;
+            p3.GetComponent<BoxCollider2D>().enabled = false;
+            p4.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Active()

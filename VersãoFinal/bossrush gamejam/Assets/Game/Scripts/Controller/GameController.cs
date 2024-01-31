@@ -27,6 +27,8 @@ public class PlayerSettings
     public bool isInventoryChanged = false;
     public Player player;
     public PlayerAttack playerAttack;
+
+    public bool isFirstTime;
     public void UpdateStatus()
     {
         player.playerSpeed = speed;

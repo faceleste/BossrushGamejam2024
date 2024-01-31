@@ -65,9 +65,12 @@ public class BossScript : MonoBehaviour
     public ScriptBackLobby lobby;
     public float f;
 
+    public GameController gameController;
+
     // Start is called before the first frame update
     void Start()
     {
+        gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         currentVida = vida;   
         cooldownToAtkAgain = timeToAtkAgain;
         defaultColor = sr.color;
@@ -337,6 +340,7 @@ public class BossScript : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         Time.timeScale = 1f;
+        gameController.playerSettings.numEstagiosConcluidos++;
         lobby.BackTo(3f);
         Destroy(this);
     }

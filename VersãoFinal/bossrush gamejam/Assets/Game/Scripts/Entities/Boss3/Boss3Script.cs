@@ -44,6 +44,7 @@ public class Boss3Script : MonoBehaviour
     public Player player;
     public ScriptBackLobby lobby;
     public float f;
+    public GameController gameController;
 
 
     // Start is called before the first frame update
@@ -67,6 +68,7 @@ public class Boss3Script : MonoBehaviour
     }
     void Start()
     {
+        gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         currentVida = vida;
         anim = this.GetComponent<Animator>();
         sr = this.GetComponent<SpriteRenderer>();
@@ -189,6 +191,7 @@ public class Boss3Script : MonoBehaviour
         sr.sortingOrder = player.sr.sortingOrder;
         
         yield return new WaitForSeconds(1f);
+        gameController.playerSettings.numEstagiosConcluidos++;
         Time.timeScale = 1f;
         lobby.BackTo(3f);
         Destroy(this);

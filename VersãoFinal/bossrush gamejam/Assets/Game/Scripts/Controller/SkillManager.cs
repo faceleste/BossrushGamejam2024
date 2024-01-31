@@ -14,7 +14,7 @@ public class SkillManager : MonoBehaviour
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         time = gameController.timeSettings.fullTime;
-        gameController.playerSettings.speed = 5f;
+        //gameController.playerSettings.speed = 5f;
         InicializarDicionarioDeHabilidades();
     }
 
@@ -98,7 +98,7 @@ public class SkillManager : MonoBehaviour
         public static void ThunderStomp(GameController gameController)
         {
             //faster dash 
-            gameController.playerSettings.forceDash += 45f;
+            gameController.playerSettings.forceDash += 25f;
             gameController.playerSettings.UpdateStatus();
         }
 

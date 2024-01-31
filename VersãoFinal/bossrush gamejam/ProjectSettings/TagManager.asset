@@ -8,6 +8,7 @@ TagManager:
   - Fogo
   - camPos
   - Boss
+  - Door
   layers:
   - Default
   - TransparentFX

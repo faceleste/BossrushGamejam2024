@@ -13,6 +13,8 @@ public class DialogoScript : MonoBehaviour
     public float delayLetter = 0.01f;
     public float delayText = 2f;
 
+    public bool canWrite = true;
+
     void Start()
     {
         StartCoroutine(TypeFrase(frases[currentFrase]));
@@ -21,7 +23,9 @@ public class DialogoScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTyping)
+        if(canWrite)
+        {
+            if (isTyping)
         {
             if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
             {
@@ -35,13 +39,19 @@ public class DialogoScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
             {
-                StartCoroutine(TypeFrase(frases[currentFrase]));
+                StopAllCoroutines();
+                textMesh.text = frases[currentFrase];
+                isTyping = false;
+                StartCoroutine(NextFrase());
             }
         }
+        }
+        
     }
 
     IEnumerator TypeFrase(string frase)
     {
+
         isTyping = true;
         textMesh.text = "";
         foreach (char letter in frase.ToCharArray())
@@ -52,18 +62,26 @@ public class DialogoScript : MonoBehaviour
         }
         isTyping = false;
         yield return new WaitForSeconds(delayText);
-        StartCoroutine(NextFrase());
+        //StartCoroutine(NextFrase());
 
     }
 
     IEnumerator NextFrase()
     {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.05f);
         currentFrase++;
         if (currentFrase >= frases.Length)
         {
+            canWrite = false;
             currentFrase = 0;
+            this.GetComponent<Animator>().SetTrigger("Sumindo");
+            yield return new WaitForSeconds(1.6f);
+            gameObject.SetActive(false);
         }
-        StartCoroutine(TypeFrase(frases[currentFrase]));
+        else
+        {
+            StartCoroutine(TypeFrase(frases[currentFrase]));
+        }
+
     }
 }

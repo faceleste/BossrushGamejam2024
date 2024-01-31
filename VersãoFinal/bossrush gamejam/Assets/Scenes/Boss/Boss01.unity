@@ -410,7 +410,7 @@ MonoBehaviour:
   meleeMoment: 0
   cruzMoment: 0
   circleMoment: 0
-  speed: 0.8
+  speed: 1.1
   meleeDamage: 3
   isInMeleeAtk: 1
   timeToAtkAgain: 3
@@ -468,6 +468,7 @@ MonoBehaviour:
   splashSangue: {fileID: 1268463685388670065, guid: 172e36a0bc870c24b9f6d214758f2416, type: 3}
   lobby: {fileID: 315169698}
   f: 0
+  gameController: {fileID: 0}
 --- !u!61 &278303883
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -608,6 +609,10 @@ PrefabInstance:
     - target: {fileID: 4290724445357190741, guid: 2547bdedd0a1df343a38e062f02bdaaf, type: 3}
       propertyPath: m_Name
       value: cenaryteste
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290724445357190741, guid: 2547bdedd0a1df343a38e062f02bdaaf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6437518746979362282, guid: 2547bdedd0a1df343a38e062f02bdaaf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1227,12 +1232,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710457444}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 18.79, y: -0.3, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 37.291, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1200515513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &715673700 stripped
 MonoBehaviour:
@@ -1534,6 +1539,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039250294}
   m_CullTransparentMesh: 1
+--- !u!1 &1200515512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1200515513}
+  m_Layer: 0
+  m_Name: Colisoes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1200515513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200515512}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 18.79, y: -0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1244437660}
+  - {fileID: 1596139042}
+  - {fileID: 1940061452}
+  - {fileID: 710457447}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1244437657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1657,12 +1697,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1244437657}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0055, y: -15.02, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -18.7845, y: -14.72, z: 0}
   m_LocalScale: {x: 37.291, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1200515513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1289949385
 GameObject:
@@ -2089,12 +2129,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1596139039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 14.24, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -18.79, y: 14.54, z: 0}
   m_LocalScale: {x: 37.291, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1200515513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1610483091
 GameObject:
@@ -7133,12 +7173,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940061449}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -18.93, y: -0.31, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -37.72, y: -0.00999999, z: 0}
   m_LocalScale: {x: 37.291, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1200515513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &2088748298
 GameObject:
@@ -7426,6 +7466,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 449
       objectReference: {fileID: 0}
+    - target: {fileID: 6764141782997640303, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8243488981748357836, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -7434,6 +7478,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 450
       objectReference: {fileID: 0}
+    - target: {fileID: 8514225291646296033, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -7464,7 +7512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1001 &7351034236822825724
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7635,6 +7683,21 @@ MonoBehaviour:
     hp: 1
     cooldownDash: 2.8
     dano: 5
+    numEstagiosConcluidos: 0
+    weaponSpeed: 0
+    cdrAttack: 0
+    speedDash: 0
+    attackRange: 0
+    qtdDash: 0
+    qtdCubHead: 0
+    canMove: 1
+    canSecondAttack: 0
+    canAttackBlood: 0
+    canAttackFire: 0
+    isInventoryChanged: 0
+    player: {fileID: 0}
+    playerAttack: {fileID: 0}
+    isFirstTime: 0
   timeSettings:
     fullTime: 90
     currentTime: 0
@@ -7653,7 +7716,4 @@ SceneRoots:
   - {fileID: 7351034236822825724}
   - {fileID: 656620788}
   - {fileID: 302052185}
-  - {fileID: 1244437660}
-  - {fileID: 1596139042}
-  - {fileID: 1940061452}
-  - {fileID: 710457447}
+  - {fileID: 1200515513}
