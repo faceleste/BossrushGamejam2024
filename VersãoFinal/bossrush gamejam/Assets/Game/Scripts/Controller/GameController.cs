@@ -8,7 +8,9 @@ public class PlayerSettings
     [Header("Player")]
     public float speed;
     public float forceDash;
-    public float hp;
+    public int hp;
+    public int numShields;
+    
     public float cooldownDash;
     public float dano;
     public int numEstagiosConcluidos;
@@ -22,6 +24,7 @@ public class PlayerSettings
     public bool canSecondAttack;
     public bool canAttackBlood;
     public bool canAttackFire;
+    public bool canRecoverShield;
 
     public List<Card> inventory = new List<Card>();
     public bool isInventoryChanged = false;
@@ -39,6 +42,7 @@ public class PlayerSettings
         playerAttack.attackDamage = dano;
         playerAttack.attackRange = attackRange;
         playerAttack.cooldownAtks = weaponSpeed;
+        player.shields = numShields;
     }
 
     public void AddToInventory(Card newCard)
@@ -94,6 +98,14 @@ public class GameController : MonoBehaviour
         {
             timeSettings.currentTime = timeSettings.fullTime;
             DontDestroyOnLoad(this.gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        if(playerSettings.hp <= 0)
+        {
+            playerSettings.hp = 1;
         }
     }
 

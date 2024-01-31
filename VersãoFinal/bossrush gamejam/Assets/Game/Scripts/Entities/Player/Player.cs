@@ -2,15 +2,18 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEditor.Rendering;
-
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
 
     [Header("Stats")]
-    public float hp;
+    public int hp;
+    public int shields;
     public bool canWalk;
     public float playerSpeed;
+
+    public bool canTakeDmg = true;
 
     [Header("Dash")]
     public float forceDash;
@@ -40,9 +43,24 @@ public class Player : MonoBehaviour
     public bool isInCutscene;
     public DoorScript door;
     public Cam camera;
+
+    public Image[] heartObj;
+    public Image[] shieldObj;
+    public Sprite heart;
+    public Sprite nullHeart;
+    public Sprite shield;
+    public Sprite nullShield;
+    public Color defaultColor;
+
+    public bool canRecoverShield = true;
+
+
     public void Start()
     {
+        defaultColor = sr.color;
+        VerificaImgVida();
         //camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cam>();
+        Time.timeScale = 1f;
         animDie.SetActive(false);
         gameControllerObj = GameObject.FindWithTag("GameController");
         gameController = gameControllerObj.GetComponent<GameController>();
@@ -52,6 +70,7 @@ public class Player : MonoBehaviour
         hp = gameController.playerSettings.hp;
         cooldownDash = gameController.playerSettings.cooldownDash;
         bool isFirstTime = gameController.playerSettings.isFirstTime;
+        shields = gameController.playerSettings.numShields;
         if(isInCutscene)
         {
             canWalk = false;
@@ -65,7 +84,14 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
-
+        if(gameController.playerSettings.canRecoverShield == true)
+        {
+            if(canRecoverShield)
+            {
+                StartCoroutine(RecoverShield());
+            }
+        }
+        VerificaImgVida();
         if(!gameController.playerSettings.canMove){ 
             playerSpeed = 0 ; 
         }
@@ -76,6 +102,16 @@ public class Player : MonoBehaviour
 
         
         
+    }
+    IEnumerator RecoverShield()
+    {
+        canRecoverShield = false;
+        yield return new WaitForSeconds(120);
+        if(shields != 1)
+        {
+            shields = 1;
+        }
+        canRecoverShield = true;
     }
     public void FCutscene()
     {
@@ -268,28 +304,89 @@ public class Player : MonoBehaviour
         forceDash = gameController.playerSettings.forceDash;
         hp = gameController.playerSettings.hp;
         cooldownDash = gameController.playerSettings.cooldownDash;
+        shields = gameController.playerSettings.numShields;
+        VerificaImgVida();
+        
 
+    }
+
+    public void VerificaImgVida()
+    {
+        if(hp == 1)
+        {
+            heartObj[0].sprite = heart;
+            heartObj[1].sprite = nullHeart;
+        }
+        if(hp == 2)
+        {
+            heartObj[0].sprite = heart;
+            heartObj[1].sprite = heart;
+        }
+
+        if(shields == 0)
+        {
+            shieldObj[0].sprite = nullShield;
+        }
+        if(shields == 1)
+        {
+            shieldObj[0].sprite = shield;
+        }
     }
     void OnCollisionEnter2D(Collision2D collision) 
     { 
         if (collision.gameObject.CompareTag("Fogo")) 
         { 
-            Debug.Log("Acertado");
-            canWalk = false;
-            rb2d.velocity = new Vector2(0, 0);
-            //SceneManager.LoadScene("Boss01");
-            StartCoroutine(PlayerDied());
+            if(canTakeDmg)
+            {
+                Debug.Log("Acertado");
+                if(shields <= 0)
+                {
+                    hp --;
+                    heartObj[hp].sprite = nullHeart;
+                    StartCoroutine(Damage(shields));
+                }
+                else
+                {
+                    shields --;
+                    shieldObj[0].sprite = nullShield;
+                    StartCoroutine(Damage(shields));
+                }
+
+                if(hp <= 0)
+                {
+                    heartObj[0].sprite = nullHeart;
+                    StartCoroutine(PlayerDied());
+            }
+            }
         } 
     } 
     void OnTriggerEnter2D(Collider2D collision) 
     { 
         if (collision.gameObject.CompareTag("Fogo")) 
         { 
-            Debug.Log("Acertado");
-            canWalk = false;
-            rb2d.velocity = new Vector2(0, 0);
-            //SceneManager.LoadScene("Boss01");
-            StartCoroutine(PlayerDied());
+            if(canTakeDmg)
+            {
+                Debug.Log("Acertado");
+                //SceneManager.LoadScene("Boss01");
+                if(shields <= 0)
+                {
+                    hp --;
+                    heartObj[hp].sprite = nullHeart;
+                    StartCoroutine(Damage(shields));
+                }
+                else
+                {
+                    shields --;
+                    shieldObj[0].sprite = nullShield;
+                    StartCoroutine(Damage(shields));
+                }
+
+                if(hp <= 0)
+                {
+                    heartObj[0].sprite = nullHeart;
+                    StartCoroutine(PlayerDied());
+                }
+            }
         } 
 
         if (collision.gameObject.CompareTag("Door")) 
@@ -301,6 +398,22 @@ public class Player : MonoBehaviour
             StartCoroutine(ChangeScene());
         } 
     } 
+
+    IEnumerator Damage(int dano)
+    {
+        canTakeDmg = false;
+        Time.timeScale = 0.1f;
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 1f;
+        for(int i = 0; i < 8; i++)
+        {
+            sr.color = new Color(1f, 1f, 1f, 0.4f);
+            yield return new WaitForSeconds(0.1f);
+            sr.color = defaultColor;
+            yield return new WaitForSeconds(0.1f);
+        }
+        canTakeDmg = true;
+    }
     IEnumerator ChangeScene()
     {
         playerAnim.SetBool("isMoving", false);
@@ -330,6 +443,8 @@ public class Player : MonoBehaviour
     }
     IEnumerator PlayerDied()
     {
+        canWalk = false;
+        rb2d.velocity = new Vector2(0, 0);
         isDied = true;
         sr.sortingOrder = 2050;
         animDie.SetActive(true);

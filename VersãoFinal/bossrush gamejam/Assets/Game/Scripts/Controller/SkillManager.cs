@@ -162,8 +162,8 @@ public class SkillManager : MonoBehaviour
         public static void IndomitableSprit(GameController gameController)
         {
             //+1 shield a cada 2 minutos 
-
-
+            gameController.playerSettings.numShields = 1;
+            gameController.playerSettings.UpdateStatus(); 
         }
 
         public static void Superman(GameController gameController)

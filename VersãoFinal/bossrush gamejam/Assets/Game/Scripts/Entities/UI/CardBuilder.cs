@@ -17,7 +17,7 @@ public class CardBuilder : MonoBehaviour
     {
         List<Card> cards = new List<Card>();
 
-        cards.Add(new Card { title = "Wood Legs", description = "Habilita você a correr", type = "destreza", timeRequired = 0.5f, isMechanical = false, isCardUsed = false, id = 0, art = sprites[0] });
+        cards.Add(new Card { title = "Wood Legs", description = "Habilita você a correr", type = "destreza", timeRequired = 30f, isMechanical = false, isCardUsed = false, id = 0, art = sprites[0] });
 
         cards.Add(new Card { title = "Steel Legs", description = "Faz com que você corra 50% mais rápido", type = "destreza", timeRequired = 0.5f, isMechanical = false, isCardUsed = false, id = 0, art = sprites[1] });
 
