@@ -5052,7 +5052,7 @@ MonoBehaviour:
     cdrAttack: 0
     speedDash: 0
     attackRange: 0
-    qtdDash: 0
+    qtdDash: 1
     qtdCubHead: 0
     canMove: 1
     canSecondAttack: 0

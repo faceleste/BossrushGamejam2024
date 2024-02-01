@@ -54,9 +54,11 @@ public class Player : MonoBehaviour
 
     public bool canRecoverShield = true;
 
+    public int qtdDash;
 
     public void Start()
     {
+        
         defaultColor = sr.color;
         VerificaImgVida();
         //camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cam>();
@@ -64,7 +66,7 @@ public class Player : MonoBehaviour
         animDie.SetActive(false);
         gameControllerObj = GameObject.FindWithTag("GameController");
         gameController = gameControllerObj.GetComponent<GameController>();
-
+        qtdDash = gameController.playerSettings.qtdDash;
         playerSpeed = gameController.playerSettings.speed;
         forceDash = gameController.playerSettings.forceDash;
         hp = gameController.playerSettings.hp;
@@ -190,15 +192,36 @@ public class Player : MonoBehaviour
         canDash = false;
         
 
-        
-
-        yield return new WaitForSeconds(cooldownDash);
-        if(isDied == false)
+        if(qtdDash >= 1)
         {
-            canDash = true;
-            //playerAnim.SetBool("isMoving", false);
+            qtdDash --;
         }
+        if(qtdDash == 0)
+        {
+            yield return new WaitForSeconds(cooldownDash);
+            if(isDied == false)
+            {
+                canDash = true;
+                if(qtdDash == 0)
+                {
+                    qtdDash = gameController.playerSettings.qtdDash;
+                }
+                //playerAnim.SetBool("isMoving", false);
+            }
+
+        }
+        else if(qtdDash == 1)
+        {
+            yield return new WaitForSeconds(cooldownDash / (cooldownDash * 100));
+            canDash = true;
+            yield return new WaitForSeconds(0.2f);
+            qtdDash = 0;
+        }
+
+        
     }
+
+    
 
     public IEnumerator SpawnSpriteDash()
     {
@@ -305,6 +328,7 @@ public class Player : MonoBehaviour
         hp = gameController.playerSettings.hp;
         cooldownDash = gameController.playerSettings.cooldownDash;
         shields = gameController.playerSettings.numShields;
+        qtdDash = gameController.playerSettings.qtdDash;
         VerificaImgVida();
         
 
