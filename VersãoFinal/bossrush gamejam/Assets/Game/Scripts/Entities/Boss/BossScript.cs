@@ -11,14 +11,14 @@ public class BossScript : MonoBehaviour
     public bool circleMoment;
 
     [Header("Ataque melee")]
-    public float speed; 
+    public float speed;
     public float meleeDamage;
     public bool isInMeleeAtk;
     public float timeToAtkAgain = 0.5f;
     private float cooldownToAtkAgain;
     public bool isInRangeMelee;
     public GameObject steps;
-    public bool canSpawnPegadas = true; 
+    public bool canSpawnPegadas = true;
     public Vector3 lastPlayerPosition;
     public GameObject spriteDashPrefab;
     public ScriptSpriteDash scriptSpriteDash;
@@ -65,15 +65,24 @@ public class BossScript : MonoBehaviour
     public ScriptBackLobby lobby;
     public float f;
 
+    [Header("Condições")]
+
+    public bool isFire;
+    public bool isBledding;
+
+    private int bloodBossCount = 0;
+    public int stacksBlood = 1;
     public GameController gameController;
+
 
     // Start is called before the first frame update
     void Start()
     {
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-        currentVida = vida;   
+        currentVida = vida;
         cooldownToAtkAgain = timeToAtkAgain;
         defaultColor = sr.color;
+
         StartCoroutine(Rotine());
     }
 
@@ -86,68 +95,91 @@ public class BossScript : MonoBehaviour
     void Update()
     {
         isInRangeMelee = Physics2D.OverlapCircle(this.transform.position, rangeToMeleeAtk, playerLayer);
-        if(playerPosition.transform.position.x < this.transform.position.x)
+        if (playerPosition.transform.position.x < this.transform.position.x)
         {
             sr.flipX = true;
             //Quaternion target = Quaternion.Euler(0, -180, 0);
             //transform.rotation = Quaternion.Slerp(target, target,  Time.deltaTime * 20f);
             isFliped = true;
         }
-        if(playerPosition.transform.position.x > this.transform.position.x)
+        if (playerPosition.transform.position.x > this.transform.position.x)
         {
             sr.flipX = false;
             //Quaternion target = Quaternion.Euler(0, 0, 0);
             //transform.rotation = Quaternion.Slerp(target, target,  Time.deltaTime * 20f);
             isFliped = false;
         }
-        if(playerMove.isDied == true)
+        if (playerMove.isDied == true)
         {
             canAttackPlayer = false;
         }
+
+        BossBleed();
+        if (isFire)
+        {
+            f = 0.30196078f;
+        }
     }
 
-   
+    void BossBleed()
+    {
+        if (isBledding)
+        {
+            InvokeRepeating("BloodBoss", 0f, 1f);
+            isBledding = false;
+
+        }
+    }
+    void BloodBoss()
+    {
+
+        currentVida -= gameController.playerSettings.damageBlood * stacksBlood;
+        barraVida.fillAmount = currentVida / vida;
+        Debug.Log("vida: " + currentVida + "stacks: " + stacksBlood);
+        //colocar efeito de sangramento here
+
+    }
     void FixedUpdate()
     {
-        if(canAttackPlayer)
+        if (canAttackPlayer)
         {
-            if(meleeMoment)
+            if (meleeMoment)
             {
                 animCam.SetBool("canMoveNext", true);
-                if(isInMeleeAtk)
+                if (isInMeleeAtk)
                 {
                     //if(isInRangeMelee)
                     //{
-                        StartCoroutine(MeleeAtk());
+                    StartCoroutine(MeleeAtk());
                     //}
-            
+
                 }
                 else
                 {
-                    
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, lastPlayerPosition, speed/3);
-                    if(this.transform.position == lastPlayerPosition)
+
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, lastPlayerPosition, speed / 3);
+                    if (this.transform.position == lastPlayerPosition)
                     {
                         anim.SetBool("Atacando", false);
                     }
                     else
                     {
                         anim.SetBool("Atacando", true);
-                        if(canSpawnSprite == true)
+                        if (canSpawnSprite == true)
                         {
                             StartCoroutine(SpawnSpriteBoss());
                         }
-                        if(canSpawnPegadas)
+                        if (canSpawnPegadas)
                         {
-                            StartCoroutine(ShowSteps());       
+                            StartCoroutine(ShowSteps());
                         }
                     }
-                    
-                    
+
+
 
                 }
 
-                if(cooldownToAtkAgain < timeToAtkAgain)
+                if (cooldownToAtkAgain < timeToAtkAgain)
                 {
                     cooldownToAtkAgain += Time.deltaTime;
                 }
@@ -158,22 +190,22 @@ public class BossScript : MonoBehaviour
                 animCam.SetBool("canMoveNext", false);
             }
 
-            if(cruzMoment)
+            if (cruzMoment)
             {
-                if(canMoveToCruz == true)
+                if (canMoveToCruz == true)
                 {
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, playerPosition.transform.position, speed/4);
-                    if(canSpawnSprite)
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, playerPosition.transform.position, speed / 4);
+                    if (canSpawnSprite)
                     {
                         StartCoroutine(SpawnSpriteBoss());
                     }
-                    if(canSpawnPegadas)
+                    if (canSpawnPegadas)
                     {
                         //StartCoroutine(ShowSteps());       
                     }
                 }
 
-                if(this.transform.position == playerPosition.transform.position && cruzSpawned == false)
+                if (this.transform.position == playerPosition.transform.position && cruzSpawned == false)
                 {
                     anim.SetTrigger("Fincando");
                     Instantiate(cruzPrefab, this.transform.position, Quaternion.Euler(0, 0, 0));
@@ -181,22 +213,22 @@ public class BossScript : MonoBehaviour
                     cruzSpawned = true;
                     canMoveToCruz = false;
                 }
-                
-                for(int i = 0; i<= numCruzes; i++)
+
+                for (int i = 0; i <= numCruzes; i++)
                 {
-                    if(canSpawnCruz)
+                    if (canSpawnCruz)
                     {
                         StartCoroutine(CruzAtk());
                     }
                 }
             }
 
-            if(circleMoment)
+            if (circleMoment)
             {
-                
-                for(int i = 0; i<= numCircles; i++)
+
+                for (int i = 0; i <= numCircles; i++)
                 {
-                    if(canSpawnCircle)
+                    if (canSpawnCircle)
                     {
                         StartCoroutine(CircleAtk());
                     }
@@ -210,25 +242,25 @@ public class BossScript : MonoBehaviour
     {
         canSpawnPegadas = false;
         yield return new WaitForSeconds(0.02f);
-        Instantiate(steps, new Vector2(this.transform.position.x, this.transform.position.y+0.4f), Quaternion.Euler(0, 0, 0));
+        Instantiate(steps, new Vector2(this.transform.position.x, this.transform.position.y + 0.4f), Quaternion.Euler(0, 0, 0));
         canSpawnPegadas = true;
     }
     public IEnumerator SpawnSpriteBoss()
     {
- 
+
         canSpawnSprite = false;
         yield return new WaitForSeconds(0.1f);
         int r = Random.Range(0, spriteBossBranco.Length);
-        scriptSpriteDash = Instantiate(spriteDashPrefab, new Vector2(this.transform.position.x, this.transform.position.y+2), transform.rotation).GetComponent<ScriptSpriteDash>();
+        scriptSpriteDash = Instantiate(spriteDashPrefab, new Vector2(this.transform.position.x, this.transform.position.y + 2), transform.rotation).GetComponent<ScriptSpriteDash>();
         scriptSpriteDash.mainSprite = spriteBossBranco[r];
         scriptSpriteDash.speedSumir = 0.2f;
-        if(isFliped)
+        if (isFliped)
         {
-            scriptSpriteDash.sr.flipX = true; 
+            scriptSpriteDash.sr.flipX = true;
         }
         scriptSpriteDash.newColor = new Color(1f, 1f, 1f, 0);
         scriptSpriteDash.sr.color = new Color(1f, 1f, 1f, colorj);
-        
+
         /*if(colorj >= 0.8f)
         {
             colorj -= 0.10f;
@@ -243,7 +275,7 @@ public class BossScript : MonoBehaviour
     {
         cruzMoment = false;
         circleMoment = false;
-        yield return new WaitForSeconds(cooldownChangeAtk/3);
+        yield return new WaitForSeconds(cooldownChangeAtk / 3);
         meleeMoment = true;
         yield return new WaitForSeconds(cooldownChangeAtk);
         meleeMoment = false;
@@ -260,22 +292,22 @@ public class BossScript : MonoBehaviour
     public IEnumerator CruzAtk()
     {
 
-        if(cruzMoment == true)
+        if (cruzMoment == true)
         {
             canSpawnCruz = false;
-            yield return new WaitForSeconds(cooldownSpawnCruz/1.5f);
-            if(cruzMoment)
+            yield return new WaitForSeconds(cooldownSpawnCruz / 1.5f);
+            if (cruzMoment)
             {
                 canMoveToCruz = true;
-                yield return new WaitForSeconds(cooldownSpawnCruz/2);
-                animCam.SetBool("canMoveNext", true); 
-                yield return new WaitForSeconds(cooldownSpawnCruz/2);
-                canMoveToCruz = false;    
-                     
+                yield return new WaitForSeconds(cooldownSpawnCruz / 2);
+                animCam.SetBool("canMoveNext", true);
+                yield return new WaitForSeconds(cooldownSpawnCruz / 2);
+                canMoveToCruz = false;
+
             }
         }
-        
-        canSpawnCruz = true;  
+
+        canSpawnCruz = true;
         cruzSpawned = false;
     }
 
@@ -287,7 +319,7 @@ public class BossScript : MonoBehaviour
         int r = Random.Range(0, circlePrefab.Length);
         Instantiate(circlePrefab[r], playerPosition.position, Quaternion.Euler(0, 0, 0));
         canSpawnCircle = true;
-        
+
 
     }
     public IEnumerator MeleeAtk()
@@ -303,13 +335,13 @@ public class BossScript : MonoBehaviour
         isInMeleeAtk = true;
     }
 
-    void OnCollisionEnter2D(Collision2D collision) 
-    { 
-        if (collision.gameObject.CompareTag("Arma")) 
-        { 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Arma"))
+        {
             StartCoroutine(DelayTakeDmg());
-            
-            if(currentVida <= 0)
+
+            if (currentVida <= 0)
             {
                 anim.SetTrigger("Morrendo");
                 //Time.timeScale = 1f;
@@ -324,8 +356,24 @@ public class BossScript : MonoBehaviour
             direcao = direcao.normalized * -1; // Normaliza a direção e inverte
             float distancia = 0.5f; // Define a distância que você quer mover para trás
             this.transform.position = this.transform.position + direcao * distancia;
-        } 
-    } 
+
+            if (gameController.playerSettings.canAttackBlood)
+            {
+                if (!isBledding)
+                {
+                    isBledding = true;
+                }
+
+                stacksBlood++;
+
+                if (stacksBlood >= 10)
+                {
+                    stacksBlood = 10;
+                }
+            }
+
+        }
+    }
 
     IEnumerator TimeToDie()
     {
@@ -337,7 +385,7 @@ public class BossScript : MonoBehaviour
         playerMove.rb2d.velocity = new Vector2(0, 0);
         playerMove.sr.sortingOrder = 2050;
         sr.sortingOrder = playerMove.sr.sortingOrder;
-        
+
         yield return new WaitForSeconds(1f);
         Time.timeScale = 1f;
         gameController.playerSettings.numEstagiosConcluidos++;
@@ -346,7 +394,7 @@ public class BossScript : MonoBehaviour
     }
     IEnumerator DelayTakeDmg()
     {
-        for(float i = currentVida; i > currentVida - player.dano;  i-=0.6f)
+        for (float i = currentVida; i > currentVida - player.dano; i -= 0.6f)
         {
             barraVida.fillAmount = i / vida;
             yield return new WaitForSeconds(0.000005f);
@@ -356,33 +404,33 @@ public class BossScript : MonoBehaviour
 
     IEnumerator SwitchColor()
     {
-        
+
         int rand = Random.Range(0, sangue.Length);
         //sangue[rand].SetActive(true);
-        if(isFliped == true)
-        {   
-            Instantiate(sangue[rand], new Vector2(this.transform.position.x, this.transform.position.y+1.8f), Quaternion.Euler(0, 180, 0)).transform.parent = gameObject.transform;
+        if (isFliped == true)
+        {
+            Instantiate(sangue[rand], new Vector2(this.transform.position.x, this.transform.position.y + 1.8f), Quaternion.Euler(0, 180, 0)).transform.parent = gameObject.transform;
         }
         else
         {
-            Instantiate(sangue[rand], new Vector2(this.transform.position.x, this.transform.position.y+1.8f), Quaternion.Euler(0, 0, 0)).transform.parent = gameObject.transform;
+            Instantiate(sangue[rand], new Vector2(this.transform.position.x, this.transform.position.y + 1.8f), Quaternion.Euler(0, 0, 0)).transform.parent = gameObject.transform;
         }
 
         Time.timeScale = 0.02f;
-        for(int i = 0; i < 1; i++)
+        for (int i = 0; i < 1; i++)
         {
             sr.color = new Color(1f, 0.30196078f, 0.30196078f);
             yield return new WaitForSeconds(0.001f);
         }
         Time.timeScale = 1;
-        for(int i = 0; i < 1; i++)
+        for (int i = 0; i < 1; i++)
         {
             sr.color = new Color(1f, 0.30196078f, 0.30196078f);
             yield return new WaitForSeconds(0.2f);
             sr.color = defaultColor;
             yield return new WaitForSeconds(0.2f);
         }
-        Instantiate(marcaSangue, new Vector2(this.transform.position.x, this.transform.position.y+0.4f), Quaternion.Euler(0, 0, 0));
+        Instantiate(marcaSangue, new Vector2(this.transform.position.x, this.transform.position.y + 0.4f), Quaternion.Euler(0, 0, 0));
         yield return new WaitForSeconds(1f);
         //Destroy(t);
         //sangue[rand].SetActive(false);
@@ -390,13 +438,13 @@ public class BossScript : MonoBehaviour
 
     IEnumerator DelayToShakeCam()
     {
-        
+
         yield return new WaitForSeconds(0.6f);
         Time.timeScale = 0.01f;
         yield return new WaitForSeconds(0.002f);
         Time.timeScale = 1;
         animCam.SetTrigger("Shake");
-    
+
     }
 
 }

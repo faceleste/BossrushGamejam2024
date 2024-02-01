@@ -55,8 +55,21 @@ public class CardManager : MonoBehaviour
 
             if (card.type == type && !card.isCardUsed)
             {
+                for (int i = 0; i < gameController.playerSettings.inventory.Count; i++)
+                {
+                    if (card.id == gameController.playerSettings.inventory[i].id)
+                    {
+                        card.isCardUsed = true;
 
-                CriarCarta(card);
+                    }
+                }
+
+                if (!card.isCardUsed)
+                {
+
+                    CriarCarta(card);
+                }
+
                 Debug.Log(card.title + " - isCardUsed" + card.isCardUsed + "- id" + card.id);
             }
 
@@ -90,7 +103,6 @@ public class CardManager : MonoBehaviour
     private void CriarCarta(Card card)
     {
 
-        if (VerificarInventario(card)) return;
 
         GameObject cartaObj = Instantiate(cartaPrefab, contentPanel);
 
@@ -122,7 +134,7 @@ public class CardManager : MonoBehaviour
 
         RectTransform cartaRectTransform = cartaObj.GetComponent<RectTransform>();
         RectTransform previousCardRectTransform = contentPanel.childCount > 1 ? contentPanel.GetChild(contentPanel.childCount - 2).GetComponent<RectTransform>() : null;
-        if (card.id != 1 && card.id != 5)
+        if (gameController.playerSettings.inventory.Count <=2  && (card.id != 1 && card.id != 5))
         {
             cartaObj.transform.Find("Button").gameObject.SetActive(false);
 
@@ -142,11 +154,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    private bool VerificarInventario(Card card)
-    {
 
-        return gameController.playerSettings.inventory.Contains(card);
-    }
     private List<Card> ListagemCards()
     {
         List<Card> cards = new List<Card>();
