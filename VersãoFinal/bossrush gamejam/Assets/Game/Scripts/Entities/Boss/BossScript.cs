@@ -74,6 +74,8 @@ public class BossScript : MonoBehaviour
     public int stacksBlood = 1;
     public GameController gameController;
 
+    public GameObject sangueSangramento;
+    public GameObject fogoSkill;
 
     // Start is called before the first frame update
     void Start()
@@ -94,6 +96,12 @@ public class BossScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentVida <= 0)
+        {
+            anim.SetTrigger("Morrendo");
+            //Time.timeScale = 1f;
+            StartCoroutine(TimeToDie());
+        }
         isInRangeMelee = Physics2D.OverlapCircle(this.transform.position, rangeToMeleeAtk, playerLayer);
         if (playerPosition.transform.position.x < this.transform.position.x)
         {
@@ -136,7 +144,10 @@ public class BossScript : MonoBehaviour
         currentVida -= gameController.playerSettings.damageBlood * stacksBlood;
         barraVida.fillAmount = currentVida / vida;
         Debug.Log("vida: " + currentVida + "stacks: " + stacksBlood);
+        Instantiate(sangueSangramento, new Vector2(this.transform.position.x, this.transform.position.y+2.8f), transform.rotation);
         //colocar efeito de sangramento here
+        //animação de fogo
+        //Instantiate(fogoSkill, new Vector2(this.transform.position.x, this.transform.position.y+3.2f), transform.rotation);
 
     }
     void FixedUpdate()

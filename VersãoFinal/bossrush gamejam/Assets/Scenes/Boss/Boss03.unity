@@ -13029,6 +13029,11 @@ MonoBehaviour:
   lobby: {fileID: 315169698}
   f: 0
   gameController: {fileID: 0}
+  isFire: 0
+  isBledding: 0
+  stacksBlood: 1
+  sangueSangramento: {fileID: 4973354173738741636, guid: 71f3ec7a2597256499b5a4d6964f435e, type: 3}
+  fogoSkill: {fileID: 4973354173738741636, guid: b8afb49955d886b4990deb35748b9855, type: 3}
 --- !u!58 &278303886
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -67142,6 +67147,7 @@ MonoBehaviour:
   nullShield: {fileID: 179224784, guid: 26027a73beb52d841baaf3c9066bda85, type: 3}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
   canRecoverShield: 1
+  numDashs: 0
 --- !u!1 &1430699113
 GameObject:
   m_ObjectHideFlags: 0
@@ -81480,6 +81486,11 @@ MonoBehaviour:
   lobby: {fileID: 315169698}
   f: 0
   gameController: {fileID: 0}
+  isFire: 0
+  isBledding: 0
+  stacksBlood: 1
+  sangueSangramento: {fileID: 0}
+  fogoSkill: {fileID: 0}
 --- !u!95 &1779676405
 Animator:
   serializedVersion: 5
@@ -105272,6 +105283,7 @@ MonoBehaviour:
     canAttackBlood: 0
     canAttackFire: 0
     canRecoverShield: 0
+    damageBlood: 0.1
     isInventoryChanged: 0
     player: {fileID: 715673712}
     playerAttack: {fileID: 715673700}

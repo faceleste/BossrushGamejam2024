@@ -53,7 +53,8 @@ public class Boss3Script : MonoBehaviour
     private int bloodBossCount = 0;
     public int stacksBlood = 1;
 
-
+    public GameObject sangueSangramento;
+    public GameObject fogoSkill;
     // Start is called before the first frame update
     IEnumerator Rotine()
     {
@@ -93,6 +94,12 @@ public class Boss3Script : MonoBehaviour
 
     void Update()
     {
+        if (currentVida <= 0)
+        {
+            anim.SetTrigger("Morrendo");
+            StartCoroutine(TimeToDie());
+        }
+
         if (playerPosition.transform.position.x < this.transform.position.x)
         {
             //sr.flipX = true;
@@ -130,8 +137,10 @@ public class Boss3Script : MonoBehaviour
         currentVida -= gameController.playerSettings.damageBlood * stacksBlood;
         barraVida.fillAmount = currentVida / vida;
         Debug.Log("vida: " + currentVida + "stacks: " + stacksBlood);
+        Instantiate(sangueSangramento, new Vector2(this.transform.position.x, this.transform.position.y+2.8f), transform.rotation);
         //colocar efeito de sangramento here
-
+        //animação de fogo
+        //Instantiate(fogoSkill, new Vector2(this.transform.position.x, this.transform.position.y+3.2f), transform.rotation);
     }
     // Update is called once per frame
     void FixedUpdate()

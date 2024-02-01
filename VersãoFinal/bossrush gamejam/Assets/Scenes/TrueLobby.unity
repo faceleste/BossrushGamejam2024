@@ -5063,6 +5063,7 @@ MonoBehaviour:
     canAttackBlood: 0
     canAttackFire: 0
     canRecoverShield: 0
+    damageBlood: 0.02
     isInventoryChanged: 0
     player: {fileID: 1530698363}
     playerAttack: {fileID: 1530698361}
