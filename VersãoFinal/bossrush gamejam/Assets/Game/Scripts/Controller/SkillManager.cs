@@ -157,6 +157,7 @@ public class SkillManager : MonoBehaviour
         {
             //teu golpe faz o cara sangrar '-
             gameController.playerSettings.canAttackBlood = true;
+            
         }
 
         public static void IndomitableSprit(GameController gameController)

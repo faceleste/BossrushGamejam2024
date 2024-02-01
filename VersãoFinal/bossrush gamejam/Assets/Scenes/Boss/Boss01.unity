@@ -8079,8 +8079,8 @@ MonoBehaviour:
     canAttackFire: 0
     canRecoverShield: 0
     isInventoryChanged: 0
-    player: {fileID: 0}
-    playerAttack: {fileID: 0}
+    player: {fileID: 715673707}
+    playerAttack: {fileID: 715673700}
     isFirstTime: 0
   timeSettings:
     fullTime: 90

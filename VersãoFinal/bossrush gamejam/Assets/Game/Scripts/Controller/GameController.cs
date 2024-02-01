@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class PlayerSettings
@@ -10,7 +11,7 @@ public class PlayerSettings
     public float forceDash;
     public int hp;
     public int numShields;
-    
+
     public float cooldownDash;
     public float dano;
     public int numEstagiosConcluidos;
@@ -57,10 +58,11 @@ public class PlayerSettings
             string cardTitle = inventory[i].title;
             cardsInInventory += cardTitle + " | ";
         }
-        Debug.Log("Cartas no inventário: " + cardsInInventory); 
+        Debug.Log("Cartas no inventário: " + cardsInInventory);
 
         isInventoryChanged = true;
     }
+
 }
 
 [System.Serializable]
@@ -101,19 +103,40 @@ public class GameController : MonoBehaviour
         }
     }
 
+
     private void Start()
     {
-        if(playerSettings.hp <= 0)
+        if (playerSettings.hp <= 0)
         {
             playerSettings.hp = 1;
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Update()
     {
+
+
+        if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
         if (timeSettings.canCountTime)
         {
             timeSettings.currentTime += Time.deltaTime;
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Verifica se o jogador está presente na nova cena
+        GameObject playerObject = GameObject.Find("Player");
+
+        if (playerObject != null)
+        {
+            // Atualiza as referências do jogador
+            playerSettings.player = playerObject.GetComponent<Player>();
+            playerSettings.playerAttack = playerObject.GetComponent<PlayerAttack>();
         }
     }
 }

@@ -17,16 +17,36 @@ public class CardManager : MonoBehaviour
     public GameController gameController;
     public List<Card> cards;
 
+    public int cartasAtivas = 0;
     public CardBuilder builder;
     public void Start()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         cards = ListagemCards();
+        cartasAtivas = gameController.playerSettings.inventory.Count;
         CallCardsType();
 
 
     }
 
+    public void Update()
+    {
+
+        if (cartasAtivas == 2)
+        {
+            AtivarBotaoTodasCartas();
+        }
+    }
+
+    public void AtivarBotaoTodasCartas()
+    {
+        for (int i = 0; i < contentPanel.childCount; i++)
+        {
+            contentPanel.GetChild(i).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+            contentPanel.GetChild(i).transform.Find("Background").GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+            contentPanel.GetChild(i).transform.Find("Button").gameObject.SetActive(true);
+        }
+    }
     public void CallCardsType()
     {
         LimparCartas();
@@ -70,6 +90,7 @@ public class CardManager : MonoBehaviour
     private void CriarCarta(Card card)
     {
 
+        if (VerificarInventario(card)) return;
 
         GameObject cartaObj = Instantiate(cartaPrefab, contentPanel);
 
@@ -87,21 +108,28 @@ public class CardManager : MonoBehaviour
         background.sprite = card.art;
 
 
-
-
         button.onClick.AddListener(() =>
         {
             skillManager.ActivateSkill(card);
             gameController.playerSettings.AddToInventory(card);
             card.isCardUsed = true;
+            card.isAtivado = true;
+            cartasAtivas++;
             Destroy(cartaObj);
-    
+
 
         });
 
         RectTransform cartaRectTransform = cartaObj.GetComponent<RectTransform>();
         RectTransform previousCardRectTransform = contentPanel.childCount > 1 ? contentPanel.GetChild(contentPanel.childCount - 2).GetComponent<RectTransform>() : null;
+        if (card.id != 1 && card.id != 5)
+        {
+            cartaObj.transform.Find("Button").gameObject.SetActive(false);
 
+            image.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+            background.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+
+        }
 
         if (previousCardRectTransform != null)
         {
@@ -114,6 +142,11 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    private bool VerificarInventario(Card card)
+    {
+
+        return gameController.playerSettings.inventory.Contains(card);
+    }
     private List<Card> ListagemCards()
     {
         List<Card> cards = new List<Card>();

@@ -8,6 +8,7 @@ public class Card
     public float timeRequired;
     public bool isMechanical = false;
     public bool isCardUsed = false;
+    public bool isAtivado = false;
     public int id;
     public Sprite art;
 

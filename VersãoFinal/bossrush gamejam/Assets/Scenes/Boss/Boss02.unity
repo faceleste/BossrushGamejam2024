@@ -630,6 +630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fac3ded9432844593594fd379d211c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barraVida: {fileID: 0}
   meleeMoment: 0
   cruzMoment: 0
   circleMoment: 0
@@ -685,6 +686,13 @@ MonoBehaviour:
   marcaSangue: {fileID: 8194249600170026417, guid: 6e34d3bbb53bf2846b2fe9e8e8a0cb11, type: 3}
   cooldownChangeAtk: 12
   armaMaca: {fileID: 865108675}
+  centerBoss: {fileID: 0}
+  vida: 0
+  currentVida: 0
+  splashSangue: {fileID: 0}
+  lobby: {fileID: 0}
+  f: 0
+  gameController: {fileID: 0}
 --- !u!61 &278303883
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2765,6 +2773,10 @@ PrefabInstance:
       value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 8980227297655924909, guid: 550a4687be77bde468783d1b08eda14e, type: 3}
+      propertyPath: playerSettings.player
+      value: 
+      objectReference: {fileID: 715673707}
+    - target: {fileID: 8980227297655924909, guid: 550a4687be77bde468783d1b08eda14e, type: 3}
       propertyPath: playerSettings.forceDash
       value: 25
       objectReference: {fileID: 0}
@@ -2772,6 +2784,10 @@ PrefabInstance:
       propertyPath: playerSettings.cooldownDash
       value: 2.8
       objectReference: {fileID: 0}
+    - target: {fileID: 8980227297655924909, guid: 550a4687be77bde468783d1b08eda14e, type: 3}
+      propertyPath: playerSettings.playerAttack
+      value: 
+      objectReference: {fileID: 715673700}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -31135,6 +31135,17 @@ MonoBehaviour:
   canSpawn: 1
   currentBolha: []
   numBolhas: 0
+--- !u!114 &715673712 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2856861012644001328, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+  m_PrefabInstance: {fileID: 6261511637081380905}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320938664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f119fc213b0433844aa41d5091c1dd38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &719669091
 GameObject:
   m_ObjectHideFlags: 0
@@ -105262,8 +105273,8 @@ MonoBehaviour:
     canAttackFire: 0
     canRecoverShield: 0
     isInventoryChanged: 0
-    player: {fileID: 0}
-    playerAttack: {fileID: 0}
+    player: {fileID: 715673712}
+    playerAttack: {fileID: 715673700}
     isFirstTime: 0
   timeSettings:
     fullTime: 90
