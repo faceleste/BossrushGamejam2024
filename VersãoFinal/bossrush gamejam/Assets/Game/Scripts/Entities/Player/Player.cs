@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
 
     public bool canRecoverShield = true;
 
+    public int numDashs;
 
     public void Start()
     {
@@ -64,7 +65,7 @@ public class Player : MonoBehaviour
         animDie.SetActive(false);
         gameControllerObj = GameObject.FindWithTag("GameController");
         gameController = gameControllerObj.GetComponent<GameController>();
-
+        numDashs = gameController.playerSettings.qtdDash;
         playerSpeed = gameController.playerSettings.speed;
         forceDash = gameController.playerSettings.forceDash;
         hp = gameController.playerSettings.hp;
@@ -138,7 +139,7 @@ public class Player : MonoBehaviour
     public void isDashingController()
     {
         
-        if (isDashing && canDash && canWalk)
+        if (isDashing && canDash && canWalk && numDashs != 0)
         {
             
             playerAnim.SetBool("isDashing", true);
@@ -151,6 +152,7 @@ public class Player : MonoBehaviour
             rb2d.velocity = preMove.normalized * playerSpeed;
             StartCoroutine(SpawnSpriteDash());
             StartCoroutine(DelayDash2());
+            numDashs --;
             
     
         }
@@ -191,11 +193,35 @@ public class Player : MonoBehaviour
         
 
         
+        if(numDashs == 0)
+        {
+            yield return new WaitForSeconds(cooldownDash);
+            numDashs = gameController.playerSettings.qtdDash;
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.2f);
+            canDash = true;
+            yield return new WaitForSeconds(0.3f);
+            numDashs = 0;
+           
+            
+        }
+        
+        //if(numDashs != 1)
+        //{
+           
+        //}
+        
 
-        yield return new WaitForSeconds(cooldownDash);
         if(isDied == false)
         {
             canDash = true;
+            if(numDashs == 0)
+            {
+                yield return new WaitForSeconds(cooldownDash);
+                numDashs = gameController.playerSettings.qtdDash;
+            }
             //playerAnim.SetBool("isMoving", false);
         }
     }
@@ -305,6 +331,7 @@ public class Player : MonoBehaviour
         hp = gameController.playerSettings.hp;
         cooldownDash = gameController.playerSettings.cooldownDash;
         shields = gameController.playerSettings.numShields;
+        numDashs = gameController.playerSettings.qtdDash;
         VerificaImgVida();
         
 

@@ -1355,6 +1355,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 584824388}
     - target: {fileID: 2856861012644001328, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: numDashs
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2856861012644001328, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
       propertyPath: nullHeart
       value: 
       objectReference: {fileID: 1031189007, guid: 26027a73beb52d841baaf3c9066bda85, type: 3}
@@ -5052,7 +5056,7 @@ MonoBehaviour:
     cdrAttack: 0
     speedDash: 0
     attackRange: 0
-    qtdDash: 0
+    qtdDash: 1
     qtdCubHead: 0
     canMove: 1
     canSecondAttack: 0
