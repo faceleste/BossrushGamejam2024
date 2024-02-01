@@ -26,6 +26,7 @@ public class PlayerSettings
     public bool canAttackBlood;
     public bool canAttackFire;
     public bool canRecoverShield;
+    public float damageBlood = 0.1f; 
 
     public List<Card> inventory = new List<Card>();
     public bool isInventoryChanged = false;
@@ -90,7 +91,10 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Awakead");
+
+        GameObject playerObject = GameObject.Find("Player");
+        playerSettings.player = playerObject.GetComponent<Player>();
+        playerSettings.playerAttack = playerObject.GetComponent<PlayerAttack>();
         if (Instance == null)
         {
             Instance = this;
@@ -110,6 +114,7 @@ public class GameController : MonoBehaviour
         {
             playerSettings.hp = 1;
         }
+
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -129,12 +134,12 @@ public class GameController : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Verifica se o jogador está presente na nova cena
+
         GameObject playerObject = GameObject.Find("Player");
 
         if (playerObject != null)
         {
-            // Atualiza as referências do jogador
+
             playerSettings.player = playerObject.GetComponent<Player>();
             playerSettings.playerAttack = playerObject.GetComponent<PlayerAttack>();
         }

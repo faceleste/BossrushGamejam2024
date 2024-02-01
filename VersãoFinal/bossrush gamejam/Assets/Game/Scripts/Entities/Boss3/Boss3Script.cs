@@ -8,7 +8,7 @@ public class Boss3Script : MonoBehaviour
     public Image barraVida;
     public float vida;
     public float currentVida;
-    public float speed = 0f; 
+    public float speed = 0f;
     public Color defaultColor;
     public PlayerAttack pAttack;
     public Animator animCam;
@@ -45,21 +45,28 @@ public class Boss3Script : MonoBehaviour
     public ScriptBackLobby lobby;
     public float f;
     public GameController gameController;
+    [Header("Condições")]
+
+    public bool isFire;
+    public bool isBledding;
+
+    private int bloodBossCount = 0;
+    public int stacksBlood = 1;
 
 
     // Start is called before the first frame update
     IEnumerator Rotine()
     {
-        yield return new WaitForSeconds(timeChangeAtks/3);
+        yield return new WaitForSeconds(timeChangeAtks / 3);
         atk01 = true;
         yield return new WaitForSeconds(timeChangeAtks);
         atk01 = false;
-        yield return new WaitForSeconds(timeChangeAtks/3);
+        yield return new WaitForSeconds(timeChangeAtks / 3);
         atk02 = true;
         yield return new WaitForSeconds(timeChangeAtks);
         atk02 = false;
         animCam.SetBool("canMoveNext", true);
-        yield return new WaitForSeconds(timeChangeAtks/3);
+        yield return new WaitForSeconds(timeChangeAtks / 3);
         atk03 = true;
         yield return new WaitForSeconds(timeChangeAtks);
         animCam.SetBool("canMoveNext", false);
@@ -80,47 +87,72 @@ public class Boss3Script : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         //if(atk01 == true)
         //{
-            StartCoroutine(Rotine());
+        StartCoroutine(Rotine());
         //}
     }
 
     void Update()
     {
-        if(playerPosition.transform.position.x < this.transform.position.x)
+        if (playerPosition.transform.position.x < this.transform.position.x)
         {
             //sr.flipX = true;
             //Quaternion target = Quaternion.Euler(0, -180, 0);
             //transform.rotation = Quaternion.Slerp(target, target,  Time.deltaTime * 20f);
             isFliped = true;
         }
-        if(playerPosition.transform.position.x > this.transform.position.x)
+        if (playerPosition.transform.position.x > this.transform.position.x)
         {
             //sr.flipX = false;
             //Quaternion target = Quaternion.Euler(0, 0, 0);
             //transform.rotation = Quaternion.Slerp(target, target,  Time.deltaTime * 20f);
             isFliped = false;
         }
+
+        BossBleed();
+        if (isFire)
+        {
+            f = 0.30196078f;
+        }
+    }
+
+    void BossBleed()
+    {
+        if (isBledding)
+        {
+            InvokeRepeating("BloodBoss", 0f, 1f);
+            isBledding = false;
+
+        }
+    }
+    void BloodBoss()
+    {
+
+        currentVida -= gameController.playerSettings.damageBlood * stacksBlood;
+        barraVida.fillAmount = currentVida / vida;
+        Debug.Log("vida: " + currentVida + "stacks: " + stacksBlood);
+        //colocar efeito de sangramento here
+
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(atk01)
+        if (atk01)
         {
-            if(canSpawnAtkArma)
+            if (canSpawnAtkArma)
             {
                 StartCoroutine(AtkSpawnArma());
             }
         }
-        if(atk02)
+        if (atk02)
         {
-            if(canSpawnAtkArma2)
+            if (canSpawnAtkArma2)
             {
                 StartCoroutine(AtkSpawnArmaCirculo());
             }
         }
-        if(atk03)
+        if (atk03)
         {
-            if(canSpawnAtkArmaSegue)
+            if (canSpawnAtkArmaSegue)
             {
                 StartCoroutine(AtkSpawnArmaSegue());
             }
@@ -154,22 +186,22 @@ public class Boss3Script : MonoBehaviour
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision) 
-    { 
-        if (collision.gameObject.CompareTag("Arma")) 
-        { 
-            
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Arma"))
+        {
+
             // 1 - vida
             // x   currentvida
             StartCoroutine(DelayTakeDmg());
-            
-            if(currentVida <= 0)
+
+            if (currentVida <= 0)
             {
                 anim.SetTrigger("Morrendo");
                 //Time.timeScale = 1f;
                 StartCoroutine(TimeToDie());
             }
-            
+
             Instantiate(splashSangue, centerBoss.transform.position, transform.rotation);
             animCam.SetTrigger("Shake");
             Debug.Log("Acertado");
@@ -178,8 +210,23 @@ public class Boss3Script : MonoBehaviour
             direcao = direcao.normalized * -1; // Normaliza a direção e inverte
             float distancia = 0.05f; // Define a distância que você quer mover para trás
             this.transform.position = this.transform.position + direcao * distancia;
-        } 
-    } 
+
+            if (gameController.playerSettings.canAttackBlood)
+            {
+                if (!isBledding)
+                {
+                    isBledding = true;
+                }
+
+                stacksBlood++;
+
+                if (stacksBlood >= 10)
+                {
+                    stacksBlood = 10;
+                }
+            }
+        }
+    }
     IEnumerator TimeToDie()
     {
         player.canWalk = false;
@@ -189,7 +236,7 @@ public class Boss3Script : MonoBehaviour
         player.rb2d.velocity = new Vector2(0, 0);
         player.sr.sortingOrder = 2050;
         sr.sortingOrder = player.sr.sortingOrder;
-        
+
         yield return new WaitForSeconds(1f);
         gameController.playerSettings.numEstagiosConcluidos++;
         Time.timeScale = 1f;
@@ -198,7 +245,7 @@ public class Boss3Script : MonoBehaviour
     }
     IEnumerator DelayTakeDmg()
     {
-        for(float i = currentVida; i > currentVida - pAttack.dano;  i-=0.6f)
+        for (float i = currentVida; i > currentVida - pAttack.dano; i -= 0.6f)
         {
             barraVida.fillAmount = i / vida;
             yield return new WaitForSeconds(0.000005f);
@@ -207,33 +254,33 @@ public class Boss3Script : MonoBehaviour
     }
     IEnumerator SwitchColor()
     {
-        
+
         int rand = Random.Range(0, sangue.Length);
         //sangue[rand].SetActive(true);
-        if(isFliped == true)
-        {   
-            Instantiate(sangue[rand], new Vector2(this.transform.position.x, this.transform.position.y+1.2f), Quaternion.Euler(0, 180, 0)).transform.parent = gameObject.transform;
+        if (isFliped == true)
+        {
+            Instantiate(sangue[rand], new Vector2(this.transform.position.x, this.transform.position.y + 1.2f), Quaternion.Euler(0, 180, 0)).transform.parent = gameObject.transform;
         }
         else
         {
-            Instantiate(sangue[rand], new Vector2(this.transform.position.x, this.transform.position.y+1.2f), Quaternion.Euler(0, 0, 0)).transform.parent = gameObject.transform;
+            Instantiate(sangue[rand], new Vector2(this.transform.position.x, this.transform.position.y + 1.2f), Quaternion.Euler(0, 0, 0)).transform.parent = gameObject.transform;
         }
 
         Time.timeScale = 0.02f;
-        for(int i = 0; i < 1; i++)
+        for (int i = 0; i < 1; i++)
         {
             sr.color = new Color(1f, 0.30196078f, 0.30196078f);
             yield return new WaitForSeconds(0.001f);
         }
         Time.timeScale = 1;
-        for(int i = 0; i < 1; i++)
+        for (int i = 0; i < 1; i++)
         {
             sr.color = new Color(1f, 0.30196078f, 0.30196078f);
             yield return new WaitForSeconds(0.2f);
             sr.color = defaultColor;
             yield return new WaitForSeconds(0.2f);
         }
-        Instantiate(marcaSangue, new Vector2(this.transform.position.x, this.transform.position.y+0.3f), Quaternion.Euler(0, 0, 0));
+        Instantiate(marcaSangue, new Vector2(this.transform.position.x, this.transform.position.y + 0.3f), Quaternion.Euler(0, 0, 0));
         yield return new WaitForSeconds(1f);
         //Destroy(t);
         //sangue[rand].SetActive(false);
