@@ -8,10 +8,13 @@ public class ArmaScript : MonoBehaviour
     public Rigidbody2D rb2d;
     public float thrust = 2f;
     public Vector3 direction;
+
+    public AudioSource audio;
+    public AudioClip[] sonsHits;
     // Start is called before the first frame update
     void Start()
     {
-        
+        audio = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,7 +37,9 @@ public class ArmaScript : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision) 
-    { 
+    {
+        audio.clip = sonsHits[Random.Range(0, sonsHits.Length)];
+        audio.Play(); 
         Debug.Log("colidiu");
         playerAtk.canArmaReturn = false;
         // Calcula a força de recuo

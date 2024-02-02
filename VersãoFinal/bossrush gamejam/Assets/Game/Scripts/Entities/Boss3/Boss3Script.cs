@@ -139,7 +139,7 @@ public class Boss3Script : MonoBehaviour
         Debug.Log("vida: " + currentVida + "stacks: " + stacksBlood);
         Instantiate(sangueSangramento, new Vector2(this.transform.position.x, this.transform.position.y+2.8f), transform.rotation);
         //colocar efeito de sangramento here
-        //animação de fogo
+        //animação de
         //Instantiate(fogoSkill, new Vector2(this.transform.position.x, this.transform.position.y+3.2f), transform.rotation);
     }
     // Update is called once per frame
