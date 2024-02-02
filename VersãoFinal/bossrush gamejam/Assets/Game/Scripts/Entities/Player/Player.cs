@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
     public Color defaultColor;
 
     public bool canRecoverShield = true;
+    public PlayerAttack playerAttack;
 
     public int numDashs;
 
@@ -66,6 +67,7 @@ public class Player : MonoBehaviour
     public void Start()
     {
         defaultColor = sr.color;
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         VerificaImgVida();
         //camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cam>();
         Time.timeScale = 1f;
@@ -138,6 +140,7 @@ public class Player : MonoBehaviour
     
     public IEnumerator Cutscene()
     {
+        playerAttack.canAttackAgain = false;
         canWalk = false;
         yield return new WaitForSeconds(1.5f);
         rb2d.velocity = new Vector2(0, 2);
@@ -153,6 +156,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         canWalk = true;
         isInCutscene = false;
+        playerAttack.canAttackAgain = true;
     }
 
     public void isDashingController()
