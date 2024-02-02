@@ -25,6 +25,7 @@ public class TimeToStartBattle : MonoBehaviour
 
     IEnumerator StartB()
     {
+        yield return new WaitForSeconds(0.2f);
         player.enabled = false;
         playerAttack.enabled = false;
         yield return new WaitForSeconds(3f);

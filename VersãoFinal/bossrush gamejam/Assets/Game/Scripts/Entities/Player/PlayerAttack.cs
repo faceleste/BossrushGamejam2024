@@ -42,6 +42,7 @@ public class PlayerAttack : MonoBehaviour
     public Player playerScript;
     public Rigidbody2D rb2d;
     public bool canArmaReturn = false;
+    public bool hasArma = true;
     void Start()
     {
         cooldownSpecialAttack = timeSpecialAttack;
@@ -52,8 +53,15 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
+    IEnumerator AtkAgain()
+    {
+        yield return new WaitForSeconds(0.35f);
+        canAttackAgain = true;
+    }
+
     void FixedUpdate()
     {
+        animPlayer.SetBool("HasArma", hasArma);
         CreateLineBetweenPlayerAndSpecial();
         AttackSpecial();
 
@@ -61,9 +69,11 @@ public class PlayerAttack : MonoBehaviour
         {
             currentCooldownAtk -= Time.deltaTime;
             
-            if(currentCooldownAtk <= 0.9f && isInSpecialAtk == false)
+            if(currentCooldownAtk <= 1f && isInSpecialAtk == false && canAttackAgain)
             {
                 // ATAQUE ESPECIAL
+                hasArma = false;
+                StartCoroutine(AtkAgain());
                 cooldownSpecialAttack = timeSpecialAttack;
                 isAttackNoRange = false;
                 isInSpecialAtk = true;
@@ -72,6 +82,7 @@ public class PlayerAttack : MonoBehaviour
                 attackPointSpecialAttack.GetComponent<SpriteRenderer>().enabled = true;
                 attackPointSpecialAttack.GetComponent<BoxCollider2D>().enabled = true;
                 RangeManagement();
+                canAttackAgain = false;
             }
         }
         else
@@ -79,6 +90,7 @@ public class PlayerAttack : MonoBehaviour
            
             if(attackPointSpecialAttack.transform.position == this.transform.position)
             {
+                hasArma = true;
                 cooldownSpecialAttack = timeSpecialAttack;
                 currentAttack = timeToAttack;
                 //attackPointSpecialAttack.SetActive(false);
@@ -158,6 +170,7 @@ public class PlayerAttack : MonoBehaviour
 
                     if(attackPointSpecialAttack.transform.position == this.transform.position)
                     {
+                        hasArma = true;
                         //attackPointSpecialAttack.SetActive(false);
                         attackPointSpecialAttack.GetComponent<SpriteRenderer>().enabled = false;
                         attackPointSpecialAttack.GetComponent<BoxCollider2D>().enabled = false;
@@ -176,7 +189,7 @@ public class PlayerAttack : MonoBehaviour
                     attackPointSpecialAttack.transform.position = Vector3.MoveTowards(attackPointSpecialAttack.transform.position,  target, specialAttackSpeed / 1.2f);
                     if(attackPointSpecialAttack.transform.position == this.transform.position)
                     {
-                        
+                        hasArma = true;
                         cooldownSpecialAttack = timeSpecialAttack;
                         //attackPointSpecialAttack.SetActive(false);
                         attackPointSpecialAttack.GetComponent<SpriteRenderer>().enabled = false;
