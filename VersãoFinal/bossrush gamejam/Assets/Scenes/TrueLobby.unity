@@ -5665,7 +5665,7 @@ MonoBehaviour:
     numShields: 0
     cooldownDash: 2.8
     dano: 5
-    numEstagiosConcluidos: 1
+    numEstagiosConcluidos: 0
     weaponSpeed: 0
     cdrAttack: 0
     speedDash: 0
@@ -5681,7 +5681,7 @@ MonoBehaviour:
     isInventoryChanged: 0
     player: {fileID: 1530698363}
     playerAttack: {fileID: 1530698361}
-    isFirstTime: 0
+    isFirstTime: 1
   timeSettings:
     fullTime: 90
     currentTime: 0
