@@ -5665,7 +5665,7 @@ MonoBehaviour:
     numShields: 0
     cooldownDash: 2.8
     dano: 5
-    numEstagiosConcluidos: 1
+    numEstagiosConcluidos: 0
     weaponSpeed: 0
     cdrAttack: 0
     speedDash: 0
