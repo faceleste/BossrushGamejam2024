@@ -13,9 +13,12 @@ public class StoreController : MonoBehaviour
 
     public GameController gameController;
     public Player playerScript;
+    public PlayerAttack playerAttack;
 
     void Start()
     {
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         if(gameController.playerSettings.isFirstTime == true)
         {
@@ -24,6 +27,15 @@ public class StoreController : MonoBehaviour
     }
     void Update()
     {
+        if(store.gameObject.activeSelf == true)
+        {
+            playerAttack.enabled = false;
+        }
+        else
+        {
+            playerAttack.enabled = true;
+        }
+
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         
         isNextDemon = Physics2D.OverlapCircle(new Vector2(positionDemon.transform.position.x, positionDemon.transform.position.y+0.5f), range, layerPlayer);
@@ -56,6 +68,7 @@ public class StoreController : MonoBehaviour
         if(store.gameObject.activeSelf == false)
         {
             store.gameObject.SetActive(true);
+        
             StartCoroutine(DelayToExit());
         }
         else
@@ -68,6 +81,7 @@ public class StoreController : MonoBehaviour
                     gameController.playerSettings.isFirstTime = false;
                 }
                 store.gameObject.SetActive(false);
+               
                 canExit = false;
             }
             
@@ -88,6 +102,7 @@ public class StoreController : MonoBehaviour
                 playerScript.FCutscene();
                 gameController.playerSettings.isFirstTime = false;
             }
+
         }
         
     }

@@ -56,6 +56,13 @@ public class Player : MonoBehaviour
 
     public int numDashs;
 
+    public AudioSource aSPassos;
+    public AudioClip[] sonsPassos;
+    public bool canSomPasso = true;
+
+    public AudioSource aSDash;
+    public AudioClip[] sonsDash;
+    public bool canSoundsCutscene = false;
     public void Start()
     {
         defaultColor = sr.color;
@@ -85,6 +92,14 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
+        if(isInCutscene)
+        {
+            if(canSoundsCutscene == true)
+            {
+                StartCoroutine(RandomizePasso());
+            }
+            
+        }
         if(gameController.playerSettings.canRecoverShield == true)
         {
             if(canRecoverShield)
@@ -104,6 +119,7 @@ public class Player : MonoBehaviour
         
         
     }
+
     IEnumerator RecoverShield()
     {
         canRecoverShield = false;
@@ -116,6 +132,7 @@ public class Player : MonoBehaviour
     }
     public void FCutscene()
     {
+        canSoundsCutscene = true;
         StartCoroutine(Cutscene());
     }
     
@@ -127,6 +144,7 @@ public class Player : MonoBehaviour
         playerAnim.SetTrigger("Cutscene");
         yield return new WaitForSeconds(3);
         rb2d.velocity = new Vector2(0, 0);
+        canSoundsCutscene = false;
         camera.player = door.positionCamera;
         yield return new WaitForSeconds(0.5f);
         door.Active();
@@ -134,6 +152,7 @@ public class Player : MonoBehaviour
         camera.player = camera.newPlayer;
         yield return new WaitForSeconds(0.5f);
         canWalk = true;
+        isInCutscene = false;
     }
 
     public void isDashingController()
@@ -164,6 +183,7 @@ public class Player : MonoBehaviour
     
     IEnumerator DelayDash2()
     {
+        RandomizeDash();
         float elapsedTime = 0;
         float dashTime = 0.40f; // Ajuste para a duração desejada do dash
 
@@ -226,6 +246,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void RandomizeDash()
+    {
+        int r = Random.Range(0, sonsDash.Length);
+        aSDash.clip = sonsDash[r];
+        aSDash.Play();
+    }
     public IEnumerator SpawnSpriteDash()
     {
         
@@ -300,6 +326,7 @@ public class Player : MonoBehaviour
             {
                 playerAnim.SetFloat("Horizontal", moveHorizontal);
                 playerAnim.SetFloat("Vertical", moveVertical);
+                StartCoroutine(RandomizePasso());
                 if(!isWalking)
                 {
                     
@@ -321,6 +348,19 @@ public class Player : MonoBehaviour
         else
         {
             //rb2d.velocity = new Vector2(0, 0);
+        }
+    }
+
+    public IEnumerator RandomizePasso()
+    {
+        if(canSomPasso == true)
+        {
+            canSomPasso = false;
+            int r = Random.Range(0, sonsPassos.Length);
+            aSDash.clip = sonsPassos[r];
+            aSDash.Play();
+            yield return new WaitForSeconds(0.3f);
+            canSomPasso = true;
         }
     }
 

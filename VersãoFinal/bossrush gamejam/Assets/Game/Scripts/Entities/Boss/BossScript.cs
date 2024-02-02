@@ -77,7 +77,17 @@ public class BossScript : MonoBehaviour
     public GameObject sangueSangramento;
     public GameObject fogoSkill;
 
+    public AudioSource audioAtks;
+    public AudioClip somEspadaCortando;
+    public AudioClip somEspadaFincada;
+    public AudioClip somHitBoss;
     // Start is called before the first frame update
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioAtks.clip = clip;
+        audioAtks.Play();
+    }
     void Start()
     {
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
@@ -178,10 +188,12 @@ public class BossScript : MonoBehaviour
                         anim.SetBool("Atacando", true);
                         if (canSpawnSprite == true)
                         {
+                            
                             StartCoroutine(SpawnSpriteBoss());
                         }
                         if (canSpawnPegadas)
                         {
+                           ;
                             StartCoroutine(ShowSteps());
                         }
                     }
@@ -286,7 +298,7 @@ public class BossScript : MonoBehaviour
     {
         cruzMoment = false;
         circleMoment = false;
-        yield return new WaitForSeconds(cooldownChangeAtk / 3);
+        yield return new WaitForSeconds(cooldownChangeAtk / 1.6f);
         meleeMoment = true;
         yield return new WaitForSeconds(cooldownChangeAtk);
         meleeMoment = false;
@@ -337,11 +349,12 @@ public class BossScript : MonoBehaviour
     {
         Vector3 direction = (playerPosition.transform.position - this.transform.position).normalized;
         Vector3 offset = direction * -1; // Isso inverte a direção
-        lastPlayerPosition = playerPosition.transform.position - offset * 5;
+        lastPlayerPosition = playerPosition.transform.position - offset * 8;
         isInMeleeAtk = false;
         //meleeObjAtk.SetActive(true);
         yield return new WaitForSeconds(0.15f);
         meleeObjAtk.SetActive(false);
+         PlaySound(somEspadaCortando);
         yield return new WaitForSeconds(cooldownToAtkAgain);
         isInMeleeAtk = true;
     }
@@ -452,6 +465,7 @@ public class BossScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.6f);
         Time.timeScale = 0.01f;
+        PlaySound(somEspadaFincada);
         yield return new WaitForSeconds(0.002f);
         Time.timeScale = 1;
         animCam.SetTrigger("Shake");
