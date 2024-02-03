@@ -9,6 +9,8 @@ TagManager:
   - camPos
   - Boss
   - Door
+  - Pedra
+  - Grama
   layers:
   - Default
   - TransparentFX

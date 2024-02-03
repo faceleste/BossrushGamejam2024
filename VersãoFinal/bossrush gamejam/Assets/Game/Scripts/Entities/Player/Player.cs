@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
 
     public AudioSource aSPassos;
     public AudioClip[] sonsPassos;
+    public bool canChangeStepsSound = false;
     public bool canSomPasso = true;
 
     public AudioSource aSDash;
@@ -94,6 +95,7 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
+
         if(isInCutscene)
         {
             if(canSoundsCutscene == true)
@@ -468,6 +470,16 @@ public class Player : MonoBehaviour
             //SceneManager.LoadScene("Boss01");
             StartCoroutine(ChangeScene());
         } 
+
+        if(collision.gameObject.CompareTag("Pedra")) 
+        { 
+            canChangeStepsSound = true;
+        } 
+        else if(collision.gameObject.CompareTag("Grama"))
+        {
+            canChangeStepsSound = false;
+        }
+   
     } 
 
     IEnumerator Damage(int dano)
