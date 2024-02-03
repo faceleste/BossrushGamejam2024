@@ -61,44 +61,71 @@ public class SkillManager : MonoBehaviour
     }
 
 
+    // DESTREZA
+    // Wood Legs (Andar) = 30m
+    // ThunderStomp (Dash) = 35m
+    // Steel Legs (Andar + Rápido) = 5min
+    // Bullet Hell (60% cdr dash) = 8min (buffei pra ser justo, era uma meio inutil) 
+    // Hell First (40% weapon speed + 20% weapon damage)  = 5min
 
+
+    // MAESTRIA
+    // Double Dash  (Dois dashs) = 8min
+    // WarriorOfDarkness (Ataque curto) = 5min
+    // DemonicInsults (30% dano na arma) = 5min
+    // YouVsYou (+1 cub head) = 10min
+
+    // VIGOR
+    // BurningBack (+1 hp) = 8min 
+    // HardHitter (O cara sangra) = 8min
+    // IndomitableSpirit (+1 shield a cada 2min ) = 5min
+    // Superman (+1 hp a cada minuto não imediato = 8min
+    // FireMetal (Fogo per hit / Queimar boss) = 8min 
 
     public static class DestrezaSkills
     {
+
+
 
         public static void WoodLegs(GameController gameController)
         {
 
             gameController.playerSettings.speed = 5f;
-            gameController.playerSettings.canMove=true;
+            gameController.playerSettings.canMove = true;
+            gameController.timeSettings.currentTime += 30f * 60 ;
             gameController.playerSettings.UpdateStatus();
         }
 
         public static void SteelLegs(GameController gameController)
         {
             gameController.playerSettings.speed += gameController.playerSettings.speed * 0.50f;
+            gameController.timeSettings.currentTime += 5f * 60;
             gameController.playerSettings.UpdateStatus();
         }
 
         public static void BulletHell(GameController gameController)
         {
-            //faster dash cdr  (-30%)
-            gameController.playerSettings.cooldownDash = gameController.playerSettings.cooldownDash * 0.70f;
+            //faster dash cdr  (-60%)
+            gameController.playerSettings.cooldownDash = gameController.playerSettings.cooldownDash * 0.40f;
+            gameController.timeSettings.currentTime += 8f * 60;
             gameController.playerSettings.UpdateStatus();
         }
 
         public static void HellFist(GameController gameController)
         {
             //40% weapon speed and 20% weapon damage
-            gameController.playerSettings.cdrAttack -= 0.40f;
-            gameController.playerSettings.weaponSpeed -= 0.20f;
-            gameController.playerSettings.UpdateStatus(); 
+
+            gameController.playerSettings.weaponSpeed += gameController.playerSettings.weaponSpeed * 0.40f;
+            gameController.playerSettings.dano += gameController.playerSettings.dano * 0.20f;
+            gameController.timeSettings.currentTime += 5f * 60;
+            gameController.playerSettings.UpdateStatus();
         }
 
         public static void ThunderStomp(GameController gameController)
         {
             //faster dash 
             gameController.playerSettings.forceDash += 25f;
+            gameController.timeSettings.currentTime += 35f * 60 ;
             gameController.playerSettings.UpdateStatus();
         }
 
@@ -112,6 +139,7 @@ public class SkillManager : MonoBehaviour
         {
             //+1 dash
             gameController.playerSettings.qtdDash += 1;
+            gameController.timeSettings.currentTime += 8f * 60;
             gameController.playerSettings.UpdateStatus();
         }
 
@@ -119,6 +147,8 @@ public class SkillManager : MonoBehaviour
         {
             //unlocks short range attack
             gameController.playerSettings.canSecondAttack = true;
+            gameController.timeSettings.currentTime += 5f * 60;
+
             gameController.playerSettings.UpdateStatus();
         }
 
@@ -126,6 +156,7 @@ public class SkillManager : MonoBehaviour
         {
             //+30% damage weapon 
             gameController.playerSettings.dano += gameController.playerSettings.dano * 0.30f;
+            gameController.timeSettings.currentTime += 5f * 60;
             gameController.playerSettings.UpdateStatus();
 
         }
@@ -134,6 +165,8 @@ public class SkillManager : MonoBehaviour
         {
             //+1 club head 
             gameController.playerSettings.qtdCubHead += 1;
+            gameController.timeSettings.currentTime += 10f * 60;
+            gameController.playerSettings.UpdateStatus();
         }
 
         public static void SpongyBoots(GameController gameController)
@@ -150,6 +183,7 @@ public class SkillManager : MonoBehaviour
         {
             //+1 hp 
             gameController.playerSettings.hp += 1;
+            gameController.timeSettings.currentTime += 8f * 60;
             gameController.playerSettings.UpdateStatus();
         }
 
@@ -157,26 +191,30 @@ public class SkillManager : MonoBehaviour
         {
             //teu golpe faz o cara sangrar '-
             gameController.playerSettings.canAttackBlood = true;
-            
+            gameController.timeSettings.currentTime += 8f * 60;
         }
 
         public static void IndomitableSprit(GameController gameController)
         {
             //+1 shield a cada 2 minutos 
             gameController.playerSettings.numShields = 1;
-            gameController.playerSettings.UpdateStatus(); 
+            gameController.timeSettings.currentTime += 5f * 60;
+            gameController.playerSettings.UpdateStatus();
         }
 
         public static void Superman(GameController gameController)
         {
             // +1 hp (regenera) a cada minuto 
+            gameController.playerSettings.hp += 1;
+            gameController.timeSettings.currentTime += 8f * 60;
         }
 
         public static void FireMetal(GameController gameController)
         {
             //+1 fogo (queima o boss (taporra meno ) )
             gameController.playerSettings.canAttackFire = true;
-            gameController.playerSettings.UpdateStatus(); 
+            gameController.timeSettings.currentTime += 8f * 60;
+            gameController.playerSettings.UpdateStatus();
         }
     }
 

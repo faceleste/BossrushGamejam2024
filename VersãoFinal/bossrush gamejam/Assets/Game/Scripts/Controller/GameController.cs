@@ -26,7 +26,7 @@ public class PlayerSettings
     public bool canAttackBlood;
     public bool canAttackFire;
     public bool canRecoverShield;
-    public float damageBlood = 0.1f; 
+    public float damageBlood = 0.1f;
 
     public List<Card> inventory = new List<Card>();
     public bool isInventoryChanged = false;
@@ -64,6 +64,30 @@ public class PlayerSettings
         isInventoryChanged = true;
     }
 
+    public void Reset()
+    {
+        speed = 0.6f;
+        forceDash = 0;
+        hp = 1;
+        numShields = 0;
+        cooldownDash = 2.8f;
+        dano = 5;
+        numEstagiosConcluidos = 0;
+        weaponSpeed = 0;
+        cdrAttack = 0;
+        speedDash = 0;
+        attackRange = 0;
+        qtdDash = 1;
+        qtdCubHead = 1;
+        canMove = true;
+        canSecondAttack = false;
+        canAttackBlood = false;
+        canAttackFire = false;
+        canRecoverShield = false;
+        damageBlood = 0.02f;
+        inventory = new List<Card>();
+    }
+
 }
 
 [System.Serializable]
@@ -73,12 +97,13 @@ public class TimeSettings
     public float fullTime;
     public float currentTime;
     public bool canCountTime;
-}
 
-public class SkillSettings : MonoBehaviour
-{
-    [Header("Skills")]
-    public List<Skill> skills;
+    public void Reset()
+    {
+        currentTime = 0f;
+        canCountTime = true;
+        
+    }
 }
 
 public class GameController : MonoBehaviour
@@ -143,5 +168,13 @@ public class GameController : MonoBehaviour
             playerSettings.player = playerObject.GetComponent<Player>();
             playerSettings.playerAttack = playerObject.GetComponent<PlayerAttack>();
         }
+    }
+
+    public void Reset()
+    {
+        //resetar todos os atributos de t odas as subclasses da GameController 
+        playerSettings.Reset();
+        timeSettings.Reset();
+
     }
 }

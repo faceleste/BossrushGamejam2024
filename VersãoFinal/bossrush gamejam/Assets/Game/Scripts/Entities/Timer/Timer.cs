@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 public class Timer : MonoBehaviour
 {
@@ -20,11 +21,35 @@ public class Timer : MonoBehaviour
     {
 
         totalMinutes = gameController.timeSettings.fullTime;
+        float seconds = 59 - (gameController.timeSettings.currentTime % 60);
+        float minutes = gameController.timeSettings.fullTime - (gameController.timeSettings.currentTime / 60);
 
-        float seconds = 59 - gameController.timeSettings.currentTime % 60;
-        float minutes = totalMinutes - gameController.timeSettings.currentTime / 60;
-        float miliseconds = (gameController.timeSettings.currentTime * 100) % 100;
 
-        timeText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, miliseconds);
+
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+
+        if (minutes < 5)
+        {
+            timeText.color = Color.red;
+        }
+
+        if (minutes < 10 && minutes > 5)
+        {
+            timeText.color = Color.yellow;
+        }
+
+        if (minutes > 10)
+        {
+            timeText.color = Color.green;
+        }
+
+        if (gameController.timeSettings.currentTime/ 60  >= totalMinutes)
+        {
+            gameController.timeSettings.canCountTime = false;
+
+            SceneManager.LoadScene("GameOverTemplate");
+        }
+
     }
 }
