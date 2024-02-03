@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
             canWalk = false;
             if(!isFirstTime)
             {
+                canSoundsCutscene = true;
                 StartCoroutine(Cutscene());
             }
             //StartCoroutine(Cutscene());
@@ -98,11 +99,11 @@ public class Player : MonoBehaviour
 
         if(isInCutscene)
         {
-            if(canSoundsCutscene == true)
-            {
-                StartCoroutine(RandomizePasso());
-            }
             
+        }
+        if(canSoundsCutscene == true)
+        {
+            StartCoroutine(RandomizePasso());
         }
         if(gameController.playerSettings.canRecoverShield == true)
         {
@@ -516,16 +517,17 @@ public class Player : MonoBehaviour
         }
         if(gameController.playerSettings.numEstagiosConcluidos == 2)
         {
-            //SceneManager.LoadScene("Boss02");
+            SceneManager.LoadScene("Boss04");
         }
-        if(gameController.playerSettings.numEstagiosConcluidos == 4)
+        if(gameController.playerSettings.numEstagiosConcluidos == 3)
         {
-            //SceneManager.LoadScene("Boss04");
+            SceneManager.LoadScene("Boss02");
         }
         
     }
     IEnumerator PlayerDied()
     {
+        this.GetComponent<BoxCollider2D>().enabled = false;
         canWalk = false;
         rb2d.velocity = new Vector2(0, 0);
         isDied = true;
