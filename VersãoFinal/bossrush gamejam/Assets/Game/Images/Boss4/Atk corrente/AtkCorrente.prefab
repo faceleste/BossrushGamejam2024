@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 0}
   lastPlayerPosition: {x: 0, y: 0, z: 0}
-  speed: 0.2
+  speed: 0.17
   anglePlayer: 0
   canFollow: 1
 --- !u!58 &4573010915969934760
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 0}
   lastPlayerPosition: {x: 0, y: 0, z: 0}
-  speed: 0.2
+  speed: 0.17
   anglePlayer: 0
   canFollow: 1
 --- !u!58 &8871690469672587493
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 0}
   lastPlayerPosition: {x: 0, y: 0, z: 0}
-  speed: 0.2
+  speed: 0.17
   anglePlayer: 0
   canFollow: 1
 --- !u!58 &1105039537272897581
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 0}
   lastPlayerPosition: {x: 0, y: 0, z: 0}
-  speed: 0.2
+  speed: 0.17
   anglePlayer: 0
   canFollow: 1
 --- !u!58 &3665201269910698164

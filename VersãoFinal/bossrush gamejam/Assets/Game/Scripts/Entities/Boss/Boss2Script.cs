@@ -436,6 +436,8 @@ public class Boss2Script : MonoBehaviour
         player.sr.sortingOrder = 2050;
         sr.sortingOrder = player.sr.sortingOrder;
 
+        player.enabled = false;
+        pAttack.enabled = false;
         yield return new WaitForSeconds(1f);
         gameController.playerSettings.numEstagiosConcluidos++;
         Time.timeScale = 1f;

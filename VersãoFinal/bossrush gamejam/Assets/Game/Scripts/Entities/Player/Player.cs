@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
     public AudioSource aSDash;
     public AudioClip[] sonsDash;
     public bool canSoundsCutscene = false;
+
     public void Start()
     {
         defaultColor = sr.color;
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour
         if(canSoundsCutscene == true)
         {
             StartCoroutine(RandomizePasso());
-        }
+        }   
         if(gameController.playerSettings.canRecoverShield == true)
         {
             if(canRecoverShield)
@@ -151,11 +152,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(3);
         rb2d.velocity = new Vector2(0, 0);
         canSoundsCutscene = false;
-        camera.player = door.positionCamera;
+        camera.resetValores(door.positionCamera);
         yield return new WaitForSeconds(0.5f);
         door.Active();
         yield return new WaitForSeconds(2.5f);
-        camera.player = camera.newPlayer;
+        camera.backValores();
         yield return new WaitForSeconds(0.5f);
         canWalk = true;
         isInCutscene = false;
