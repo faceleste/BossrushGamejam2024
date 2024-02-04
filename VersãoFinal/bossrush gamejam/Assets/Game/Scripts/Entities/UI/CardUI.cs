@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using System.Collections.Generic;
 public class CardUI : MonoBehaviour, IPointerClickHandler
 {
     private Vector3 originalScale;
@@ -10,9 +10,12 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
     private Coroutine clickCoroutine;
     private bool isClicked = false;
     private CardManager parent = new CardManager();
+    private AudioSource audioSource;
 
+    public List<AudioClip> audioClips = new List<AudioClip>();
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         originalScale = transform.localScale;
         originalPosition = transform.localPosition;
     }
@@ -39,6 +42,8 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
 
     private IEnumerator ClickEffectCoroutine(Vector3 targetScale, Vector3 targetPosition, float duration)
     {
+        audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
+        audioSource.Play();
         float elapsedTime = 0f;
         Vector3 startScale = transform.localScale;
         Vector3 startPosition = transform.localPosition;

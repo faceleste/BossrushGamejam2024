@@ -20,14 +20,14 @@ public class StoreController : MonoBehaviour
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-        if(gameController.playerSettings.isFirstTime == true)
+        if (gameController.playerSettings.isFirstTime == true)
         {
             store.gameObject.SetActive(true);
         }
     }
     void Update()
     {
-        if(store.gameObject.activeSelf == true)
+        if (store.gameObject.activeSelf == true)
         {
             playerAttack.enabled = false;
         }
@@ -37,14 +37,14 @@ public class StoreController : MonoBehaviour
         }
 
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        
-        isNextDemon = Physics2D.OverlapCircle(new Vector2(positionDemon.transform.position.x, positionDemon.transform.position.y+0.5f), range, layerPlayer);
 
-        if(isNextDemon)
+        isNextDemon = Physics2D.OverlapCircle(new Vector2(positionDemon.transform.position.x, positionDemon.transform.position.y + 0.5f), range, layerPlayer);
+
+        if (isNextDemon)
         {
             buttonE.SetActive(true);
             //buttonE.GetComponent<SpriteRenderer>().sortingOrder = 5000;
-            if(Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 ViewStoreEnter();
             }
@@ -53,7 +53,7 @@ public class StoreController : MonoBehaviour
         {
             buttonE.SetActive(false);
 
-            if(Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && gameController.playerSettings.inventory.Count >= 2)
             {
                 ViewStoreExit();
             }
@@ -61,52 +61,55 @@ public class StoreController : MonoBehaviour
 
 
 
+
+
+
     }
 
     void ViewStoreEnter()
     {
-        if(store.gameObject.activeSelf == false)
+        if (store.gameObject.activeSelf == false)
         {
             store.gameObject.SetActive(true);
-        
+
             StartCoroutine(DelayToExit());
         }
         else
         {
-            if(canExit)
+            if (canExit)
             {
-                if(gameController.playerSettings.isFirstTime == true)
+                if (gameController.playerSettings.isFirstTime == true)
                 {
                     playerScript.FCutscene();
                     gameController.playerSettings.isFirstTime = false;
                 }
                 store.gameObject.SetActive(false);
-               
+
                 canExit = false;
             }
-            
+
         }
-       
+
 
     }
 
     void ViewStoreExit()
     {
-        if(canExit)
+        if (canExit)
         {
-            
+
             store.gameObject.SetActive(false);
             canExit = false;
-            if(gameController.playerSettings.isFirstTime == true)
+            if (gameController.playerSettings.isFirstTime == true)
             {
                 playerScript.FCutscene();
                 gameController.playerSettings.isFirstTime = false;
             }
 
         }
-        
+
     }
-    
+
     IEnumerator DelayToExit()
     {
         yield return new WaitForSeconds(0.8f);

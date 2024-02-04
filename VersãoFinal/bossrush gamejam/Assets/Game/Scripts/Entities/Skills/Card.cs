@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Card
+public class Card : MonoBehaviour
 {
     public string title;
     public string description;

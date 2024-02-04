@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
         {
             
             playerAnim.SetBool("isDashing", true);
-
+            gameController.statisticSettings.numDashs ++;
             preMove = new Vector2(moveHorizontal, moveVertical);
             canWalk = false;
             // Inicie com a velocidade máxima
@@ -517,6 +517,7 @@ public class Player : MonoBehaviour
         canWalk = false;
         rb2d.velocity = new Vector2(0, 0);
         isDied = true;
+        gameController.playerSettings.isDeath = true;
         sr.sortingOrder = 2050;
         animDie.SetActive(true);
         playerAnim.SetTrigger("Morrendo");
