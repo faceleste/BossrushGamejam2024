@@ -227,6 +227,7 @@ public class GameController : MonoBehaviour
         GameObject playerObject = GameObject.Find("Player");
         //findbytag
         GameObject optionObject = GameObject.FindWithTag("OptionMenu").gameObject;
+        optionObject.SetActive(false);
 
         if (playerObject != null)
         {

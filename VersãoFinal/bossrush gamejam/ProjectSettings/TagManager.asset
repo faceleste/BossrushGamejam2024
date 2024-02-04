@@ -11,6 +11,7 @@ TagManager:
   - Door
   - Pedra
   - Grama
+  - OptionMenu
   layers:
   - Default
   - TransparentFX

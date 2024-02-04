@@ -1107,8 +1107,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3781,6 +3781,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1200515513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1611685747
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1326211366761125323, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_Name
+      value: OptionESC2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016682269960546715, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.318615
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016682269960546715, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.337158
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016682269960546715, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.019693838
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016682269960546715, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016682269960546715, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016682269960546715, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016682269960546715, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016682269960546715, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016682269960546715, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7016682269960546715, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5064266b782069b489cd96e426eef0ef, type: 3}
 --- !u!4 &1623928326 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6437518746979362282, guid: 2547bdedd0a1df343a38e062f02bdaaf, type: 3}
@@ -8868,14 +8925,29 @@ MonoBehaviour:
     canAttackFire: 0
     canRecoverShield: 0
     damageBlood: 0.02
+    inventory: []
     isInventoryChanged: 0
     player: {fileID: 0}
     playerAttack: {fileID: 0}
     isFirstTime: 1
+    isDeath: 0
+    isCheatMode: 0
   timeSettings:
     fullTime: 90
     currentTime: 0
     canCountTime: 1
+  optionSettings:
+    canViewConfirmation: 0
+    volume: 0
+    isFullscreen: 0
+    resolution: 0
+    isConfirmationViewed: 0
+    option: {fileID: 0}
+  statisticSettings:
+    numDeaths: 0
+    numDashs: 0
+    numAttacks: 0
+    timeToCompleteGame: 0
 --- !u!4 &1902429903
 Transform:
   m_ObjectHideFlags: 0
@@ -10109,3 +10181,4 @@ SceneRoots:
   - {fileID: 1200515513}
   - {fileID: 1902429903}
   - {fileID: 654378932}
+  - {fileID: 1611685747}
