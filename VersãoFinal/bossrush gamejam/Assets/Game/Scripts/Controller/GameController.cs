@@ -198,15 +198,19 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if(playerSettings.player.shields == 0)
+        if(playerSettings.numShields == 1)
         {
-            playerSettings.cooldownRecoverShield -= Time.deltaTime;
+            if(playerSettings.player.shields == 0)
+            {
+                playerSettings.cooldownRecoverShield -= Time.deltaTime;
+            }
+            if(playerSettings.cooldownRecoverShield <= 0)
+            {
+                playerSettings.player.shields = 1;
+                playerSettings.cooldownRecoverShield = playerSettings.timeToRecoverShield;        
+            }
         }
-        if(playerSettings.cooldownRecoverShield <= 0)
-        {
-            playerSettings.player.shields = 1;
-            playerSettings.cooldownRecoverShield = playerSettings.timeToRecoverShield;        
-        }
+
 
         if (Instance != this)
         {
