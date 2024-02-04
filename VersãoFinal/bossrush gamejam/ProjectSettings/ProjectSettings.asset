@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: bossrush gamejam
-  defaultCursor: {fileID: 2800000, guid: dde03d17184d17a44afd47c397d89a84, type: 3}
+  defaultCursor: {fileID: 2800000, guid: bf00a1d41afb54a44bf2dc1ad2f03871, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
