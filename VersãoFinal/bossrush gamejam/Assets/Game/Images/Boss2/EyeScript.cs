@@ -208,6 +208,7 @@ public class EyeScript : MonoBehaviour
             {
                 boss.isOlhoRightSpawned = false;
             }
+            Time.timeScale = 1f;
             Destroy(actualLaser);
             Destroy(gameObject);
         }

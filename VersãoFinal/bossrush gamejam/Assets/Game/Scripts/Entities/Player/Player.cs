@@ -59,11 +59,13 @@ public class Player : MonoBehaviour
 
     public AudioSource aSPassos;
     public AudioClip[] sonsPassos;
+    public bool canChangeStepsSound = false;
     public bool canSomPasso = true;
 
     public AudioSource aSDash;
     public AudioClip[] sonsDash;
     public bool canSoundsCutscene = false;
+
     public void Start()
     {
         defaultColor = sr.color;
@@ -86,6 +88,7 @@ public class Player : MonoBehaviour
             canWalk = false;
             if(!isFirstTime)
             {
+                canSoundsCutscene = true;
                 StartCoroutine(Cutscene());
             }
             //StartCoroutine(Cutscene());
@@ -94,14 +97,15 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
+
         if(isInCutscene)
         {
-            if(canSoundsCutscene == true)
-            {
-                StartCoroutine(RandomizePasso());
-            }
             
         }
+        if(canSoundsCutscene == true)
+        {
+            StartCoroutine(RandomizePasso());
+        }   
         if(gameController.playerSettings.canRecoverShield == true)
         {
             if(canRecoverShield)
@@ -148,11 +152,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(3);
         rb2d.velocity = new Vector2(0, 0);
         canSoundsCutscene = false;
-        camera.player = door.positionCamera;
+        camera.resetValores(door.positionCamera);
         yield return new WaitForSeconds(0.5f);
         door.Active();
         yield return new WaitForSeconds(2.5f);
-        camera.player = camera.newPlayer;
+        camera.backValores();
         yield return new WaitForSeconds(0.5f);
         canWalk = true;
         isInCutscene = false;
@@ -468,6 +472,16 @@ public class Player : MonoBehaviour
             //SceneManager.LoadScene("Boss01");
             StartCoroutine(ChangeScene());
         } 
+
+        if(collision.gameObject.CompareTag("Pedra")) 
+        { 
+            canChangeStepsSound = true;
+        } 
+        else if(collision.gameObject.CompareTag("Grama"))
+        {
+            canChangeStepsSound = false;
+        }
+   
     } 
 
     IEnumerator Damage(int dano)
@@ -504,16 +518,17 @@ public class Player : MonoBehaviour
         }
         if(gameController.playerSettings.numEstagiosConcluidos == 2)
         {
-            //SceneManager.LoadScene("Boss02");
+            SceneManager.LoadScene("Boss04");
         }
-        if(gameController.playerSettings.numEstagiosConcluidos == 4)
+        if(gameController.playerSettings.numEstagiosConcluidos == 3)
         {
-            //SceneManager.LoadScene("Boss04");
+            SceneManager.LoadScene("Boss02");
         }
         
     }
     IEnumerator PlayerDied()
     {
+        this.GetComponent<BoxCollider2D>().enabled = false;
         canWalk = false;
         rb2d.velocity = new Vector2(0, 0);
         isDied = true;

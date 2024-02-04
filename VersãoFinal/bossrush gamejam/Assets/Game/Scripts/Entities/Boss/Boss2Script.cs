@@ -1,9 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss2Script : MonoBehaviour
 {
+    public float vida;
+    public float currentVida;
+
+    public GameObject splashSangue;
+    public Transform centerBoss;
+    public Player player;
+    public ScriptBackLobby lobby;
+    public float f;
+    public GameController gameController;
+    public PlayerAttack pAttack;
+    public Image barraVida;
+
     public float TimeDestroyAtkLaser = 6f;
     public float TimeDestroyAtkLaserGira = 4f;
     public float TimeDestroyAtkLaserPlayer = 1f;
@@ -47,6 +60,7 @@ public class Boss2Script : MonoBehaviour
 
     public Transform armaMaca;
     public Animator animCam;
+    public Animator anim;
     public SpriteRenderer sr;
     public GameObject[] sangue;
     public GameObject marcaSangue;
@@ -62,6 +76,17 @@ public class Boss2Script : MonoBehaviour
     public Transform positionOlhoRight2;
     public bool isOlhoLeftSpawned = false;
     public bool isOlhoRightSpawned = false;
+
+    [Header("Condições")]
+
+    public bool isFire;
+    public bool isBledding;
+
+    private int bloodBossCount = 0;
+    public int stacksBlood = 1;
+
+    public GameObject sangueSangramento;
+    public GameObject fogoSkill;
 
     IEnumerator Rotine()
     {
@@ -209,7 +234,21 @@ public class Boss2Script : MonoBehaviour
     {
         defaultColor = sr.color;
         cooldownLaserPlayer = timeLaserPlayer;
+
+        gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+        currentVida = vida;
+        //anim = this.GetComponent<Animator>();
+        //sr = this.GetComponent<SpriteRenderer>();
+        armaMaca = GameObject.FindGameObjectWithTag("Arma").GetComponent<Transform>();
+        playerPosition = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        defaultColor = sr.color;
+        pAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+        animCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
         StartCoroutine(Rotine());
+
+
     }
 
     void FixedUpdate()
@@ -302,6 +341,7 @@ public class Boss2Script : MonoBehaviour
     }
     void Update()
     {
+        BossBleed();
         
         if(playerPosition.transform.position.x < this.transform.position.x)
         {
@@ -318,72 +358,102 @@ public class Boss2Script : MonoBehaviour
             isFliped = false;
         }
 
-        /*if (isLaserActivated)
-        {
-            if(atk01)
-            {
-                lr1.enabled = true;
-                lr2.enabled = true;
-                lr3.enabled = true;
-                lr4.enabled = true;
-                lr5.enabled = true;
-                lr6.enabled = true;
-                ShootLaser(lr1, ang01);
-                ShootLaser(lr4, ang01 + (ang02/2));
-                ShootLaser(lr2, ang02);
-                ShootLaser(lr5, ang02 + (ang02/2));
-                ShootLaser(lr3, ang03);
-                ShootLaser(lr6, ang03 + (ang02/2));
-
-               
-            }
-            else
-            {
-                
-            lr6.enabled = false;
-            lr5.enabled = false;
-            lr4.enabled = false;
-            }
-            if(atk02)
-            {
-                currentAng1 += rotationSpeed * Time.deltaTime;
-                currentAng02 += rotationSpeed * Time.deltaTime;
-                currentAng03 += rotationSpeed * Time.deltaTime;
-                lr1.enabled = true;
-                lr2.enabled = true;
-                lr3.enabled = true;
-                ShootLaser(lr1, ang01 + currentAng1);
-                ShootLaser(lr2, ang02 + currentAng02);
-                ShootLaser(lr3, ang03 + currentAng03);
-                
-                
-            }
-        }
-        else
-        {
-            lr6.enabled = false;
-            lr5.enabled = false;
-            lr4.enabled = false;
-            lr1.enabled = false;
-            lr2.enabled = false;
-            lr3.enabled = false;
-        }
-        */
     }
 
-    void OnCollisionEnter2D(Collision2D collision) 
-    { 
-        if (collision.gameObject.CompareTag("Arma")) 
-        { 
+
+    void BossBleed()
+    {
+        if (isBledding)
+        {
+            InvokeRepeating("BloodBoss", 0f, 1f);
+            isBledding = false;
+
+        }
+    }
+    void BloodBoss()
+    {
+
+        currentVida -= gameController.playerSettings.damageBlood * stacksBlood;
+        barraVida.fillAmount = currentVida / vida;
+        Debug.Log("vida: " + currentVida + "stacks: " + stacksBlood);
+        Instantiate(sangueSangramento, new Vector2(this.transform.position.x, this.transform.position.y+2.8f), transform.rotation);
+        //colocar efeito de sangramento here
+        //animação de
+        //Instantiate(fogoSkill, new Vector2(this.transform.position.x, this.transform.position.y+3.2f), transform.rotation);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Arma"))
+        {
+
+            // 1 - vida
+            // x   currentvida
+            StartCoroutine(DelayTakeDmg());
+
+            if (currentVida <= 0)
+            {
+                anim.SetTrigger("Morrendo");
+                //Time.timeScale = 1f;
+                StartCoroutine(TimeToDie());
+            }
+
+            Instantiate(splashSangue, centerBoss.transform.position, transform.rotation);
             animCam.SetTrigger("Shake");
             Debug.Log("Acertado");
+
             StartCoroutine(SwitchColor());
+
             Vector3 direcao = armaMaca.transform.position - this.transform.position;
             direcao = direcao.normalized * -1; // Normaliza a direção e inverte
-            float distancia = 0.5f; // Define a distância que você quer mover para trás
+            float distancia = 0.05f; // Define a distância que você quer mover para trás
             this.transform.position = this.transform.position + direcao * distancia;
-        } 
-    } 
+
+            if (gameController.playerSettings.canAttackBlood)
+            {
+                if (!isBledding)
+                {
+                    isBledding = true;
+                }
+
+                stacksBlood++;
+
+                if (stacksBlood >= 10)
+                {
+                    stacksBlood = 10;
+                }
+            }
+        }
+    }
+
+    IEnumerator TimeToDie()
+    {
+        player.canWalk = false;
+        Time.timeScale = 0.4f;
+        player.playerAnim.SetBool("isMoving", false);
+        player.animDie.SetActive(true);
+        player.rb2d.velocity = new Vector2(0, 0);
+        player.sr.sortingOrder = 2050;
+        sr.sortingOrder = player.sr.sortingOrder;
+
+        player.enabled = false;
+        pAttack.enabled = false;
+        yield return new WaitForSeconds(1f);
+        gameController.playerSettings.numEstagiosConcluidos++;
+        Time.timeScale = 1f;
+        lobby.BackTo(3f);
+        Destroy(this);
+    }
+
+    IEnumerator DelayTakeDmg()
+    {
+        for (float i = currentVida; i > currentVida - pAttack.dano; i -= 0.6f)
+        {
+            barraVida.fillAmount = i / vida;
+            yield return new WaitForSeconds(0.000005f);
+        }
+        currentVida -= pAttack.dano;
+    }
 
     IEnumerator SwitchColor()
     {

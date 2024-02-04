@@ -25,15 +25,17 @@ public class TimeToStartBattle : MonoBehaviour
 
     IEnumerator StartB()
     {
+        player.canWalk = false;
         yield return new WaitForSeconds(0.2f);
         player.enabled = false;
         playerAttack.enabled = false;
-        yield return new WaitForSeconds(3f);
-        camera.player = bossTranform;
+        yield return new WaitForSeconds(2.2f);
+        camera.resetValores(bossTranform);
         yield return new WaitForSeconds(3.5f);
-        camera.player = camera.newPlayer;
+        camera.backValores();
         yield return new WaitForSeconds(0.6f);
         player.enabled = true;
         playerAttack.enabled = true;
+        player.canWalk = true;
     }
 }

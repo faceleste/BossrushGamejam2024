@@ -4847,5 +4847,5 @@ MonoBehaviour:
   armaMaca: {fileID: 0}
   marcaSangue: {fileID: 8194249600170026417, guid: 6e34d3bbb53bf2846b2fe9e8e8a0cb11, type: 3}
   direcao: {x: 0, y: 0, z: 0}
-  distancia: 4
+  distancia: 5.5
   speed: 0.5
