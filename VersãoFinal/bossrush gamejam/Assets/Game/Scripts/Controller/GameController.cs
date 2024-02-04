@@ -34,6 +34,8 @@ public class PlayerSettings
     public PlayerAttack playerAttack;
 
     public bool isFirstTime;
+    public bool isDeath;
+    public bool isCheatMode;
     public void UpdateStatus()
     {
         player.playerSpeed = speed;
@@ -102,8 +104,47 @@ public class TimeSettings
     {
         currentTime = 0f;
         canCountTime = true;
-        
+
     }
+}
+
+[System.Serializable]
+public class OptionSettings
+{
+    public bool canViewConfirmation  ;
+
+    public float volume;
+    public bool isFullscreen;
+    public int resolution;
+    public bool isConfirmationViewed;
+    public GameObject option;
+    public void Reset()
+    {
+        canViewConfirmation = false;
+        volume = 0.5f;
+        isFullscreen = false;
+        resolution = 0;
+        isConfirmationViewed = false;
+    }
+
+
+    public void OpenMenuListener()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+
+            option.SetActive(!option.activeSelf);
+        }
+    }
+}
+
+[System.Serializable]
+public class StatisticSettings
+{
+    public int numDeaths; 
+    public int numDashs; 
+    public int numAttacks; 
+    public float timeToCompleteGame; 
 }
 
 public class GameController : MonoBehaviour
@@ -113,6 +154,8 @@ public class GameController : MonoBehaviour
 
     public PlayerSettings playerSettings;
     public TimeSettings timeSettings;
+    public OptionSettings optionSettings;
+    public StatisticSettings statisticSettings;
 
     private void Awake()
     {
@@ -141,6 +184,7 @@ public class GameController : MonoBehaviour
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+        optionSettings.canViewConfirmation=true;
     }
 
     private void Update()
@@ -155,6 +199,21 @@ public class GameController : MonoBehaviour
         {
             timeSettings.currentTime += Time.deltaTime;
         }
+
+
+        if (playerSettings.isDeath)
+        {
+            playerSettings.isDeath = false;
+            statisticSettings.numDeaths++;
+
+        }
+
+        if(playerSettings.numEstagiosConcluidos < 4){ 
+            statisticSettings.timeToCompleteGame += Time.deltaTime;
+        }
+
+
+        optionSettings.OpenMenuListener();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -172,9 +231,9 @@ public class GameController : MonoBehaviour
 
     public void Reset()
     {
-        //resetar todos os atributos de t odas as subclasses da GameController 
         playerSettings.Reset();
         timeSettings.Reset();
+        optionSettings.Reset();
 
     }
 }

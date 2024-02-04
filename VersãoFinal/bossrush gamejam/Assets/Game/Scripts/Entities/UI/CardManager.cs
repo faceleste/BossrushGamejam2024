@@ -10,6 +10,7 @@ public class CardManager : MonoBehaviour
 
 
     public GameObject cartaPrefab;
+    public GameObject confirmationDialogPrefab;
     public Transform contentPanel;
 
     public SkillManager skillManager;
@@ -19,8 +20,14 @@ public class CardManager : MonoBehaviour
 
     public int cartasAtivas = 0;
     public CardBuilder builder;
+
+    public AudioSource audioSource;
+    public List<AudioClip> listaAudio = new List<AudioClip>();
+
+
     public void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         cards = ListagemCards();
         cartasAtivas = gameController.playerSettings.inventory.Count;
@@ -36,8 +43,32 @@ public class CardManager : MonoBehaviour
         {
             AtivarBotaoTodasCartas();
         }
+
+        if (gameController.timeSettings.currentTime / 60 > 70)
+        {
+            DesativarCartas(cards);
+        }
     }
 
+
+    public void DesativarCartas(List<Card> cards)
+    {
+        for (int i = 0; i < cards.Count; i++)
+        {
+            if (gameController.timeSettings.fullTime - (cards[i].timeRequired + gameController.timeSettings.currentTime / 60) < 0)
+            {
+                for (int j = 0; j < contentPanel.childCount; j++)
+                {
+                    if (contentPanel.GetChild(j).name == cards[i].title)
+                    {
+                        contentPanel.GetChild(j).GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+                        contentPanel.GetChild(j).transform.Find("Background").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+                        contentPanel.GetChild(j).transform.Find("Button").gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+    }
     public void AtivarBotaoTodasCartas()
     {
         for (int i = 0; i < contentPanel.childCount; i++)
@@ -70,7 +101,6 @@ public class CardManager : MonoBehaviour
                     CriarCarta(card);
                 }
 
-                Debug.Log(card.title + " - isCardUsed" + card.isCardUsed + "- id" + card.id);
             }
 
         }
@@ -105,7 +135,7 @@ public class CardManager : MonoBehaviour
 
 
         GameObject cartaObj = Instantiate(cartaPrefab, contentPanel);
-
+        cartaObj.name = card.title;
 
         TextMeshProUGUI cost = cartaObj.transform.Find("Cost").GetComponent<TextMeshProUGUI>();
 
@@ -122,19 +152,15 @@ public class CardManager : MonoBehaviour
 
         button.onClick.AddListener(() =>
         {
-            skillManager.ActivateSkill(card);
-            gameController.playerSettings.AddToInventory(card);
-            card.isCardUsed = true;
-            card.isAtivado = true;
-            cartasAtivas++;
-            Destroy(cartaObj);
 
-
+            ShowConfirmationDialog(card, cartaObj);
         });
+
+
 
         RectTransform cartaRectTransform = cartaObj.GetComponent<RectTransform>();
         RectTransform previousCardRectTransform = contentPanel.childCount > 1 ? contentPanel.GetChild(contentPanel.childCount - 2).GetComponent<RectTransform>() : null;
-        if (gameController.playerSettings.inventory.Count <=2  && (card.id != 1 && card.id != 5))
+        if (gameController.playerSettings.inventory.Count <= 2 && (card.id != 1 && card.id != 5))
         {
             cartaObj.transform.Find("Button").gameObject.SetActive(false);
 
@@ -154,6 +180,86 @@ public class CardManager : MonoBehaviour
         }
     }
 
+
+
+    void PlaySound(Card card)
+    {
+        if (card.type == "destreza")
+        {
+            audioSource.clip = listaAudio[0];
+
+        }
+        else if (card.type == "maestria")
+        {
+            audioSource.clip = listaAudio[1];
+        }
+        else if (card.type == "vigor")
+        {
+            audioSource.clip = listaAudio[1]; //colocar aqui o 2, nao consegui importar corretamente. veja o isaac-apenas as 04:02 
+        }
+        audioSource.Play();
+    }
+    void ShowConfirmationDialog(Card card, GameObject cartaObj)
+    {
+
+
+        if (!gameController.optionSettings.canViewConfirmation)
+        {
+            PlaySound(card);
+            skillManager.ActivateSkill(card);
+            gameController.playerSettings.AddToInventory(card);
+            card.isCardUsed = true;
+            card.isAtivado = true;
+            cartasAtivas++;
+            Destroy(cartaObj);
+
+        }
+        else
+        {
+
+
+
+            string dialogTitle = card.title;
+            string dialogDescription = card.description;
+
+
+            GameObject confirmationDialog = Instantiate(confirmationDialogPrefab, contentPanel.transform.parent);
+            TextMeshProUGUI titleText = confirmationDialog.transform.Find("Title").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI descriptionText = confirmationDialog.transform.Find("Description").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI costText = confirmationDialog.transform.Find("Cost").GetComponent<TextMeshProUGUI>();
+            Button confirmButton = confirmationDialog.transform.Find("ConfirmButton").GetComponent<Button>();
+            Button cancelButton = confirmationDialog.transform.Find("CancelButton").GetComponent<Button>();
+            Image cardSprite = confirmationDialog.transform.Find("CardSprite").GetComponent<Image>();
+
+
+            titleText.text = dialogTitle;
+            descriptionText.text = dialogDescription;
+            costText.text = "Cost: " + card.timeRequired.ToString();
+            cardSprite.sprite = card.art;
+
+            confirmButton.onClick.AddListener(() =>
+            {
+
+                Destroy(confirmationDialog);
+
+                PlaySound(card);
+                skillManager.ActivateSkill(card);
+                gameController.playerSettings.AddToInventory(card);
+                card.isCardUsed = true;
+                card.isAtivado = true;
+                cartasAtivas++;
+                Destroy(cartaObj);
+            });
+
+
+            cancelButton.onClick.AddListener(() =>
+            {
+
+                Destroy(confirmationDialog);
+
+            });
+        }
+    }
 
     private List<Card> ListagemCards()
     {

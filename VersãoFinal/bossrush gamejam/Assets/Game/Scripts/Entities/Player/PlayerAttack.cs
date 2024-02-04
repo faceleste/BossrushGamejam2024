@@ -71,6 +71,7 @@ public class PlayerAttack : MonoBehaviour
             
             if(currentCooldownAtk <= 1f && isInSpecialAtk == false && canAttackAgain)
             {
+                gameController.statisticSettings.numAttacks++; 
                 // ATAQUE ESPECIAL
                 hasArma = false;
                 StartCoroutine(AtkAgain());
@@ -238,11 +239,12 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(DelayAttack());
         }
 
-
+   
     }
 
     private IEnumerator DelayAttack()
     {
+             
         canAttackAgain = false;
         playerScript.canWalk = false;
         rb2d.velocity = Vector3.zero;
@@ -256,6 +258,7 @@ public class PlayerAttack : MonoBehaviour
         {
             playerScript.canWalk = true;
         }
+        
 
     }
 
