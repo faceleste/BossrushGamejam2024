@@ -17,6 +17,7 @@ public class Cam : MonoBehaviour
     private Vector3 mouse; 
     public Vector3 originalMinValues, originalMaxValues;
     public Transform truePlayer;
+    public Vector3 currentMinValue, currentMaxValues;
     
     public bool canLimitCam = true;
     public void resetValores(Transform t)
@@ -36,7 +37,7 @@ public class Cam : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
         //anim =  GameObject.FindGameObjectWithTag("MainCamera").Animator;
         truePlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         Vector3 mousePos = Input.mousePosition;
@@ -47,8 +48,18 @@ public class Cam : MonoBehaviour
     {
         if(canLimitCam == true)
         {
-            minValues = new Vector3(truePlayer.transform.position.x -2, truePlayer.transform.position.y -2f, -10);
-            maxValues =new Vector3(truePlayer.transform.position.x +2, truePlayer.transform.position.y +2f, -10);
+
+            if(this.transform.position.x > originalMinValues.x &&this.transform.position.y > originalMinValues.y  &&  this.transform.position.x < originalMaxValues.x &&  this.transform.position.y < originalMaxValues.y)
+            {
+                minValues = new Vector3(truePlayer.transform.position.x -1, truePlayer.transform.position.y -1f, -10);
+                maxValues =new Vector3(truePlayer.transform.position.x +1, truePlayer.transform.position.y +1f, -10);
+            }
+            else
+            {
+                minValues = originalMinValues;
+                maxValues = originalMaxValues;
+            }
+
             Vector3 mousePos = Input.mousePosition;
             newPlayer.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
             player.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
@@ -61,7 +72,7 @@ public class Cam : MonoBehaviour
     {
         Vector3 targetPosition = positionAl + offset;
 
-
+        
         Vector3 boundPosition = new Vector3(
             Mathf.Clamp(targetPosition.x, minValues.x, maxValues.x),
             Mathf.Clamp(targetPosition.y, minValues.y, maxValues.y),
