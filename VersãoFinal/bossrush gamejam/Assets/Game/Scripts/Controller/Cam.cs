@@ -20,6 +20,7 @@ public class Cam : MonoBehaviour
     public Vector3 currentMinValue, currentMaxValues;
     
     public bool canLimitCam = true;
+    public bool canFolowMouse = true;
     public void resetValores(Transform t)
     {
         
@@ -48,21 +49,30 @@ public class Cam : MonoBehaviour
     {
         if(canLimitCam == true)
         {
-
-            if(this.transform.position.x > originalMinValues.x &&this.transform.position.y > originalMinValues.y  &&  this.transform.position.x < originalMaxValues.x &&  this.transform.position.y < originalMaxValues.y)
+            if(canFolowMouse)
             {
-                minValues = new Vector3(truePlayer.transform.position.x -1, truePlayer.transform.position.y -1f, -10);
-                maxValues =new Vector3(truePlayer.transform.position.x +1, truePlayer.transform.position.y +1f, -10);
+                 if(this.transform.position.x > originalMinValues.x && this.transform.position.y > originalMinValues.y  &&  this.transform.position.x < originalMaxValues.x &&  this.transform.position.y < originalMaxValues.y)
+                {
+                    minValues = new Vector3(truePlayer.transform.position.x -1, truePlayer.transform.position.y -1f, -10);
+                    maxValues =new Vector3(truePlayer.transform.position.x +1, truePlayer.transform.position.y +1f, -10);
+                }
+                else
+                {
+                    minValues = originalMinValues;
+                    maxValues = originalMaxValues;
+                }
+
+                Vector3 mousePos = Input.mousePosition;
+                player.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
+                newPlayer.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
+                
             }
             else
             {
                 minValues = originalMinValues;
                 maxValues = originalMaxValues;
+                player.transform.position = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().transform.position;
             }
-
-            Vector3 mousePos = Input.mousePosition;
-            newPlayer.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
-            player.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
         }
         positionAl = player.transform.position;    
         Follow();

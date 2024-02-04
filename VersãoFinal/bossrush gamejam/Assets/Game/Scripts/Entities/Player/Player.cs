@@ -66,6 +66,8 @@ public class Player : MonoBehaviour
     public AudioClip[] sonsDash;
     public bool canSoundsCutscene = false;
 
+    public GameObject shieldAnim;
+
     public void Start()
     {
         defaultColor = sr.color;
@@ -97,7 +99,15 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
-
+        //shields = gameController.playerSettings.numShields;
+        if(shields > 0)
+        {
+            shieldAnim.SetActive(true);
+        }
+        else
+        {
+            shieldAnim.SetActive(false);
+        }
         if(isInCutscene)
         {
             
