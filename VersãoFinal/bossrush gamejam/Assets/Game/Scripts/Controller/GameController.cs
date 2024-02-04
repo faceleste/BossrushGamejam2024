@@ -111,7 +111,7 @@ public class TimeSettings
 [System.Serializable]
 public class OptionSettings
 {
-    public bool canViewConfirmation  ;
+    public bool canViewConfirmation;
 
     public float volume;
     public bool isFullscreen;
@@ -134,6 +134,8 @@ public class OptionSettings
         {
 
             option.SetActive(!option.activeSelf);
+            Time.timeScale = option.activeSelf ? 0 : 1;
+
         }
     }
 }
@@ -141,10 +143,10 @@ public class OptionSettings
 [System.Serializable]
 public class StatisticSettings
 {
-    public int numDeaths; 
-    public int numDashs; 
-    public int numAttacks; 
-    public float timeToCompleteGame; 
+    public int numDeaths;
+    public int numDashs;
+    public int numAttacks;
+    public float timeToCompleteGame;
 }
 
 public class GameController : MonoBehaviour
@@ -163,6 +165,7 @@ public class GameController : MonoBehaviour
         GameObject playerObject = GameObject.Find("Player");
         playerSettings.player = playerObject.GetComponent<Player>();
         playerSettings.playerAttack = playerObject.GetComponent<PlayerAttack>();
+
         if (Instance == null)
         {
             Instance = this;
@@ -183,8 +186,9 @@ public class GameController : MonoBehaviour
             playerSettings.hp = 1;
         }
 
+
         SceneManager.sceneLoaded += OnSceneLoaded;
-        optionSettings.canViewConfirmation=true;
+        optionSettings.canViewConfirmation = true;
     }
 
     private void Update()
@@ -208,11 +212,12 @@ public class GameController : MonoBehaviour
 
         }
 
-        if(playerSettings.numEstagiosConcluidos < 4){ 
+        if (playerSettings.numEstagiosConcluidos < 4)
+        {
             statisticSettings.timeToCompleteGame += Time.deltaTime;
         }
 
-
+ 
         optionSettings.OpenMenuListener();
     }
 
@@ -220,12 +225,15 @@ public class GameController : MonoBehaviour
     {
 
         GameObject playerObject = GameObject.Find("Player");
+        //findbytag
+        GameObject optionObject = GameObject.FindWithTag("OptionMenu").gameObject;
 
         if (playerObject != null)
         {
 
             playerSettings.player = playerObject.GetComponent<Player>();
             playerSettings.playerAttack = playerObject.GetComponent<PlayerAttack>();
+            optionSettings.option = optionObject;
         }
     }
 

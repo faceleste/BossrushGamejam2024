@@ -86,7 +86,14 @@ public class OptionsController : MonoBehaviour
 
     public void CloseMenu()
     {
-        gameController.optionSettings.option.SetActive(false);
+        if(gameController== null){
+            optionCanvas.gameObject.SetActive(false);
+            
+        }   
+        else{
+            gameController.optionSettings.option.SetActive(false);
+            Time.timeScale = 1;
+        }
 
     }
 

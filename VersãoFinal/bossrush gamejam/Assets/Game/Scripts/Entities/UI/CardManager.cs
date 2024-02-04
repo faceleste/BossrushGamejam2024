@@ -146,7 +146,7 @@ public class CardManager : MonoBehaviour
         Image image = cartaObj.GetComponent<Image>();
 
 
-        cost.text = card.timeRequired.ToString();
+        cost.text = "- " + card.timeRequired.ToString() + "min";
         background.sprite = card.art;
 
 
