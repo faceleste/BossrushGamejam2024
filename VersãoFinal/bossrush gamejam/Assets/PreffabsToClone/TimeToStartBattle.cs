@@ -30,9 +30,9 @@ public class TimeToStartBattle : MonoBehaviour
         player.enabled = false;
         playerAttack.enabled = false;
         yield return new WaitForSeconds(2.2f);
-        camera.player = bossTranform;
+        camera.resetValores(bossTranform);
         yield return new WaitForSeconds(3.5f);
-        camera.player = camera.newPlayer;
+        camera.backValores();
         yield return new WaitForSeconds(0.6f);
         player.enabled = true;
         playerAttack.enabled = true;

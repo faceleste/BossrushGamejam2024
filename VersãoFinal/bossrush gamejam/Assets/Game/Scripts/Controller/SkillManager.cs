@@ -124,7 +124,7 @@ public class SkillManager : MonoBehaviour
         public static void ThunderStomp(GameController gameController)
         {
             //faster dash 
-            gameController.playerSettings.forceDash += 25f;
+            gameController.playerSettings.forceDash += 15f;
             gameController.timeSettings.currentTime += 35f * 60 ;
             gameController.playerSettings.UpdateStatus();
         }

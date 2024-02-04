@@ -410,6 +410,8 @@ public class BossScript : MonoBehaviour
         playerMove.sr.sortingOrder = 2050;
         sr.sortingOrder = playerMove.sr.sortingOrder;
 
+        playerMove.enabled = false;
+        player.enabled = false;
         yield return new WaitForSeconds(1f);
         Time.timeScale = 1f;
         gameController.playerSettings.numEstagiosConcluidos++;

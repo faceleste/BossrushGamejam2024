@@ -15,18 +15,44 @@ public class Cam : MonoBehaviour
     public float SmoothFactor;
     public Vector3 minValues, maxValues; 
     private Vector3 mouse; 
+    public Vector3 originalMinValues, originalMaxValues;
+    public Transform truePlayer;
     
+    public bool canLimitCam = true;
+    public void resetValores(Transform t)
+    {
+        
+        minValues = new Vector3(-100, -100, -10);
+        maxValues = new Vector3(100, 100, -10);
+        canLimitCam = false;
+        player = t;
+    }
 
+    public void backValores()
+    {
+        canLimitCam = true;
+        player = newPlayer;
+    }
     // Start is called before the first frame update
     void Start()
     {
 
         //anim =  GameObject.FindGameObjectWithTag("MainCamera").Animator;
-        newPlayer = GameObject.FindGameObjectWithTag("Player").transform;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        truePlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        Vector3 mousePos = Input.mousePosition;
+        newPlayer.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
+        player.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
     }
     void Update()
     {
+        if(canLimitCam == true)
+        {
+            minValues = new Vector3(truePlayer.transform.position.x -2, truePlayer.transform.position.y -2f, -10);
+            maxValues =new Vector3(truePlayer.transform.position.x +2, truePlayer.transform.position.y +2f, -10);
+            Vector3 mousePos = Input.mousePosition;
+            newPlayer.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
+            player.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
+        }
         positionAl = player.transform.position;    
         Follow();
     }

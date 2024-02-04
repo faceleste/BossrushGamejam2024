@@ -13206,9 +13206,9 @@ MonoBehaviour:
   speed: 2
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
   pAttack: {fileID: 0}
-  animCam: {fileID: 0}
-  sr: {fileID: 0}
-  anim: {fileID: 0}
+  animCam: {fileID: 278303884}
+  sr: {fileID: 278303880}
+  anim: {fileID: 278303884}
   atk01: 0
   atk02: 0
   atk03: 0
@@ -13237,7 +13237,7 @@ MonoBehaviour:
   isFliped: 0
   splashSangue: {fileID: 1268463685388670065, guid: 172e36a0bc870c24b9f6d214758f2416, type: 3}
   centerBoss: {fileID: 1975960991}
-  player: {fileID: 0}
+  player: {fileID: 715673712}
   lobby: {fileID: 315169698}
   f: 0
   gameController: {fileID: 0}
@@ -13289,6 +13289,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278303879}
   m_CullTransparentMesh: 1
+--- !u!1 &292574551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 292574552}
+  m_Layer: 0
+  m_Name: truePlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &292574552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292574551}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.8955572, y: -4.0555105, z: 3.619857}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &294484876
 GameObject:
   m_ObjectHideFlags: 0
@@ -31447,6 +31478,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f119fc213b0433844aa41d5091c1dd38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &715673713 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 4999434999562937593, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+  m_PrefabInstance: {fileID: 6261511637081380905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &715673714 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3234625982231174887, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+  m_PrefabInstance: {fileID: 6261511637081380905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &719669091
 GameObject:
   m_ObjectHideFlags: 0
@@ -35908,14 +35949,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e60d58146caf546ac54af2447325ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 377787526}
-  player: {fileID: 715673701}
-  newPlayer: {fileID: 715673701}
+  anim: {fileID: 0}
+  player: {fileID: 292574552}
+  newPlayer: {fileID: 292574552}
   offset: {x: 0, y: 0, z: 0}
   positionAl: {x: 0, y: 0, z: 0}
-  SmoothFactor: 3
-  minValues: {x: -6, y: -14, z: -10}
-  maxValues: {x: 5.25, y: 12, z: -10}
+  SmoothFactor: 1
+  minValues: {x: -100, y: -100, z: -2}
+  maxValues: {x: 100, y: 100, z: -2}
+  originalMinValues: {x: 0, y: 0, z: 0}
+  originalMaxValues: {x: 0, y: 0, z: 0}
+  truePlayer: {fileID: 0}
+  canLimitCam: 1
 --- !u!114 &817291749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68128,7 +68173,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1426101677}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b026ec0fcf61544a5f7461d111a829, type: 3}
   m_Name: 
@@ -68162,6 +68207,7 @@ MonoBehaviour:
   playerScript: {fileID: 1426101684}
   rb2d: {fileID: 1426101682}
   canArmaReturn: 0
+  hasArma: 1
 --- !u!114 &1426101684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68214,10 +68260,12 @@ MonoBehaviour:
   nullShield: {fileID: 179224784, guid: 26027a73beb52d841baaf3c9066bda85, type: 3}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
   canRecoverShield: 1
+  playerAttack: {fileID: 0}
   numDashs: 0
   aSPassos: {fileID: 1426101685}
   sonsPassos:
   - {fileID: 8300000, guid: d5b4bad25a186904d82d5d776f9553cd, type: 3}
+  canChangeStepsSound: 0
   canSomPasso: 0
   aSDash: {fileID: 1426101685}
   sonsDash:
@@ -106208,7 +106256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &3995804573664325044
 GameObject:
   m_ObjectHideFlags: 0
@@ -106237,10 +106285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45f66538084c1d448949adf081968bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constituicao:
-  - {fileID: 0}
-  destreza: []
-  maestria: []
 --- !u!4 &6190216369202241189
 Transform:
   m_ObjectHideFlags: 0
@@ -106521,8 +106565,92 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
       propertyPath: dano
-      value: 150
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: line
+      value: 
+      objectReference: {fileID: 1186918231}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: rb2d
+      value: 
+      objectReference: {fileID: 715673713}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: target.x
+      value: -1.4145086
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: target.y
+      value: -2.0395422
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: isInRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: animPlayer
+      value: 
+      objectReference: {fileID: 715673714}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: attackRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: attackDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: cooldownAtks
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 715673712}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: canArmaReturn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: aceleracaoPoint
+      value: 
+      objectReference: {fileID: 725113425}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: timeSpecialAttack
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: currentCooldownAtk
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: rangeSpecialAttack
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: specialAttackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: cooldownSpecialAttack
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: attackPointBasicAttack
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919267802309797932, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      propertyPath: attackPointSpecialAttack
+      value: 
+      objectReference: {fileID: 865108674}
     - target: {fileID: 4999434999562937593, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
       propertyPath: m_Constraints
       value: 4
@@ -106859,3 +106987,4 @@ SceneRoots:
   - {fileID: 2031255782}
   - {fileID: 1040939288}
   - {fileID: 23489880}
+  - {fileID: 292574552}
