@@ -185,7 +185,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         playerSettings.player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
+        playerSettings.playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         if (playerSettings.hp <= 0)
         {
             playerSettings.hp = 1;
@@ -243,15 +243,15 @@ public class GameController : MonoBehaviour
 
         GameObject playerObject = GameObject.Find("Player");
         //findbytag
-        GameObject optionObject = GameObject.FindWithTag("OptionMenu").gameObject;
-        optionObject.SetActive(false);
+        //GameObject optionObject = GameObject.FindWithTag("OptionMenu").gameObject;
+        //optionObject.SetActive(false);
 
         if (playerObject != null)
         {
 
             playerSettings.player = playerObject.GetComponent<Player>();
             playerSettings.playerAttack = playerObject.GetComponent<PlayerAttack>();
-            optionSettings.option = optionObject;
+            //optionSettings.option = optionObject;
         }
     }
 
