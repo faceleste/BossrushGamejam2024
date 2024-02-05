@@ -28,7 +28,7 @@ public class PlayerSettings
     public bool canRecoverShield;
     public float damageBlood = 0.1f;
 
-    public List<Card> inventory = new List<Card>();
+    public List<int> inventory = new List<int>();
     public bool isInventoryChanged = false;
     public Player player;
     public PlayerAttack playerAttack;
@@ -49,21 +49,12 @@ public class PlayerSettings
         player.shields = numShields;
     }
 
-    public void AddToInventory(Card newCard)
+    public void AddToInventory(int newCard)
     {
-        string cardsInInventory = "";
-        inventory.Add(newCard);
-        Debug.Log("Card adicionado ao inventário");
+        inventory.Add(newCard); 
+ 
 
-        Debug.Log("Inventário: " + inventory.Count);
-        for (int i = 0; i < inventory.Count; i++)
-        {
-            string cardTitle = inventory[i].title;
-            cardsInInventory += cardTitle + " | ";
-        }
-        Debug.Log("Cartas no inventário: " + cardsInInventory);
 
-        isInventoryChanged = true;
     }
 
     public void Reset()
@@ -87,7 +78,7 @@ public class PlayerSettings
         canAttackFire = false;
         canRecoverShield = false;
         damageBlood = 0.02f;
-        inventory = new List<Card>();
+        inventory = new List<int>();
     }
 
 }
@@ -217,7 +208,7 @@ public class GameController : MonoBehaviour
             statisticSettings.timeToCompleteGame += Time.deltaTime;
         }
 
- 
+  
         optionSettings.OpenMenuListener();
     }
 

@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5650431576496245676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2427639904253971898}
+  - component: {fileID: 7711702016441021959}
+  m_Layer: 0
+  m_Name: CardBuilder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2427639904253971898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5650431576496245676}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 392.29318, y: 170.21837, z: 1.9979606}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7711702016441021959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5650431576496245676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af340af219be964f8fb1f7b23efeb5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destreza:
+  - {fileID: 21300000, guid: 072ae05c4c49705439b5a45521665893, type: 3}
+  - {fileID: 21300000, guid: 718aab6333af3f64ba7888e5d0686c66, type: 3}
+  - {fileID: 21300000, guid: 74f5f3e672f382a4cb6ecebf63564aea, type: 3}
+  - {fileID: 21300000, guid: 3dd80d467f720884887e7cd8cd91e2f7, type: 3}
+  - {fileID: 21300000, guid: 9a5664b0e2f6dad4f9148516bf44cd3c, type: 3}
+  maestria:
+  - {fileID: 21300000, guid: 12118fcd7ee41a74cbe7202f1eaa938c, type: 3}
+  - {fileID: 21300000, guid: 61395004928df9845b70306badee70db, type: 3}
+  - {fileID: 21300000, guid: 288f7b1a3ad7145499e0e2b88aaa8771, type: 3}
+  - {fileID: 21300000, guid: 74176489058f12a42a0a0afc5dd935fd, type: 3}
+  - {fileID: 21300000, guid: 5ff2877649598674d9d0b03c34fb25da, type: 3}
+  vigor:
+  - {fileID: 21300000, guid: d53f0e4f82c722d428e22a86852128e0, type: 3}
+  - {fileID: 21300000, guid: d53f0e4f82c722d428e22a86852128e0, type: 3}
+  - {fileID: 21300000, guid: 84ee1c06a72e74645a5a61e849e72ec0, type: 3}
+  - {fileID: 21300000, guid: b80dbf581157c9448bdf08080c0f049e, type: 3}
+  - {fileID: 21300000, guid: 485377956d0ed084699e2e53bc27f469, type: 3}
+  - {fileID: 21300000, guid: 6bdd841c068613843b0df4ff29afb614, type: 3}

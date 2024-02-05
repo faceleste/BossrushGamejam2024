@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardManager: {fileID: 9176547136945363146}
   type: maestria
+  background: {fileID: 0}
 --- !u!1 &1177671087427986616
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,11 +211,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cartaPrefab: {fileID: 1696796343156201287, guid: bfca2cee3c54d7d4bb123a2b5adef4d3, type: 3}
+  confirmationDialogPrefab: {fileID: 0}
   contentPanel: {fileID: 5892148192568244442}
   skillManager: {fileID: 7014474387118735987}
   type: 
   gameController: {fileID: 0}
-  builder: {fileID: 6472602592270118546}
+  cards: []
+  cartasAtivas: 0
+  builder: {fileID: 7711702016441021959, guid: 4f34d5d30cdca26459c7aa8deb634fe9, type: 3}
+  audioSource: {fileID: 0}
+  listaAudio: []
 --- !u!1 &1240850683160564187
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +252,6 @@ Transform:
   m_Children:
   - {fileID: 1154969845803018848}
   - {fileID: 9006585901823653163}
-  - {fileID: 8264050189895453430}
   - {fileID: 2638205662163423467}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -340,6 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardManager: {fileID: 9176547136945363146}
   type: destreza
+  background: {fileID: 0}
 --- !u!1 &1847004252450572221
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,68 +528,6 @@ Transform:
   - {fileID: 2631570013803453932}
   m_Father: {fileID: 1154969845803018848}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7065990574814508072
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8264050189895453430}
-  - component: {fileID: 6472602592270118546}
-  m_Layer: 0
-  m_Name: CardBuilder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8264050189895453430
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7065990574814508072}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 392.29318, y: 170.21837, z: 1.9979606}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5750629232096487135}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6472602592270118546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7065990574814508072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af340af219be964f8fb1f7b23efeb5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destreza:
-  - {fileID: 21300000, guid: 57cf3dff225b077478e53c96cd7927ed, type: 3}
-  - {fileID: 21300000, guid: e83d0646f68e3d541b1b556966ce39cb, type: 3}
-  - {fileID: 21300000, guid: 0b5f4b6a1aba30c4c80b12c0a5d69330, type: 3}
-  - {fileID: 21300000, guid: 828b4e5859b8ba54284637d5b721a395, type: 3}
-  - {fileID: 21300000, guid: c10e8a23279ab9648b6d62ad69e05dd1, type: 3}
-  maestria:
-  - {fileID: 21300000, guid: ebf6eb773c08e45419b47dc57adfc13b, type: 3}
-  - {fileID: 21300000, guid: 5448387cff921c84e9201566fefb2f60, type: 3}
-  - {fileID: 21300000, guid: d7caf98d9afae4a47835a070d63a9b5c, type: 3}
-  - {fileID: 21300000, guid: e9f668efb1545f54f9d6dbfde7ed4db8, type: 3}
-  - {fileID: 21300000, guid: 639586f1bb5b49f4e85c9975e135580a, type: 3}
-  vigor:
-  - {fileID: 21300000, guid: db87eb03e183c19478f4c1ebac1c224a, type: 3}
-  - {fileID: 21300000, guid: c530621e2b2faab44b7cddc1fdf2158b, type: 3}
-  - {fileID: 21300000, guid: d6e1974097304b04da857be43e55e0a9, type: 3}
-  - {fileID: 21300000, guid: a7be352d620033f4aa6ced2dbb7976b3, type: 3}
-  - {fileID: 21300000, guid: 8b970d8d9e427f141bdae5299a78cb5a, type: 3}
 --- !u!1 &7119375735045411786
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,3 +693,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardManager: {fileID: 9176547136945363146}
   type: vigor
+  background: {fileID: 0}

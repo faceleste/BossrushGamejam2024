@@ -20,10 +20,10 @@ public class SkillManager : MonoBehaviour
 
     void InicializarDicionarioDeHabilidades()
     {
-        skillDictionary.Add(1, () => DestrezaSkills.WoodLegs(gameController));
+        skillDictionary.Add(1, () => DestrezaSkills.HellFist(gameController));
         skillDictionary.Add(2, () => DestrezaSkills.SteelLegs(gameController));
         skillDictionary.Add(3, () => DestrezaSkills.BulletHell(gameController));
-        skillDictionary.Add(4, () => DestrezaSkills.HellFist(gameController));
+        skillDictionary.Add(4, () => DestrezaSkills.WoodLegs(gameController));
         skillDictionary.Add(5, () => DestrezaSkills.ThunderStomp(gameController));
 
 

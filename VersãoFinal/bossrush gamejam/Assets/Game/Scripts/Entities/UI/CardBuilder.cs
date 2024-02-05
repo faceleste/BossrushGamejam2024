@@ -17,17 +17,7 @@ public class CardBuilder : MonoBehaviour
     {
         List<Card> cards = new List<Card>();
 
-        cards.Add(new Card
-        {
-            title = "Wood Legs",
-            description = "Enhances your mobility by allowing you to run. These wooden legs provide a basic level of dexterity.",
-            type = "destreza",
-            timeRequired = 30,
-            isMechanical = false,
-            isCardUsed = false,
-            id = 0,
-            art = sprites[0]
-        });
+
 
         cards.Add(new Card
         {
@@ -65,6 +55,18 @@ public class CardBuilder : MonoBehaviour
             art = sprites[3]
         });
 
+        cards.Add(new Card
+        {
+            title = "Wood Legs",
+            description = "Enhances your mobility by allowing you to run. These wooden legs provide a basic level of dexterity.",
+            type = "destreza",
+            timeRequired = 30,
+            isMechanical = false,
+            isCardUsed = false,
+            id = 0,
+            art = sprites[0]
+        });
+        
         cards.Add(new Card
         {
             title = "Thunder Stomp",
