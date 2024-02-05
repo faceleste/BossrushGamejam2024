@@ -21,11 +21,11 @@ public class Timer : MonoBehaviour
     {
 
         totalMinutes = gameController.timeSettings.fullTime;
-        float seconds = 59 - (gameController.timeSettings.currentTime % 60);
+        float seconds = 60 - (gameController.timeSettings.currentTime % 60);
         float minutes = gameController.timeSettings.fullTime - (gameController.timeSettings.currentTime / 60);
 
 
-
+        
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
 

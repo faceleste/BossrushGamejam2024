@@ -116,7 +116,7 @@ public class CardBuilder : MonoBehaviour
             isMechanical = false,
             isCardUsed = false,
             id = 0,
-            art = sprites[2]
+            art = sprites[1]
         });
 
 
@@ -129,7 +129,7 @@ public class CardBuilder : MonoBehaviour
             isMechanical = false,
             isCardUsed = false,
             id = 0,
-            art = sprites[4]
+            art = sprites[2]
         });
 
         if (ValidateCards(cards, sprites))

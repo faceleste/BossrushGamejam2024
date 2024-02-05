@@ -52,9 +52,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9a5664b0e2f6dad4f9148516bf44cd3c, type: 3}
   maestria:
   - {fileID: 21300000, guid: 12118fcd7ee41a74cbe7202f1eaa938c, type: 3}
-  - {fileID: 21300000, guid: 61395004928df9845b70306badee70db, type: 3}
   - {fileID: 21300000, guid: 288f7b1a3ad7145499e0e2b88aaa8771, type: 3}
-  - {fileID: 21300000, guid: 74176489058f12a42a0a0afc5dd935fd, type: 3}
   - {fileID: 21300000, guid: 5ff2877649598674d9d0b03c34fb25da, type: 3}
   vigor:
   - {fileID: 21300000, guid: d53f0e4f82c722d428e22a86852128e0, type: 3}

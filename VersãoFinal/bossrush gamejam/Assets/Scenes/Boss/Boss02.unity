@@ -2474,7 +2474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44a194ea7eaf0c499bb6309acb557d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 450
+  vida: 700
   currentVida: 0
   splashSangue: {fileID: 1268463685388670065, guid: 172e36a0bc870c24b9f6d214758f2416, type: 3}
   centerBoss: {fileID: 1849358183}
@@ -3444,8 +3444,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c71dd489e2fd0d945aaeb2f0074955a5, type: 2}
+  m_sharedMaterial: {fileID: 2211928926239462423, guid: c71dd489e2fd0d945aaeb2f0074955a5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
