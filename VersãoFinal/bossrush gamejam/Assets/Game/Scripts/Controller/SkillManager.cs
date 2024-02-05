@@ -22,9 +22,9 @@ public class SkillManager : MonoBehaviour
 
     void InicializarDicionarioDeHabilidades()
     {
-        skillDictionary.Add(1, () => DestrezaSkills.HellFist(gameController));
-        skillDictionary.Add(2, () => DestrezaSkills.SteelLegs(gameController));
-        skillDictionary.Add(3, () => DestrezaSkills.BulletHell(gameController));
+        skillDictionary.Add(1, () => DestrezaSkills.SteelLegs(gameController));
+        skillDictionary.Add(2, () => DestrezaSkills.BulletHell(gameController));
+        skillDictionary.Add(3, () => DestrezaSkills.HellFist(gameController));
         skillDictionary.Add(4, () => DestrezaSkills.WoodLegs(gameController));
         skillDictionary.Add(5, () => DestrezaSkills.ThunderStomp(gameController));
 
@@ -35,8 +35,8 @@ public class SkillManager : MonoBehaviour
 
         skillDictionary.Add(10, () => VigorSkills.BurningBack(gameController));
         skillDictionary.Add(11, () => VigorSkills.HardHitter(gameController));
-        skillDictionary.Add(12, () => VigorSkills.IndomitableSprit(gameController));
-        skillDictionary.Add(13, () => VigorSkills.Superman(gameController));
+        skillDictionary.Add(12, () => VigorSkills.Superman(gameController));
+        skillDictionary.Add(13, () => VigorSkills.IndomitableSprit(gameController));
         skillDictionary.Add(14, () => VigorSkills.FireMetal(gameController));
 
     }

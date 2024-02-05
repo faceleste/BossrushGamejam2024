@@ -25,7 +25,7 @@ public class Timer : MonoBehaviour
         float minutes = gameController.timeSettings.fullTime - (gameController.timeSettings.currentTime / 60);
 
 
-        
+
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
 
@@ -44,7 +44,7 @@ public class Timer : MonoBehaviour
             timeText.color = Color.green;
         }
 
-        if (gameController.timeSettings.currentTime/ 60  >= totalMinutes)
+        if (gameController.timeSettings.currentTime / 60 >= totalMinutes)
         {
             gameController.timeSettings.canCountTime = false;
 
@@ -52,4 +52,5 @@ public class Timer : MonoBehaviour
         }
 
     }
+
 }
