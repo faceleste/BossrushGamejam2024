@@ -401,11 +401,19 @@ public class Player : MonoBehaviour
         {
             heartObj[0].sprite = heart;
             heartObj[1].sprite = nullHeart;
+            heartObj[1].sprite = nullHeart;
         }
         if(hp == 2)
         {
             heartObj[0].sprite = heart;
             heartObj[1].sprite = heart;
+            heartObj[2].sprite = nullHeart;
+        }
+        if(hp == 3)
+        {
+            heartObj[0].sprite = heart;
+            heartObj[1].sprite = heart;
+            heartObj[2].sprite = heart;
         }
 
         if(shields == 0)
