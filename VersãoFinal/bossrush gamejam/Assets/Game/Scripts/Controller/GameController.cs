@@ -37,7 +37,7 @@ public class PlayerSettings
     public bool isDeath;
     public bool isCheatMode;
     public bool isSpongeBob;
-    
+
     public float cooldownRecoverShield = 120;
     public float timeToRecoverShield = 120;
     public void UpdateStatus()
@@ -51,13 +51,13 @@ public class PlayerSettings
         playerAttack.attackRange = attackRange;
         playerAttack.cooldownAtks = weaponSpeed;
         player.shields = numShields;
-        
+
     }
 
     public void AddToInventory(int newCard)
     {
-        inventory.Add(newCard); 
- 
+        inventory.Add(newCard);
+
 
 
     }
@@ -193,17 +193,24 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if(playerSettings.numShields == 1)
+
+        if (playerSettings.numShields == 1)
         {
-            if(playerSettings.player.shields == 0)
+            if (playerSettings.player.shields == 0)
             {
                 playerSettings.cooldownRecoverShield -= Time.deltaTime;
             }
-            if(playerSettings.cooldownRecoverShield <= 0)
+            if (playerSettings.cooldownRecoverShield <= 0)
             {
                 playerSettings.player.shields = 1;
-                playerSettings.cooldownRecoverShield = playerSettings.timeToRecoverShield;        
+                playerSettings.cooldownRecoverShield = playerSettings.timeToRecoverShield;
             }
+        }
+
+        if (playerSettings.isCheatMode)
+        {
+            timeSettings.currentTime = 0;
+            playerSettings.hp = 2;
         }
 
 
@@ -228,14 +235,16 @@ public class GameController : MonoBehaviour
         {
             statisticSettings.timeToCompleteGame += Time.deltaTime;
         }
-        else{
-            if(SceneManager.GetActiveScene().name == "TrueLobby"){
+        else
+        {
+            if (SceneManager.GetActiveScene().name == "TrueLobby")
+            {
                 SceneManager.LoadScene("Win");
             }
-            
+
         }
 
-  
+
         optionSettings.OpenMenuListener();
     }
 
