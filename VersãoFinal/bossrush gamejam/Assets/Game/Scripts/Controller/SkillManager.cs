@@ -33,11 +33,11 @@ public class SkillManager : MonoBehaviour
         skillDictionary.Add(7, () => MaestriaSkills.DemonicInsults(gameController));
         skillDictionary.Add(8, () => MaestriaSkills.SpongyBoots(gameController, spongeBob));
 
-        skillDictionary.Add(10, () => VigorSkills.BurningBack(gameController));
-        skillDictionary.Add(11, () => VigorSkills.HardHitter(gameController));
-        skillDictionary.Add(12, () => VigorSkills.Superman(gameController));
-        skillDictionary.Add(13, () => VigorSkills.IndomitableSprit(gameController));
-        skillDictionary.Add(14, () => VigorSkills.FireMetal(gameController));
+        skillDictionary.Add(9, () => VigorSkills.BurningBack(gameController));
+        skillDictionary.Add(10, () => VigorSkills.HardHitter(gameController));
+        skillDictionary.Add(11, () => VigorSkills.Superman(gameController));
+        skillDictionary.Add(12, () => VigorSkills.IndomitableSprit(gameController));
+        skillDictionary.Add(13, () => VigorSkills.FireMetal(gameController));
 
     }
 

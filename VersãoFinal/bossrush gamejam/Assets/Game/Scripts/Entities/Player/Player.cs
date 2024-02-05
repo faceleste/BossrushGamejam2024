@@ -3,7 +3,8 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEditor.Rendering;
 using UnityEngine.UI;
-
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 public class Player : MonoBehaviour
 {
 
@@ -68,8 +69,14 @@ public class Player : MonoBehaviour
 
     public GameObject shieldAnim;
 
+    [Header("Extra")]
+    private Volume volume;
+    public AudioSource asHit;
+    public AudioClip hit;
+
     public void Start()
     {
+        volume = Camera.main.GetComponent<Volume>();
         defaultColor = sr.color;
         playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         VerificaImgVida();
@@ -85,10 +92,10 @@ public class Player : MonoBehaviour
         cooldownDash = gameController.playerSettings.cooldownDash;
         bool isFirstTime = gameController.playerSettings.isFirstTime;
         shields = gameController.playerSettings.numShields;
-        if(isInCutscene)
+        if (isInCutscene)
         {
             canWalk = false;
-            if(!isFirstTime)
+            if (!isFirstTime)
             {
                 canSoundsCutscene = true;
                 StartCoroutine(Cutscene());
@@ -100,7 +107,7 @@ public class Player : MonoBehaviour
     public void Update()
     {
         //shields = gameController.playerSettings.numShields;
-        if(shields > 0)
+        if (shields > 0)
         {
             shieldAnim.SetActive(true);
         }
@@ -108,39 +115,40 @@ public class Player : MonoBehaviour
         {
             shieldAnim.SetActive(false);
         }
-        if(isInCutscene)
+        if (isInCutscene)
         {
-            
+
         }
-        if(canSoundsCutscene == true)
+        if (canSoundsCutscene == true)
         {
             StartCoroutine(RandomizePasso());
-        }   
-        if(gameController.playerSettings.canRecoverShield == true)
+        }
+        if (gameController.playerSettings.canRecoverShield == true)
         {
-            if(canRecoverShield)
+            if (canRecoverShield)
             {
                 StartCoroutine(RecoverShield());
             }
         }
         VerificaImgVida();
-        if(!gameController.playerSettings.canMove){ 
-            playerSpeed = 0 ; 
+        if (!gameController.playerSettings.canMove)
+        {
+            playerSpeed = 0;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isDashing = true;
         }
 
-        
-        
+
+
     }
 
     IEnumerator RecoverShield()
     {
         canRecoverShield = false;
         yield return new WaitForSeconds(120);
-        if(shields != 1)
+        if (shields != 1)
         {
             shields = 1;
         }
@@ -151,7 +159,7 @@ public class Player : MonoBehaviour
         canSoundsCutscene = true;
         StartCoroutine(Cutscene());
     }
-    
+
     public IEnumerator Cutscene()
     {
         playerAttack.canAttackAgain = false;
@@ -175,30 +183,30 @@ public class Player : MonoBehaviour
 
     public void isDashingController()
     {
-        
+
         if (isDashing && canDash && canWalk && numDashs != 0)
         {
-            
+
             playerAnim.SetBool("isDashing", true);
-            gameController.statisticSettings.numDashs ++;
+            gameController.statisticSettings.numDashs++;
             preMove = new Vector2(moveHorizontal, moveVertical);
             canWalk = false;
             // Inicie com a velocidade máxima
             playerSpeed = forceDash;
-            
+
             rb2d.velocity = preMove.normalized * playerSpeed;
             StartCoroutine(SpawnSpriteDash());
             StartCoroutine(DelayDash2());
-            numDashs --;
-            
-    
+            numDashs--;
+
+
         }
         else
         {
             isDashing = false;
         }
     }
-    
+
     IEnumerator DelayDash2()
     {
         RandomizeDash();
@@ -212,26 +220,26 @@ public class Player : MonoBehaviour
             rb2d.velocity = preMove.normalized * playerSpeed;
 
             elapsedTime += Time.deltaTime;
-            if(elapsedTime >= dashTime - 0.1f)
+            if (elapsedTime >= dashTime - 0.1f)
             {
                 playerAnim.SetBool("isDashing", false);
             }
             yield return null;
-            
+
         }
-         playerAnim.SetBool("isDashing", false);
+        playerAnim.SetBool("isDashing", false);
         // No final do dash, pare completamente
         //yield return new WaitForSeconds(0.1f)
-        if(isDied == false)
+        if (isDied == false)
         {
             Invoke("resetSpeed", 0.01f);
         }
 
         canDash = false;
-        
 
-        
-        if(numDashs == 0)
+
+
+        if (numDashs == 0)
         {
             yield return new WaitForSeconds(cooldownDash);
             numDashs = gameController.playerSettings.qtdDash;
@@ -242,20 +250,20 @@ public class Player : MonoBehaviour
             canDash = true;
             yield return new WaitForSeconds(0.3f);
             numDashs = 0;
-           
-            
+
+
         }
-        
+
         //if(numDashs != 1)
         //{
-           
-        //}
-        
 
-        if(isDied == false)
+        //}
+
+
+        if (isDied == false)
         {
             canDash = true;
-            if(numDashs == 0)
+            if (numDashs == 0)
             {
                 yield return new WaitForSeconds(cooldownDash);
                 numDashs = gameController.playerSettings.qtdDash;
@@ -272,23 +280,23 @@ public class Player : MonoBehaviour
     }
     public IEnumerator SpawnSpriteDash()
     {
-        
+
 
         yield return new WaitForSeconds(0.04f);
-        for(int i = 0; i<=4; i++)
+        for (int i = 0; i <= 4; i++)
         {
             yield return new WaitForSeconds(0.04f);
             scriptSpriteDash = Instantiate(spriteDashPrefab, this.transform.position, transform.rotation).GetComponent<ScriptSpriteDash>();
             spriteDash = sr.sprite;
             scriptSpriteDash.mainSprite = spriteDash;
-            if(isFliped)
+            if (isFliped)
             {
-                scriptSpriteDash.sr.flipX = true; 
+                scriptSpriteDash.sr.flipX = true;
             }
             scriptSpriteDash.newColor = new Color(0f, 0.8f, 1.0f, 0);
             scriptSpriteDash.sr.color = new Color(0f, 0.8f, 1.0f, colorj);
             colorj += 0.10f;
-            
+
         }
         colorj = 0.15f;
         yield return new WaitForSeconds(0.1f);
@@ -299,17 +307,17 @@ public class Player : MonoBehaviour
         //yield return new WaitForSeconds(0.1f)
         StartCoroutine(SpawnSpriteDash());
         canDash = false;
-        
+
         yield return new WaitForSeconds(0.04f);
         playerAnim.SetBool("isDashing", false);
         yield return new WaitForSeconds(cooldownDash);
-        if(isDied == false)
+        if (isDied == false)
         {
             canDash = true;
             //playerAnim.SetBool("isMoving", false);
         }
-        
-        
+
+
     }
 
     public void resetSpeed()
@@ -329,33 +337,33 @@ public class Player : MonoBehaviour
             Vector2 movement = new Vector2(moveHorizontal, moveVertical);
             rb2d.velocity = movement.normalized * playerSpeed;
 
-            if(moveHorizontal > 0)
+            if (moveHorizontal > 0)
             {
                 sr.flipX = true;
                 isFliped = true;
             }
-            if(moveHorizontal < 0)
+            if (moveHorizontal < 0)
             {
                 sr.flipX = false;
                 isFliped = false;
             }
 
-            if(moveHorizontal != 0 || moveVertical != 0)
+            if (moveHorizontal != 0 || moveVertical != 0)
             {
                 playerAnim.SetFloat("Horizontal", moveHorizontal);
                 playerAnim.SetFloat("Vertical", moveVertical);
                 StartCoroutine(RandomizePasso());
-                if(!isWalking)
+                if (!isWalking)
                 {
-                    
+
                     isWalking = true;
                     playerAnim.SetBool("isMoving", isWalking);
                 }
-                
+
             }
             else
             {
-                if(isWalking)
+                if (isWalking)
                 {
                     isWalking = false;
                     playerAnim.SetBool("isMoving", isWalking);
@@ -371,7 +379,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator RandomizePasso()
     {
-        if(canSomPasso == true)
+        if (canSomPasso == true)
         {
             canSomPasso = false;
             int r = Random.Range(0, sonsPassos.Length);
@@ -391,116 +399,152 @@ public class Player : MonoBehaviour
         shields = gameController.playerSettings.numShields;
         numDashs = gameController.playerSettings.qtdDash;
         VerificaImgVida();
-        
+
 
     }
 
     public void VerificaImgVida()
     {
-        if(hp == 1)
+        if (hp == 1)
         {
             heartObj[0].sprite = heart;
             heartObj[1].sprite = nullHeart;
             heartObj[1].sprite = nullHeart;
         }
-        if(hp == 2)
+        if (hp == 2)
         {
             heartObj[0].sprite = heart;
             heartObj[1].sprite = heart;
             heartObj[2].sprite = nullHeart;
         }
-        if(hp == 3)
+        if (hp == 3)
         {
             heartObj[0].sprite = heart;
             heartObj[1].sprite = heart;
             heartObj[2].sprite = heart;
         }
 
-        if(shields == 0)
+        if (shields == 0)
         {
             shieldObj[0].sprite = nullShield;
         }
-        if(shields == 1)
+        if (shields == 1)
         {
             shieldObj[0].sprite = shield;
         }
     }
-    void OnCollisionEnter2D(Collision2D collision) 
-    { 
-        if (collision.gameObject.CompareTag("Fogo")) 
-        { 
-            if(canTakeDmg)
+    private IEnumerator EffectChromaticAberrationMax()
+    {
+
+
+
+        ChromaticAberration chromaticAberration;
+        volume.profile.TryGet(out chromaticAberration);
+        float chromaticAberrationValue = 0;
+        while (chromaticAberrationValue < 1)
+        {
+            chromaticAberrationValue += 0.3f;
+            chromaticAberration.intensity.value = chromaticAberrationValue;
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(1.2f);
+        while (chromaticAberrationValue > 0)
+        {
+            chromaticAberrationValue -= 0.3f;
+            chromaticAberration.intensity.value = chromaticAberrationValue;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+
+    }
+
+    void HitDamage()
+    {
+
+        asHit.clip = hit;
+        asHit.Play();
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Fogo"))
+        {
+            if (canTakeDmg)
             {
+
                 Debug.Log("Acertado");
-                if(shields <= 0)
+                StartCoroutine(EffectChromaticAberrationMax());
+                HitDamage();
+                if (shields <= 0)
                 {
-                    hp --;
+                    hp--;
                     heartObj[hp].sprite = nullHeart;
                     StartCoroutine(Damage(shields));
                 }
                 else
                 {
-                    shields --;
+                    shields--;
                     shieldObj[0].sprite = nullShield;
                     StartCoroutine(Damage(shields));
                 }
 
-                if(hp <= 0)
+                if (hp <= 0)
                 {
                     heartObj[0].sprite = nullHeart;
                     StartCoroutine(PlayerDied());
+                }
             }
-            }
-        } 
-    } 
-    void OnTriggerEnter2D(Collider2D collision) 
-    { 
-        if (collision.gameObject.CompareTag("Fogo")) 
-        { 
-            if(canTakeDmg)
+        }
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Fogo"))
+        {
+            if (canTakeDmg)
             {
                 Debug.Log("Acertado");
+                StartCoroutine(EffectChromaticAberrationMax());
+                HitDamage();
                 //SceneManager.LoadScene("Boss01");
-                if(shields <= 0)
+                if (shields <= 0)
                 {
-                    hp --;
+                    hp--;
                     heartObj[hp].sprite = nullHeart;
                     StartCoroutine(Damage(shields));
                 }
                 else
                 {
-                    shields --;
+                    shields--;
                     shieldObj[0].sprite = nullShield;
                     StartCoroutine(Damage(shields));
                 }
 
-                if(hp <= 0)
+                if (hp <= 0)
                 {
                     heartObj[0].sprite = nullHeart;
                     StartCoroutine(PlayerDied());
                 }
             }
-        } 
+        }
 
-        if (collision.gameObject.CompareTag("Door")) 
-        { 
+        if (collision.gameObject.CompareTag("Door"))
+        {
             Debug.Log("Acertado");
             canWalk = false;
             rb2d.velocity = new Vector2(0, 0);
             //SceneManager.LoadScene("Boss01");
             StartCoroutine(ChangeScene());
-        } 
+        }
 
-        if(collision.gameObject.CompareTag("Pedra")) 
-        { 
+        if (collision.gameObject.CompareTag("Pedra"))
+        {
             canChangeStepsSound = true;
-        } 
-        else if(collision.gameObject.CompareTag("Grama"))
+        }
+        else if (collision.gameObject.CompareTag("Grama"))
         {
             canChangeStepsSound = false;
         }
-   
-    } 
+
+    }
 
     IEnumerator Damage(int dano)
     {
@@ -508,7 +552,7 @@ public class Player : MonoBehaviour
         Time.timeScale = 0.1f;
         yield return new WaitForSeconds(0.1f);
         Time.timeScale = 1f;
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
             sr.color = new Color(1f, 1f, 1f, 0.4f);
             yield return new WaitForSeconds(0.1f);
@@ -524,25 +568,25 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1f);
         //sr.sortingOrder = 2050;
         animDie.SetActive(true);
-        
+
         yield return new WaitForSeconds(2.5f);
-        if(gameController.playerSettings.numEstagiosConcluidos == 0)
+        if (gameController.playerSettings.numEstagiosConcluidos == 0)
         {
             SceneManager.LoadScene("Boss01");
         }
-        if(gameController.playerSettings.numEstagiosConcluidos == 1)
+        if (gameController.playerSettings.numEstagiosConcluidos == 1)
         {
             SceneManager.LoadScene("Boss03");
         }
-        if(gameController.playerSettings.numEstagiosConcluidos == 2)
+        if (gameController.playerSettings.numEstagiosConcluidos == 2)
         {
             SceneManager.LoadScene("Boss04");
         }
-        if(gameController.playerSettings.numEstagiosConcluidos == 3)
+        if (gameController.playerSettings.numEstagiosConcluidos == 3)
         {
             SceneManager.LoadScene("Boss02");
         }
-        
+
     }
     IEnumerator PlayerDied()
     {
@@ -559,7 +603,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("TrueLobby");
         //this.transform.position = localTpMorte.transform.position;
-        
+
     }
 
 }

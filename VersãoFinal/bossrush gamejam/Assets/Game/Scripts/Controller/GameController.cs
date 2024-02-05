@@ -211,6 +211,7 @@ public class GameController : MonoBehaviour
         {
             timeSettings.currentTime = 0;
             playerSettings.hp = 2;
+            playerSettings.player.hp = 2;
         }
 
 
