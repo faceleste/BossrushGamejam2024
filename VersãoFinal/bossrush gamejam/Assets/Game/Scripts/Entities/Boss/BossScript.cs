@@ -67,7 +67,7 @@ public class BossScript : MonoBehaviour
 
     [Header("Condições")]
 
-    public bool isFire;
+    public bool isFire = false;
     public bool isBledding;
 
     private int bloodBossCount = 0;
@@ -76,11 +76,14 @@ public class BossScript : MonoBehaviour
 
     public GameObject sangueSangramento;
     public GameObject fogoSkill;
+    public GameObject fogoSkillPlayer;
 
     public AudioSource audioAtks;
     public AudioClip somEspadaCortando;
     public AudioClip somEspadaFincada;
     public AudioClip somHitBoss;
+
+    public bool canAtkFogo = false;
     // Start is called before the first frame update
 
     public void PlaySound(AudioClip clip)
@@ -96,6 +99,12 @@ public class BossScript : MonoBehaviour
         defaultColor = sr.color;
 
         StartCoroutine(Rotine());
+        if(gameController.playerSettings.canAttackFire == true)
+        {
+            isFire = true;
+            fogoSkillPlayer.SetActive(true);
+            armaMaca.GetComponent<SpriteRenderer>().color = new Color(1f, 0.4910542f, 0.03137255f, 1f);
+        }
     }
 
     public void StartRoutineBoss()
@@ -133,12 +142,39 @@ public class BossScript : MonoBehaviour
         }
 
         BossBleed();
+        BossFire();
         if (isFire)
         {
             f = 0.30196078f;
         }
     }
+    void BossFire()
+    {
+        if (isFire && canAtkFogo)
+        {
+            StartCoroutine(DelayFire());
+        }
+    }
 
+    IEnumerator DelayFire()
+    {
+        isFire = false;
+        armaMaca.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        canAtkFogo = false;
+        currentVida -= 10;
+        barraVida.fillAmount = currentVida / vida;
+        Instantiate(fogoSkill, new Vector2(this.transform.position.x, this.transform.position.y+3.2f), transform.rotation).transform.parent = gameObject.transform;
+        yield return new WaitForSeconds(8);
+        isFire = true;
+        canAtkFogo = false;
+        armaMaca.GetComponent<SpriteRenderer>().color = new Color(1f, 0.4910542f, 0.03137255f, 1f);
+        fogoSkillPlayer.SetActive(true);
+        //Instantiate(sangueSangramento, new Vector2(this.transform.position.x, this.transform.position.y+2.8f), transform.rotation);
+        //colocar efeito de sangramento here
+        //animação de fogo
+        //
+
+    }
     void BossBleed()
     {
         if (isBledding)
@@ -148,6 +184,8 @@ public class BossScript : MonoBehaviour
 
         }
     }
+
+
     void BloodBoss()
     {
 
@@ -394,6 +432,13 @@ public class BossScript : MonoBehaviour
                 {
                     stacksBlood = 10;
                 }
+            }
+
+            if(gameController.playerSettings.canAttackFire == true)
+            {
+                //isFire = true;
+                canAtkFogo = true;
+                fogoSkillPlayer.SetActive(false);
             }
 
         }
