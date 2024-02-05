@@ -10,6 +10,8 @@ public class SkillManager : MonoBehaviour
     private float time;
     private Card actualCard;
 
+    [Header("Assets Skills")]
+    public AudioClip spongeBob;
     void Start()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
@@ -31,7 +33,7 @@ public class SkillManager : MonoBehaviour
         skillDictionary.Add(7, () => MaestriaSkills.WarriorOfDarkness(gameController));
         skillDictionary.Add(8, () => MaestriaSkills.DemonicInsults(gameController));
         skillDictionary.Add(9, () => MaestriaSkills.YouVsYou(gameController));
-        skillDictionary.Add(10, () => MaestriaSkills.SpongyBoots(gameController));
+        skillDictionary.Add(10, () => MaestriaSkills.SpongyBoots(gameController, spongeBob));
 
         skillDictionary.Add(11, () => VigorSkills.BurningBack(gameController));
         skillDictionary.Add(12, () => VigorSkills.HardHitter(gameController));
@@ -169,10 +171,16 @@ public class SkillManager : MonoBehaviour
             gameController.playerSettings.UpdateStatus();
         }
 
-        public static void SpongyBoots(GameController gameController)
+        public static void SpongyBoots(GameController gameController, AudioClip spongeBob)
         {
-            // só DEUS sabe 
+            //trocar o som do passo do player pelo som do bobsponja 
+            gameController.playerSettings.player.sonsPassos[0] = spongeBob;
+            
+            gameController.playerSettings.player.sonsPassos[1] = spongeBob;
+            gameController.timeSettings.currentTime += 0.5f * 60;
+            
 
+             
         }
     }
 
