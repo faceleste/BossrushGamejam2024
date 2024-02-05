@@ -635,7 +635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barraVida: {fileID: 139919626}
-  vida: 600
+  vida: 800
   currentVida: 0
   speed: 2
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
@@ -654,8 +654,8 @@ MonoBehaviour:
   canSpawnAtkArma2: 1
   canSpawnAtkArmaSegue: 1
   armasPosition: []
-  delaySpawnArmaAgain: 2
-  delaySpawnArma2Again: 3
+  delaySpawnArmaAgain: 1.5
+  delaySpawnArma2Again: 2
   delaySpawnArma3Again: 1.4
   armaMaca: {fileID: 0}
   numArmasSpawnadas: 0
@@ -1047,7 +1047,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 0e2325edf9d80124d89b8d9fe6300702, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 07501c25bd72ea848a7dcc5176773ce4, type: 2}
 --- !u!224 &427964243 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6658365218399955045, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}

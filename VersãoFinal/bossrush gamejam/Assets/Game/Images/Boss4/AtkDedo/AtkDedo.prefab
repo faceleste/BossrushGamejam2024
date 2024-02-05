@@ -34,7 +34,8 @@ Transform:
   m_LocalPosition: {x: 20, y: -7.6, z: 0.13719957}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8824644100471375741}
   m_Father: {fileID: 5195507889671267902}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8315320840259330082
@@ -123,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: -8, y: 0}
+  velocidade: {x: -9, y: 0}
 --- !u!50 &4140261094201468653
 Rigidbody2D:
   serializedVersion: 4
@@ -415,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: 8, y: 0}
+  velocidade: {x: 9, y: 0}
 --- !u!50 &3288398692121057980
 Rigidbody2D:
   serializedVersion: 4
@@ -707,7 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: -8, y: 0}
+  velocidade: {x: -9, y: 0}
 --- !u!50 &7866105109679364413
 Rigidbody2D:
   serializedVersion: 4
@@ -999,7 +1000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: -8, y: 0}
+  velocidade: {x: -9, y: 0}
 --- !u!50 &7992701909957356039
 Rigidbody2D:
   serializedVersion: 4
@@ -1291,7 +1292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: -8, y: 0}
+  velocidade: {x: -9, y: 0}
 --- !u!50 &8149118137502872324
 Rigidbody2D:
   serializedVersion: 4
@@ -1491,11 +1492,11 @@ Transform:
   m_GameObject: {fileID: 3467715286744898702}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20, y: -10.130001, z: 0.13719957}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalPosition: {x: 0, y: -0.6325003, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5195507889671267902}
+  m_Father: {fileID: 6281281355201209163}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2585942313861128011
 SpriteRenderer:
@@ -1583,7 +1584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: -8, y: 0}
+  velocidade: {x: -9, y: 0}
 --- !u!50 &8884219307668294972
 Rigidbody2D:
   serializedVersion: 4
@@ -1875,7 +1876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: 8, y: 0}
+  velocidade: {x: 9, y: 0}
 --- !u!50 &3619895487670984733
 Rigidbody2D:
   serializedVersion: 4
@@ -2167,7 +2168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: -8, y: 0}
+  velocidade: {x: -9, y: 0}
 --- !u!50 &3495687597740773340
 Rigidbody2D:
   serializedVersion: 4
@@ -2459,7 +2460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: -8, y: 0}
+  velocidade: {x: -9, y: 0}
 --- !u!50 &1825038287028053270
 Rigidbody2D:
   serializedVersion: 4
@@ -2751,7 +2752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: 8, y: 0}
+  velocidade: {x: 9, y: 0}
 --- !u!50 &7412521255544683398
 Rigidbody2D:
   serializedVersion: 4
@@ -3043,7 +3044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: 8, y: 0}
+  velocidade: {x: 9, y: 0}
 --- !u!50 &8727784621821348740
 Rigidbody2D:
   serializedVersion: 4
@@ -3335,7 +3336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: -8, y: 0}
+  velocidade: {x: -9, y: 0}
 --- !u!50 &2100545255528308747
 Rigidbody2D:
   serializedVersion: 4
@@ -3627,7 +3628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: 8, y: 0}
+  velocidade: {x: 9, y: 0}
 --- !u!50 &6313784744517983981
 Rigidbody2D:
   serializedVersion: 4
@@ -3919,7 +3920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: 8, y: 0}
+  velocidade: {x: 9, y: 0}
 --- !u!50 &872164932899691387
 Rigidbody2D:
   serializedVersion: 4
@@ -4211,7 +4212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: 8, y: 0}
+  velocidade: {x: 9, y: 0}
 --- !u!50 &3280110271663925643
 Rigidbody2D:
   serializedVersion: 4
@@ -4503,7 +4504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: -8, y: 0}
+  velocidade: {x: -9, y: 0}
 --- !u!50 &5354755457447370368
 Rigidbody2D:
   serializedVersion: 4
@@ -4712,7 +4713,6 @@ Transform:
   - {fileID: 684416412758167764}
   - {fileID: 7437732996590162635}
   - {fileID: 6281281355201209163}
-  - {fileID: 8824644100471375741}
   - {fileID: 5977198446893333882}
   - {fileID: 395987119919014395}
   - {fileID: 1130067324101774488}
@@ -4846,7 +4846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: 8, y: 0}
+  velocidade: {x: 9, y: 0}
 --- !u!50 &4393116113792007327
 Rigidbody2D:
   serializedVersion: 4
@@ -5138,7 +5138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: -8, y: 0}
+  velocidade: {x: -9, y: 0}
 --- !u!50 &8646727871686738784
 Rigidbody2D:
   serializedVersion: 4
@@ -5430,7 +5430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: 8, y: 0}
+  velocidade: {x: 9, y: 0}
 --- !u!50 &781206871187489155
 Rigidbody2D:
   serializedVersion: 4
@@ -5722,7 +5722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  velocidade: {x: 8, y: 0}
+  velocidade: {x: 9, y: 0}
 --- !u!50 &7531488437512395860
 Rigidbody2D:
   serializedVersion: 4

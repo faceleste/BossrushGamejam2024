@@ -35,10 +35,9 @@ public class SkillManager : MonoBehaviour
 
 
         skillDictionary.Add(9, () => VigorSkills.BurningBack(gameController));
-
         skillDictionary.Add(10, () => VigorSkills.HardHitter(gameController));
-        skillDictionary.Add(11, () => VigorSkills.Superman(gameController));
-        skillDictionary.Add(12, () => VigorSkills.IndomitableSprit(gameController));
+        skillDictionary.Add(12, () => VigorSkills.Superman(gameController));
+        skillDictionary.Add(11, () => VigorSkills.IndomitableSprit(gameController));
         skillDictionary.Add(13, () => VigorSkills.FireMetal(gameController));
 
     }

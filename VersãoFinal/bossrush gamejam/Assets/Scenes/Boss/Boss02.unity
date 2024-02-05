@@ -2589,7 +2589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44a194ea7eaf0c499bb6309acb557d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 700
+  vida: 1050
   currentVida: 0
   splashSangue: {fileID: 1268463685388670065, guid: 172e36a0bc870c24b9f6d214758f2416, type: 3}
   centerBoss: {fileID: 1849358183}
