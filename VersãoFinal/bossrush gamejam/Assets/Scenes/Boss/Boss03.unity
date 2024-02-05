@@ -68461,6 +68461,7 @@ MonoBehaviour:
   heartObj:
   - {fileID: 1982030603}
   - {fileID: 1982030603}
+  - {fileID: 1982030603}
   shieldObj:
   - {fileID: 1982030603}
   - {fileID: 1982030603}
@@ -83224,9 +83225,9 @@ MonoBehaviour:
   isFire: 0
   isBledding: 0
   stacksBlood: 1
-  sangueSangramento: {fileID: 0}
-  fogoSkill: {fileID: 0}
-  fogoSkillPlayer: {fileID: 0}
+  sangueSangramento: {fileID: 737482947}
+  fogoSkill: {fileID: 4973354173738741636, guid: b8afb49955d886b4990deb35748b9855, type: 3}
+  fogoSkillPlayer: {fileID: 737482947}
   canAtkFogo: 1
 --- !u!95 &1779676405
 Animator:

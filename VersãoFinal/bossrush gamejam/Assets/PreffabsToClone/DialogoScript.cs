@@ -23,6 +23,9 @@ public class DialogoScript : MonoBehaviour
     public Sprite lastSprite;
     public AudioClip risadaFinal;
 
+
+    public GameObject animMorte;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -101,9 +104,11 @@ public class DialogoScript : MonoBehaviour
             canWrite = false;
             currentFrase = 0;
             this.GetComponent<Animator>().SetTrigger("Sumindo");
-
+            if(isWinScene)
+            {
+                animMorte.SetActive(true);
+            }
             yield return new WaitForSeconds(timeToFinalize);
-
             gameObject.SetActive(false);
         }
         else
