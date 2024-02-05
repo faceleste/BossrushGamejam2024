@@ -5079,17 +5079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b026ec0fcf61544a5f7461d111a829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1530698363 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2856861012644001328, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
-  m_PrefabInstance: {fileID: 342956292}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575675532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f119fc213b0433844aa41d5091c1dd38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1532663657
 GameObject:
   m_ObjectHideFlags: 0
@@ -7522,8 +7511,8 @@ MonoBehaviour:
     damageBlood: 0.02
     inventory: []
     isInventoryChanged: 0
-    player: {fileID: 1530698363}
-    playerAttack: {fileID: 1530698361}
+    player: {fileID: 0}
+    playerAttack: {fileID: 0}
     isFirstTime: 1
     isDeath: 0
     isCheatMode: 0
