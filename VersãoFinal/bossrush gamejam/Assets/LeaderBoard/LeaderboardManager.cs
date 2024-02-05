@@ -21,7 +21,7 @@ namespace LeaderboardCreatorDemo
 
         private void Start()
         {
-
+            _exampleGame = GameObject.FindWithTag("GameController").GetComponent<GameController>();
             LoadEntries();
         }
 
@@ -32,12 +32,19 @@ namespace LeaderboardCreatorDemo
         
             Leaderboards.NoMoreAngels.GetEntries(entries =>
             {
-                _entryTextObjects = new TMP_Text[entries.Length];
+                if(_entryTextObjects[0] == null)
+                {
+                    _entryTextObjects = new TMP_Text[entries.Length + 5];
+                }
 
                 for(int i = 0; i < _entryTextObjects.Length; i++)
                 {
                     GameObject gObj = Instantiate(texto, new Vector2(this.transform.position.x, this.transform.position.y - i * 45), transform.rotation);
                     gObj.transform.SetParent(gameObject.transform);
+                    if( _entryTextObjects[i] != null)
+                    {
+                        Destroy(_entryTextObjects[i].gameObject);
+                    }
                     _entryTextObjects[i] = gObj.GetComponent<TMP_Text>();
                 }
 
