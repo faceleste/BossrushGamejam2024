@@ -1201,7 +1201,7 @@ MonoBehaviour:
   cooldownChangeAtk: 12
   armaMaca: {fileID: 3038944}
   centerBoss: {fileID: 2088748299}
-  vida: 250
+  vida: 450
   currentVida: 0
   splashSangue: {fileID: 1268463685388670065, guid: 172e36a0bc870c24b9f6d214758f2416, type: 3}
   lobby: {fileID: 315169698}
