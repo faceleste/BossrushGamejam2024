@@ -64,7 +64,7 @@ public class CardManager : MonoBehaviour
                         contentPanel.GetChild(j).GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
                         contentPanel.GetChild(j).transform.Find("Background").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
                         contentPanel.GetChild(j).transform.Find("Button").gameObject.SetActive(false);
-                      
+
                     }
                 }
             }
@@ -88,7 +88,6 @@ public class CardManager : MonoBehaviour
             if (card.type == type && !card.isCardUsed && card.title != null)
             {
                 CriarCarta(card);
-
             }
 
         }
@@ -118,63 +117,71 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    private bool CompareInventory(int id)
+    {
+        List<int> inventoryCards = gameController.playerSettings.inventory;
+        return !inventoryCards.Contains(id);
+    }
     private void CriarCarta(Card card)
     {
 
-
-        GameObject cartaObj = Instantiate(cartaPrefab, contentPanel);
-        cartaObj.name = card.title;
-        float startYPosition = 140f;
-        TextMeshProUGUI cost = cartaObj.transform.Find("Cost").GetComponent<TextMeshProUGUI>();
-
-        Image background = cartaObj.transform.Find("Background").GetComponent<Image>();
-
-        Button button = cartaObj.transform.Find("Button").GetComponent<Button>();
-
-        Image image = cartaObj.GetComponent<Image>();
-
-
-        cost.text = card.timeRequired.ToString();
-        background.sprite = card.art;
-
-
-        button.onClick.AddListener(() =>
+        if (CompareInventory(card.id))
         {
 
-            ShowConfirmationDialog(card, cartaObj);
-        });
+            GameObject cartaObj = Instantiate(cartaPrefab, contentPanel);
+            cartaObj.name = card.title;
+            float startYPosition = 140f;
+            TextMeshProUGUI cost = cartaObj.transform.Find("Cost").GetComponent<TextMeshProUGUI>();
+
+            Image background = cartaObj.transform.Find("Background").GetComponent<Image>();
+
+            Button button = cartaObj.transform.Find("Button").GetComponent<Button>();
+
+            Image image = cartaObj.GetComponent<Image>();
 
 
+            cost.text = card.timeRequired.ToString();
+            background.sprite = card.art;
 
-        RectTransform cartaRectTransform = cartaObj.GetComponent<RectTransform>();
-        RectTransform previousCardRectTransform = contentPanel.childCount > 1 ? contentPanel.GetChild(contentPanel.childCount - 2).GetComponent<RectTransform>() : null;
 
-        if (gameController.playerSettings.inventory.Count <= 2 && (card.id != 4 && card.id != 5))
-        {
-            cartaObj.transform.Find("Button").gameObject.SetActive(false);
-
-            image.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-            background.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-
-        }
-
-        if (previousCardRectTransform != null)
-        {
-            if (previousCardRectTransform.anchoredPosition.y == startYPosition)
+            button.onClick.AddListener(() =>
             {
-                startYPosition = startYPosition - 60f;
-            }
-            float margin = 60f;
 
-            Vector2 newPosition = cartaRectTransform.anchoredPosition;
-            newPosition.y = previousCardRectTransform.anchoredPosition.y - margin;
-            cartaRectTransform.anchoredPosition = newPosition;
-        }
-        else
-        {
-            Vector2 newPosition = cartaRectTransform.anchoredPosition;
-            newPosition.y = startYPosition;
-            cartaRectTransform.anchoredPosition = newPosition;
+                ShowConfirmationDialog(card, cartaObj);
+            });
+
+
+
+            RectTransform cartaRectTransform = cartaObj.GetComponent<RectTransform>();
+            RectTransform previousCardRectTransform = contentPanel.childCount > 1 ? contentPanel.GetChild(contentPanel.childCount - 2).GetComponent<RectTransform>() : null;
+
+            if (gameController.playerSettings.inventory.Count <= 2 && (card.id != 4 && card.id != 5))
+            {
+                cartaObj.transform.Find("Button").gameObject.SetActive(false);
+
+                image.color = new Color(0.2f, 0.2f, 0.2f, 0.3f);
+                background.color = new Color(0.2f, 0.2f, 0.2f, 0.2f);
+
+            }
+
+            if (previousCardRectTransform != null)
+            {
+                if (previousCardRectTransform.anchoredPosition.y == startYPosition)
+                {
+                    startYPosition = startYPosition - 60f;
+                }
+                float margin = 60f;
+
+                Vector2 newPosition = cartaRectTransform.anchoredPosition;
+                newPosition.y = previousCardRectTransform.anchoredPosition.y - margin;
+                cartaRectTransform.anchoredPosition = newPosition;
+            }
+            else
+            {
+                Vector2 newPosition = cartaRectTransform.anchoredPosition;
+                newPosition.y = startYPosition;
+                cartaRectTransform.anchoredPosition = newPosition;
+            }
         }
     }
 
@@ -235,12 +242,12 @@ public class CardManager : MonoBehaviour
             descriptionText.text = dialogDescription;
             costText.text = "Cost: " + card.timeRequired.ToString();
             cardSprite.sprite = card.art;
-
+            float positionX = cartaObj.GetComponent<RectTransform>().anchoredPosition.x;
+            float positionY = cartaObj.GetComponent<RectTransform>().anchoredPosition.y;
             confirmButton.onClick.AddListener(() =>
             {
                 if (card == null)
                 {
-                    Debug.Log("AHAHAHA");
                 }
                 Destroy(confirmationDialog);
 
@@ -256,6 +263,7 @@ public class CardManager : MonoBehaviour
 
             cancelButton.onClick.AddListener(() =>
             {
+                ResetCardPosition(cartaObj,  positionY);
 
                 Destroy(confirmationDialog);
 
@@ -263,6 +271,14 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    private void ResetCardPosition(GameObject cartaObj,float y)
+    {
+        RectTransform cartaRectTransform = cartaObj.GetComponent<RectTransform>();
+        Vector2 newPosition = cartaRectTransform.anchoredPosition;
+        newPosition.x = 64.49f;
+        newPosition.y = y;
+        cartaRectTransform.anchoredPosition = newPosition;
+    }
     private List<Card> ListagemCards()
     {
         List<Card> cards = new List<Card>();

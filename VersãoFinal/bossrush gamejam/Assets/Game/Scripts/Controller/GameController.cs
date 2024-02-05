@@ -50,6 +50,7 @@ public class PlayerSettings
         playerAttack.attackRange = attackRange;
         playerAttack.cooldownAtks = weaponSpeed;
         player.shields = numShields;
+        
     }
 
     public void AddToInventory(int newCard)
@@ -81,6 +82,7 @@ public class PlayerSettings
         canAttackFire = false;
         canRecoverShield = false;
         damageBlood = 0.02f;
+        isFirstTime = true;
         inventory = new List<int>();
     }
 
@@ -114,7 +116,7 @@ public class OptionSettings
     public GameObject option;
     public void Reset()
     {
-        canViewConfirmation = false;
+        canViewConfirmation = true;
         volume = 0.5f;
         isFullscreen = false;
         resolution = 0;
@@ -223,6 +225,12 @@ public class GameController : MonoBehaviour
         if (playerSettings.numEstagiosConcluidos < 4)
         {
             statisticSettings.timeToCompleteGame += Time.deltaTime;
+        }
+        else{
+            if(SceneManager.GetActiveScene().name == "TrueLobby"){
+                SceneManager.LoadScene("Win");
+            }
+            
         }
 
   

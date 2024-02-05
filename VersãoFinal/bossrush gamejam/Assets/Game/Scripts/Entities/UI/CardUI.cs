@@ -2,7 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
-public class CardUI : MonoBehaviour, IPointerClickHandler
+
+// Quando o cursor passar por cima da carta, fazer com que ela fique se " tremendo "
+public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private Vector3 originalScale;
     private Vector3 originalPosition;
@@ -11,6 +13,8 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
     private bool isClicked = false;
     private CardManager parent = new CardManager();
     private AudioSource audioSource;
+    private bool isHovered = false;
+    private Coroutine hoverCoroutine;
 
     public List<AudioClip> audioClips = new List<AudioClip>();
     void Start()
@@ -61,4 +65,47 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         transform.localScale = targetScale;
         transform.localPosition = targetPosition;
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //aumentar o tamanho da carta
+        if (hoverCoroutine != null)
+            StopCoroutine(hoverCoroutine);
+
+        hoverCoroutine = StartCoroutine(HoverEffectCoroutine(originalScale * 1.1f, 0.3f));
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        //diminuir o tamanho da carta
+        if (hoverCoroutine != null)
+            StopCoroutine(hoverCoroutine);
+
+        hoverCoroutine = StartCoroutine(HoverEffectCoroutine(originalScale, 0.2f));
+    }
+
+    private IEnumerator HoverEffectCoroutine(Vector3 targetScale, float duration)
+    {
+        float elapsedTime = 0f;
+        Vector3 startScale = transform.localScale;
+
+        while (elapsedTime < duration)
+        {
+            transform.localScale = Vector3.Lerp(startScale, targetScale, elapsedTime / duration);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = targetScale;
+    }
+
+    public IEnumerator ResetPosition()
+    {
+        yield return new WaitForSeconds(0.5f);
+        transform.localScale = originalScale;
+        transform.localPosition = originalPosition;
+    }
+
+
 }

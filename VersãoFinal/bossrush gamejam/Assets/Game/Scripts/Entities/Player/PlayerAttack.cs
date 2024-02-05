@@ -94,7 +94,6 @@ public class PlayerAttack : MonoBehaviour
                 hasArma = true;
                 cooldownSpecialAttack = timeSpecialAttack;
                 currentAttack = timeToAttack;
-                //attackPointSpecialAttack.SetActive(false);
                 attackPointSpecialAttack.GetComponent<SpriteRenderer>().enabled = false;
                 attackPointSpecialAttack.GetComponent<BoxCollider2D>().enabled = false;
                 canBasicAttack = true; 

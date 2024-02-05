@@ -58,7 +58,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5ff2877649598674d9d0b03c34fb25da, type: 3}
   vigor:
   - {fileID: 21300000, guid: d53f0e4f82c722d428e22a86852128e0, type: 3}
-  - {fileID: 21300000, guid: d53f0e4f82c722d428e22a86852128e0, type: 3}
   - {fileID: 21300000, guid: 84ee1c06a72e74645a5a61e849e72ec0, type: 3}
   - {fileID: 21300000, guid: b80dbf581157c9448bdf08080c0f049e, type: 3}
   - {fileID: 21300000, guid: 485377956d0ed084699e2e53bc27f469, type: 3}
