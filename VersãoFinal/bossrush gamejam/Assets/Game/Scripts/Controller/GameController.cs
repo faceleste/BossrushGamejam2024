@@ -36,6 +36,9 @@ public class PlayerSettings
     public bool isFirstTime;
     public bool isDeath;
     public bool isCheatMode;
+    
+    public float cooldownRecoverShield = 120;
+    public float timeToRecoverShield = 120;
     public void UpdateStatus()
     {
         player.playerSpeed = speed;
@@ -172,6 +175,8 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        playerSettings.player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
         if (playerSettings.hp <= 0)
         {
             playerSettings.hp = 1;
@@ -184,6 +189,18 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        if(playerSettings.numShields == 1)
+        {
+            if(playerSettings.player.shields == 0)
+            {
+                playerSettings.cooldownRecoverShield -= Time.deltaTime;
+            }
+            if(playerSettings.cooldownRecoverShield <= 0)
+            {
+                playerSettings.player.shields = 1;
+                playerSettings.cooldownRecoverShield = playerSettings.timeToRecoverShield;        
+            }
+        }
 
 
         if (Instance != this)
@@ -218,6 +235,7 @@ public class GameController : MonoBehaviour
         GameObject playerObject = GameObject.Find("Player");
         //findbytag
         GameObject optionObject = GameObject.FindWithTag("OptionMenu").gameObject;
+        optionObject.SetActive(false);
 
         if (playerObject != null)
         {
