@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,53 +12,75 @@ public class StatisticController : MonoBehaviour
     public Button continueButton;
     public GameObject statistic;
 
-
+    public CardBuilder builder;
     private GameObject inventory;
-    // Start is called before the first frame update
+   
     void Start()
     {
         inventory = GameObject.Find("Inventory"); ;
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        
+        float time = gameController.statisticSettings.timeToCompleteGame / 60;
         text.text = "Deaths: " + gameController.statisticSettings.numDeaths + "\n" +
                     "Dashes: " + gameController.statisticSettings.numDashs + "\n" +
                     "Attacks: " + gameController.statisticSettings.numAttacks + "\n" +
-                    "Time to complete: " + gameController.statisticSettings.timeToCompleteGame / 60 + " minutes" + "\n" ;
+                    "Completed in: " + Math.Round(time, 2) + (time < 1 ? " sec" : " min") + "\n";
         continueButton.onClick.AddListener(() =>
         {
             statistic.SetActive(false);
-            GameObject.Find("Inventory"); 
         });
 
         SetInventory();
     }
 
-    //fazer com que as cartas do inventario apareçam no objeto inventory, da esquerda para direita
     void Update()
     {
+        List<int> inv = gameController.playerSettings.inventory;
+        string strInv = "";
 
+        foreach (int i in inv)
+        {
+            strInv += i + " ";
+        }
+        Debug.Log(strInv);
     }
 
 
     public void SetInventory()
     {
-        List<Card> playerCards = gameController.playerSettings.inventory;
-        float margin = -220;
-        foreach (Card card in playerCards)
+        List<int> inventoryCards = gameController.playerSettings.inventory;
+        List<Card> cards = ListagemCards();
+        float margin = -340;
+        foreach (Card card in cards)
         {
-            Sprite sprite = card.art;
-            GameObject newCard = new GameObject();
-            newCard.AddComponent<Image>();
-            newCard.GetComponent<Image>().sprite = sprite;
-            newCard.transform.SetParent(inventory.transform);
-            //fazer os cards 250250
-            newCard.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 200);
-            newCard.GetComponent<RectTransform>().localPosition = new Vector3(margin, 0, 0);
-            newCard.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            margin += 50;
-
-
+            if (inventoryCards.Contains(card.id))
+            {
+                Sprite sprite = card.art;
+                GameObject newCard = new GameObject();
+                newCard.AddComponent<Image>();
+                newCard.GetComponent<Image>().sprite = sprite;
+                newCard.transform.SetParent(inventory.transform);
+                newCard.GetComponent<RectTransform>().localPosition = new Vector3(margin, 0, 0);
+                newCard.GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 1f);
+                margin += 150;
+            }
         }
+
     }
+
+    private List<Card> ListagemCards()
+    {
+        List<Card> cards = new List<Card>();
+        cards.AddRange(builder.listagemDestreza(builder.destreza));
+        cards.AddRange(builder.listagemMaestria(builder.maestria));
+        cards.AddRange(builder.listagemVigor(builder.vigor));
+        int id = 1;
+        foreach (Card card in cards)
+        {
+            card.id = id;
+            id++;
+        }
+        return cards;
+    }
+
 
 }

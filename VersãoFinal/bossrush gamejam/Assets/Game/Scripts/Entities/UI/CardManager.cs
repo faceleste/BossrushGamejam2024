@@ -64,6 +64,7 @@ public class CardManager : MonoBehaviour
                         contentPanel.GetChild(j).GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
                         contentPanel.GetChild(j).transform.Find("Background").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
                         contentPanel.GetChild(j).transform.Find("Button").gameObject.SetActive(false);
+                      
                     }
                 }
             }
@@ -84,22 +85,9 @@ public class CardManager : MonoBehaviour
         foreach (Card card in cards)
         {
 
-            if (card.type == type && !card.isCardUsed)
+            if (card.type == type && !card.isCardUsed && card.title != null)
             {
-                for (int i = 0; i < gameController.playerSettings.inventory.Count; i++)
-                {
-                    if (card.id == gameController.playerSettings.inventory[i].id)
-                    {
-                        card.isCardUsed = true;
-
-                    }
-                }
-
-                if (!card.isCardUsed)
-                {
-
-                    CriarCarta(card);
-                }
+                CriarCarta(card);
 
             }
 
@@ -125,7 +113,7 @@ public class CardManager : MonoBehaviour
         {
             RectTransform cartaRectTransform = contentPanel.GetChild(i).GetComponent<RectTransform>();
             Vector2 newPosition = cartaRectTransform.anchoredPosition;
-            newPosition.y = 120f;
+            newPosition.y = 200f;
             cartaRectTransform.anchoredPosition = newPosition;
         }
     }
@@ -136,7 +124,7 @@ public class CardManager : MonoBehaviour
 
         GameObject cartaObj = Instantiate(cartaPrefab, contentPanel);
         cartaObj.name = card.title;
-
+        float startYPosition = 140f;
         TextMeshProUGUI cost = cartaObj.transform.Find("Cost").GetComponent<TextMeshProUGUI>();
 
         Image background = cartaObj.transform.Find("Background").GetComponent<Image>();
@@ -146,7 +134,7 @@ public class CardManager : MonoBehaviour
         Image image = cartaObj.GetComponent<Image>();
 
 
-        cost.text = "- " + card.timeRequired.ToString() + "min";
+        cost.text = card.timeRequired.ToString();
         background.sprite = card.art;
 
 
@@ -160,7 +148,8 @@ public class CardManager : MonoBehaviour
 
         RectTransform cartaRectTransform = cartaObj.GetComponent<RectTransform>();
         RectTransform previousCardRectTransform = contentPanel.childCount > 1 ? contentPanel.GetChild(contentPanel.childCount - 2).GetComponent<RectTransform>() : null;
-        if (gameController.playerSettings.inventory.Count <= 2 && (card.id != 1 && card.id != 5))
+
+        if (gameController.playerSettings.inventory.Count <= 2 && (card.id != 4 && card.id != 5))
         {
             cartaObj.transform.Find("Button").gameObject.SetActive(false);
 
@@ -171,11 +160,20 @@ public class CardManager : MonoBehaviour
 
         if (previousCardRectTransform != null)
         {
-            float margin = 35f;
+            if (previousCardRectTransform.anchoredPosition.y == startYPosition)
+            {
+                startYPosition = startYPosition - 60f;
+            }
+            float margin = 60f;
 
             Vector2 newPosition = cartaRectTransform.anchoredPosition;
             newPosition.y = previousCardRectTransform.anchoredPosition.y - margin;
-
+            cartaRectTransform.anchoredPosition = newPosition;
+        }
+        else
+        {
+            Vector2 newPosition = cartaRectTransform.anchoredPosition;
+            newPosition.y = startYPosition;
             cartaRectTransform.anchoredPosition = newPosition;
         }
     }
@@ -201,13 +199,14 @@ public class CardManager : MonoBehaviour
     }
     void ShowConfirmationDialog(Card card, GameObject cartaObj)
     {
+        int id = card.id;
 
 
         if (!gameController.optionSettings.canViewConfirmation)
         {
             PlaySound(card);
             skillManager.ActivateSkill(card);
-            gameController.playerSettings.AddToInventory(card);
+            gameController.playerSettings.AddToInventory(card.id);
             card.isCardUsed = true;
             card.isAtivado = true;
             cartasAtivas++;
@@ -239,12 +238,15 @@ public class CardManager : MonoBehaviour
 
             confirmButton.onClick.AddListener(() =>
             {
-
+                if (card == null)
+                {
+                    Debug.Log("AHAHAHA");
+                }
                 Destroy(confirmationDialog);
 
                 PlaySound(card);
                 skillManager.ActivateSkill(card);
-                gameController.playerSettings.AddToInventory(card);
+                gameController.playerSettings.AddToInventory(id);
                 card.isCardUsed = true;
                 card.isAtivado = true;
                 cartasAtivas++;
