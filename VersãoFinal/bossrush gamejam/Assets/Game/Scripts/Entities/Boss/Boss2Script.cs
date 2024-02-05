@@ -88,6 +88,10 @@ public class Boss2Script : MonoBehaviour
     public GameObject sangueSangramento;
     public GameObject fogoSkill;
 
+    [Header("Audio")]
+    private AudioSource audioSource;
+    public List<AudioClip> audioClips = new List<AudioClip>();
+
     IEnumerator Rotine()
     {
         
@@ -131,10 +135,13 @@ public class Boss2Script : MonoBehaviour
 
     IEnumerator RotineAtkNormal()
     {
-        canAtkAgainLaser = false;
+        canAtkAgainLaser = false;   
+        audioSource.clip = audioClips[0];
+        audioSource.Play();
         //isLaserActivated = true;
         yield return new WaitForSeconds(TimeDestroyAtkLaser);
         //isLaserActivated = false;
+        audioSource.Stop();
         yield return new WaitForSeconds(cooldownLaserDesativado);
         canAtkAgainLaser = true;
         yield return new WaitForSeconds(1);
@@ -227,11 +234,13 @@ public class Boss2Script : MonoBehaviour
         Vector3 direction = Quaternion.Euler(0, 0, angleA) * transform.up;
         // Adicione uma força ao laser na direção calculada
         laser.GetComponent<Rigidbody2D>().AddForce(direction * laserSpeed);
+
     }
     
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         defaultColor = sr.color;
         cooldownLaserPlayer = timeLaserPlayer;
 

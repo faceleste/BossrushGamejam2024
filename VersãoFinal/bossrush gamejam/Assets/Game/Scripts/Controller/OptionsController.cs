@@ -27,7 +27,7 @@ public class OptionsController : MonoBehaviour
     }
     public void changeVolume(float volume)
     {
-        gameController.optionSettings.volume = volume;
+        AudioListener.volume = volume;
     }
     public void changeQuality(float quality)
     {
