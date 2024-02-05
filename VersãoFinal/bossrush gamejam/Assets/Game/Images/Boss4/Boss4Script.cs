@@ -47,7 +47,7 @@ public class Boss4Script : MonoBehaviour
     public GameController gameController;
     [Header("Condições")]
 
-    public bool isFire;
+    public bool isFire = false;
     public bool isBledding;
 
     private int bloodBossCount = 0;
@@ -55,6 +55,9 @@ public class Boss4Script : MonoBehaviour
 
     public GameObject sangueSangramento;
     public GameObject fogoSkill;
+    public GameObject fogoSkillPlayer;
+    public bool canAtkFogo = true;
+
     // Start is called before the first frame update
     IEnumerator Rotine()
     {
@@ -86,6 +89,14 @@ public class Boss4Script : MonoBehaviour
         pAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         animCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        if(gameController.playerSettings.canAttackFire == true)
+        {
+            fogoSkillPlayer.SetActive(true);
+            isFire = true;
+            armaMaca.GetComponent<SpriteRenderer>().color = new Color(1f, 0.4910542f, 0.03137255f, 1f);
+        }
+
         if(atk01 == true)
         {
          StartCoroutine(Rotine());
@@ -116,10 +127,39 @@ public class Boss4Script : MonoBehaviour
         }
 
         BossBleed();
+        BossFire();
         if (isFire)
         {
             f = 0.30196078f;
         }
+    }
+
+    void BossFire()
+    {
+        if (isFire && canAtkFogo)
+        {
+            StartCoroutine(DelayFire());
+        }
+    }
+
+    IEnumerator DelayFire()
+    {
+        isFire = false;
+        armaMaca.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        canAtkFogo = false;
+        currentVida -= 10;
+        barraVida.fillAmount = currentVida / vida;
+        Instantiate(fogoSkill, new Vector2(this.transform.position.x, this.transform.position.y+3.2f), transform.rotation).transform.parent = gameObject.transform;
+        yield return new WaitForSeconds(8);
+        isFire = true;
+        canAtkFogo = false;
+        armaMaca.GetComponent<SpriteRenderer>().color = new Color(1f, 0.4910542f, 0.03137255f, 1f);
+        fogoSkillPlayer.SetActive(true);
+        //Instantiate(sangueSangramento, new Vector2(this.transform.position.x, this.transform.position.y+2.8f), transform.rotation);
+        //colocar efeito de sangramento here
+        //animação de fogo
+        //
+
     }
 
     void BossBleed()
@@ -231,6 +271,12 @@ public class Boss4Script : MonoBehaviour
                 {
                     stacksBlood = 10;
                 }
+            }
+            if(gameController.playerSettings.canAttackFire == true)
+            {
+                //isFire = true;
+                canAtkFogo = true;
+                fogoSkillPlayer.SetActive(false);
             }
         }
     }

@@ -718,6 +718,7 @@ Transform:
   - {fileID: 213312565}
   - {fileID: 1941646563}
   - {fileID: 1742636608}
+  - {fileID: 2070800312}
   m_Father: {fileID: 184101082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &139919623
@@ -1202,16 +1203,18 @@ MonoBehaviour:
   splashSangue: {fileID: 1268463685388670065, guid: 172e36a0bc870c24b9f6d214758f2416, type: 3}
   lobby: {fileID: 315169698}
   f: 0
-  isFire: 0
+  isFire: 1
   isBledding: 0
   stacksBlood: 1
   gameController: {fileID: 0}
   sangueSangramento: {fileID: 4973354173738741636, guid: 71f3ec7a2597256499b5a4d6964f435e, type: 3}
   fogoSkill: {fileID: 4973354173738741636, guid: b8afb49955d886b4990deb35748b9855, type: 3}
+  fogoSkillPlayer: {fileID: 2070800311}
   audioAtks: {fileID: 1515160582}
   somEspadaCortando: {fileID: 8300000, guid: a42226442f78d734e9dcc2aa792b957e, type: 3}
   somEspadaFincada: {fileID: 8300000, guid: fb5cd82699f3c3642b7af4ab72542e13, type: 3}
   somHitBoss: {fileID: 8300000, guid: a42226442f78d734e9dcc2aa792b957e, type: 3}
+  canAtkFogo: 0
 --- !u!61 &278303883
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10379,6 +10382,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2063629025}
   m_CullTransparentMesh: 1
+--- !u!1001 &2070800310
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 82047096}
+    m_Modifications:
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973354173738741636, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_Name
+      value: FogoSkillPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973354173738741636, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8502021663091516892, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+--- !u!1 &2070800311 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4973354173738741636, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+  m_PrefabInstance: {fileID: 2070800310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2070800312 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+  m_PrefabInstance: {fileID: 2070800310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2088748298
 GameObject:
   m_ObjectHideFlags: 0

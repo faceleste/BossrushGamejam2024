@@ -13246,6 +13246,8 @@ MonoBehaviour:
   stacksBlood: 1
   sangueSangramento: {fileID: 4973354173738741636, guid: 71f3ec7a2597256499b5a4d6964f435e, type: 3}
   fogoSkill: {fileID: 4973354173738741636, guid: b8afb49955d886b4990deb35748b9855, type: 3}
+  fogoSkillPlayer: {fileID: 737482947}
+  canAtkFogo: 1
 --- !u!58 &278303886
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -32213,6 +32215,89 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &737482945
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 715673701}
+    m_Modifications:
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973354173738741636, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_Name
+      value: FogoSkillPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973354173738741636, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8502021663091516892, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+--- !u!4 &737482946 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2267723751068130502, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+  m_PrefabInstance: {fileID: 737482945}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &737482947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4973354173738741636, guid: d58a3e2e20d31d24e9dde1c54a7ced1b, type: 3}
+  m_PrefabInstance: {fileID: 737482945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &738720371
 GameObject:
   m_ObjectHideFlags: 0
@@ -83141,6 +83226,8 @@ MonoBehaviour:
   stacksBlood: 1
   sangueSangramento: {fileID: 0}
   fogoSkill: {fileID: 0}
+  fogoSkillPlayer: {fileID: 0}
+  canAtkFogo: 1
 --- !u!95 &1779676405
 Animator:
   serializedVersion: 5
@@ -107059,9 +107146,12 @@ PrefabInstance:
       addedObject: {fileID: 1842533456}
     - targetCorrespondingSourceObject: {fileID: 570729357944285012, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
       insertIndex: 1
+      addedObject: {fileID: 737482946}
+    - targetCorrespondingSourceObject: {fileID: 570729357944285012, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
+      insertIndex: 2
       addedObject: {fileID: 1257835277}
     - targetCorrespondingSourceObject: {fileID: 570729357944285012, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
-      insertIndex: 6
+      insertIndex: 7
       addedObject: {fileID: 1426101678}
     - targetCorrespondingSourceObject: {fileID: 6658365218399955045, guid: 2b2c4f11015f8d341b72879625d67e68, type: 3}
       insertIndex: -1
