@@ -141,7 +141,7 @@ public class CardManager : MonoBehaviour
             Image image = cartaObj.GetComponent<Image>();
 
 
-            cost.text = card.timeRequired.ToString();
+            cost.text = card.timeRequired.ToString() + "m";
             background.sprite = card.art;
 
 
@@ -196,7 +196,7 @@ public class CardManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         timer.color = originalColor;
         timer.fontSize = 10;
-        
+
     }
 
     void PlaySound(Card card)
