@@ -94,7 +94,7 @@ public class SkillManager : MonoBehaviour
 
             gameController.playerSettings.speed = 5f;
             gameController.playerSettings.canMove = true;
-            gameController.timeSettings.currentTime += 30f * 60 ;
+            gameController.timeSettings.currentTime += 30f * 60;
             gameController.playerSettings.UpdateStatus();
         }
 
@@ -127,7 +127,7 @@ public class SkillManager : MonoBehaviour
         {
             //faster dash 
             gameController.playerSettings.forceDash += 15f;
-            gameController.timeSettings.currentTime += 35f * 60 ;
+            gameController.timeSettings.currentTime += 35f * 60;
             gameController.playerSettings.UpdateStatus();
         }
 
@@ -174,13 +174,10 @@ public class SkillManager : MonoBehaviour
         public static void SpongyBoots(GameController gameController, AudioClip spongeBob)
         {
             //trocar o som do passo do player pelo som do bobsponja 
-            gameController.playerSettings.player.sonsPassos[0] = spongeBob;
-            
-            gameController.playerSettings.player.sonsPassos[1] = spongeBob;
-            gameController.timeSettings.currentTime += 0.5f * 60;
-            
+            gameController.playerSettings.isSpongeBob = true;
 
-             
+
+
         }
     }
 
