@@ -117,7 +117,7 @@ public class DialogoScript : MonoBehaviour
 
 
             }
-            if (currentFrase == frases.Length - 2)
+            if (currentFrase == frases.Length - 3)
             {
                 background.sprite = lastSprite;
 

@@ -15,7 +15,9 @@ public class OptionsController : MonoBehaviour
     public GameObject volumeAba;
     public GameObject gameplayAba;
 
-
+    [Header("Audio")]
+    public AudioClip clickSound ; 
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -23,7 +25,11 @@ public class OptionsController : MonoBehaviour
     }
     public void Start()
     {
-        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        audioSource = GetComponent<AudioSource>();
+
+        if( GameObject.Find("GameController").GetComponent<GameController>() != null){
+            gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        }
     }
     public void changeVolume(float volume)
     {
@@ -79,6 +85,9 @@ public class OptionsController : MonoBehaviour
 
     private void CloseAbas()
     {
+        audioSource.clip = clickSound;
+        audioSource.Play();
+        
         resolutionAba.SetActive(false);
         volumeAba.SetActive(false);
         gameplayAba.SetActive(false);
@@ -86,14 +95,10 @@ public class OptionsController : MonoBehaviour
 
     public void CloseMenu()
     {
-        if(gameController== null){
-            optionCanvas.gameObject.SetActive(false);
-            
-        }   
-        else{
+  
             gameController.optionSettings.option.SetActive(false);
             Time.timeScale = 1;
-        }
+        
 
     }
 

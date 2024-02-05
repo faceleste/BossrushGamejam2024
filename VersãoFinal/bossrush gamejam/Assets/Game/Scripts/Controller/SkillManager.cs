@@ -30,16 +30,14 @@ public class SkillManager : MonoBehaviour
 
 
         skillDictionary.Add(6, () => MaestriaSkills.DoubleDash(gameController));
-        skillDictionary.Add(7, () => MaestriaSkills.WarriorOfDarkness(gameController));
-        skillDictionary.Add(8, () => MaestriaSkills.DemonicInsults(gameController));
-        skillDictionary.Add(9, () => MaestriaSkills.YouVsYou(gameController));
-        skillDictionary.Add(10, () => MaestriaSkills.SpongyBoots(gameController, spongeBob));
+        skillDictionary.Add(7, () => MaestriaSkills.DemonicInsults(gameController));
+        skillDictionary.Add(8, () => MaestriaSkills.SpongyBoots(gameController, spongeBob));
 
-        skillDictionary.Add(11, () => VigorSkills.BurningBack(gameController));
-        skillDictionary.Add(12, () => VigorSkills.HardHitter(gameController));
-        skillDictionary.Add(13, () => VigorSkills.IndomitableSprit(gameController));
-        skillDictionary.Add(14, () => VigorSkills.Superman(gameController));
-        skillDictionary.Add(15, () => VigorSkills.FireMetal(gameController));
+        skillDictionary.Add(10, () => VigorSkills.BurningBack(gameController));
+        skillDictionary.Add(11, () => VigorSkills.HardHitter(gameController));
+        skillDictionary.Add(12, () => VigorSkills.IndomitableSprit(gameController));
+        skillDictionary.Add(13, () => VigorSkills.Superman(gameController));
+        skillDictionary.Add(14, () => VigorSkills.FireMetal(gameController));
 
     }
 
@@ -163,13 +161,7 @@ public class SkillManager : MonoBehaviour
 
         }
 
-        public static void YouVsYou(GameController gameController)
-        {
-            //+1 club head 
-            gameController.playerSettings.qtdCubHead += 1;
-            gameController.timeSettings.currentTime += 10f * 60;
-            gameController.playerSettings.UpdateStatus();
-        }
+
 
         public static void SpongyBoots(GameController gameController, AudioClip spongeBob)
         {
