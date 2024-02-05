@@ -106,17 +106,6 @@ public class CardBuilder : MonoBehaviour
             art = sprites[0]
         });
 
-        cards.Add(new Card
-        {
-            title = "Warrior of Darkness",
-            description = "Embrace the shadows and limit yourself to short-range attacks. Navigate the battlefield with precision and strike fear into your enemies.",
-            type = "maestria",
-            timeRequired = 5,
-            isMechanical = false,
-            isCardUsed = false,
-            id = 0,
-            art = sprites[1]
-        });
 
         cards.Add(new Card
         {
@@ -130,24 +119,13 @@ public class CardBuilder : MonoBehaviour
             art = sprites[2]
         });
 
-        cards.Add(new Card
-        {
-            title = "You vs You",
-            description = "Challenge yourself and gain an extra club head..",
-            type = "maestria",
-            timeRequired = 10,
-            isMechanical = false,
-            isCardUsed = false,
-            id = 0,
-            art = sprites[3]
-        });
 
         cards.Add(new Card
         {
             title = "SpongyBoots",
             description = "Mystery surrounds this card. Equip the SpongyBoots and uncover their enigmatic effects. A short time investment may reveal surprising benefits.",
             type = "maestria",
-            timeRequired = 0.5f,
+            timeRequired = 1f,
             isMechanical = false,
             isCardUsed = false,
             id = 0,

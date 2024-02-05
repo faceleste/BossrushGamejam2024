@@ -36,6 +36,7 @@ public class PlayerSettings
     public bool isFirstTime;
     public bool isDeath;
     public bool isCheatMode;
+    public bool isSpongeBob;
     
     public float cooldownRecoverShield = 120;
     public float timeToRecoverShield = 120;
@@ -83,6 +84,7 @@ public class PlayerSettings
         canRecoverShield = false;
         damageBlood = 0.02f;
         isFirstTime = true;
+        isSpongeBob = false;
         inventory = new List<int>();
     }
 

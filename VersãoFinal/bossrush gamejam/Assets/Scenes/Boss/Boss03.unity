@@ -72133,13 +72133,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ffbdd5da2c7f8404f899b3584744148e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.51
-  m_Pitch: 1
+  m_Volume: 0.7
+  m_Pitch: 1.12
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 10
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -107492,6 +107492,7 @@ MonoBehaviour:
     isFirstTime: 0
     isDeath: 0
     isCheatMode: 0
+    isSpongeBob: 0
     cooldownRecoverShield: 120
     timeToRecoverShield: 120
   timeSettings:

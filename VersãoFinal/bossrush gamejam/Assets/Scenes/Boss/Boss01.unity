@@ -652,6 +652,7 @@ MonoBehaviour:
   sonsGrama:
   - {fileID: 8300000, guid: f00ea8c943995dc42aebb07a98788dba, type: 3}
   - {fileID: 8300000, guid: 2858070e0d181f84f8685014314976c0, type: 3}
+  bobSponja: []
 --- !u!61 &82047095
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1349,15 +1350,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 984335a766c96394596326e4d9f2c101, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f9c5eb95f1211cc4887b52466607c584, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.35
-  m_Pitch: 1
-  Loop: 1
+  m_Volume: 0.437
+  m_Pitch: 0.9
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -9628,6 +9629,7 @@ MonoBehaviour:
     isFirstTime: 1
     isDeath: 0
     isCheatMode: 0
+    isSpongeBob: 0
     cooldownRecoverShield: 120
     timeToRecoverShield: 120
   timeSettings:

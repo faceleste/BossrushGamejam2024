@@ -3,6 +3,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 public class CardManager : MonoBehaviour
 {
 
@@ -24,7 +25,7 @@ public class CardManager : MonoBehaviour
     public AudioSource audioSource;
     public List<AudioClip> listaAudio = new List<AudioClip>();
 
-
+    public TextMeshProUGUI timer;
     public void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -186,6 +187,17 @@ public class CardManager : MonoBehaviour
     }
 
 
+    private IEnumerator EffectTimer()
+    {
+
+        Color originalColor = timer.color;
+        timer.color = Color.red;
+        timer.fontSize = 12;
+        yield return new WaitForSeconds(0.5f);
+        timer.color = originalColor;
+        timer.fontSize = 10;
+        
+    }
 
     void PlaySound(Card card)
     {
@@ -212,6 +224,7 @@ public class CardManager : MonoBehaviour
         if (!gameController.optionSettings.canViewConfirmation)
         {
             PlaySound(card);
+            EffectTimer();
             skillManager.ActivateSkill(card);
             gameController.playerSettings.AddToInventory(card.id);
             card.isCardUsed = true;
@@ -258,12 +271,13 @@ public class CardManager : MonoBehaviour
                 card.isAtivado = true;
                 cartasAtivas++;
                 Destroy(cartaObj);
+                EffectTimer();
             });
 
 
             cancelButton.onClick.AddListener(() =>
             {
-                ResetCardPosition(cartaObj,  positionY);
+                ResetCardPosition(cartaObj, positionY);
 
                 Destroy(confirmationDialog);
 
@@ -271,7 +285,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    private void ResetCardPosition(GameObject cartaObj,float y)
+    private void ResetCardPosition(GameObject cartaObj, float y)
     {
         RectTransform cartaRectTransform = cartaObj.GetComponent<RectTransform>();
         Vector2 newPosition = cartaRectTransform.anchoredPosition;
