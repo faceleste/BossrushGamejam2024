@@ -16,7 +16,7 @@ public class OptionsController : MonoBehaviour
     public GameObject gameplayAba;
 
     [Header("Audio")]
-    public AudioClip clickSound ; 
+    public AudioClip clickSound;
     private AudioSource audioSource;
 
     private void Awake()
@@ -27,7 +27,8 @@ public class OptionsController : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        if( GameObject.Find("GameController").GetComponent<GameController>() != null){
+        if (GameObject.Find("GameController").GetComponent<GameController>() != null)
+        {
             gameController = GameObject.Find("GameController").GetComponent<GameController>();
         }
     }
@@ -47,11 +48,25 @@ public class OptionsController : MonoBehaviour
 
     public void changeResolution(int resolutionIndex)
     {
-        //index 1 = 1920x1080
-        //index 2 = 1280x720
-        //index 3 = 800x600
-        Resolution resolution = Screen.resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        if (resolutionIndex == 1)
+        { //1920x1080 
+
+            Screen.SetResolution(1920, 1080, Screen.fullScreen);
+            gameController.optionSettings.option.SetActive(false);
+        }
+
+        else if (resolutionIndex == 2)
+        { //1280x720
+            Screen.SetResolution(1280, 720, Screen.fullScreen);
+            gameController.optionSettings.option.SetActive(false);
+        }
+        else if (resolutionIndex == 3)
+        { //800x600
+            Screen.SetResolution(800, 600, Screen.fullScreen);
+            gameController.optionSettings.option.SetActive(false);
+
+        }
+
     }
 
     public void changeConfirmation(bool isConfirmationViewed)
@@ -87,7 +102,7 @@ public class OptionsController : MonoBehaviour
     {
         audioSource.clip = clickSound;
         audioSource.Play();
-        
+
         resolutionAba.SetActive(false);
         volumeAba.SetActive(false);
         gameplayAba.SetActive(false);
@@ -95,10 +110,10 @@ public class OptionsController : MonoBehaviour
 
     public void CloseMenu()
     {
-  
-            gameController.optionSettings.option.SetActive(false);
-            Time.timeScale = 1;
-        
+
+        gameController.optionSettings.option.SetActive(false);
+        Time.timeScale = 1;
+
 
     }
 
