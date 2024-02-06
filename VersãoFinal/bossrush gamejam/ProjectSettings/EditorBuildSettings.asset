@@ -7,7 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Default/Menu.unity
-    guid: dc61eb31a5c97df4bb9b74c4cfa819f3
+    guid: 0670b1fed56c98e4eaf5636ec3a504b5
   - enabled: 1
     path: Assets/Scenes/TrueLobby.unity
     guid: add472cdc1f468a4b8f6a8087c7c60ee

@@ -36,6 +36,7 @@ public class PlayerSettings
     public bool isFirstTime;
     public bool isDeath;
     public bool isCheatMode;
+    public bool firstTimeCheat;
     public bool isSpongeBob;
 
     public float cooldownRecoverShield = 120;
@@ -209,6 +210,7 @@ public class GameController : MonoBehaviour
 
         if (playerSettings.isCheatMode)
         {
+            playerSettings.firstTimeCheat = true;
             timeSettings.currentTime = 0;
             playerSettings.hp = 2;
             playerSettings.player.hp = 2;
