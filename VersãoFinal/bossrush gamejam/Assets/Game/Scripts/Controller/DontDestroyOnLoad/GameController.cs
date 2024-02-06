@@ -38,6 +38,7 @@ public class PlayerSettings
     public bool isCheatMode;
     public bool isSpongeBob;
 
+    public bool firstTimeCheat = false;
     public float cooldownRecoverShield = 120;
     public float timeToRecoverShield = 120;
     public void UpdateStatus()
@@ -147,7 +148,7 @@ public class StatisticSettings
     public float timeToCompleteGame;
 }
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour, IController
 {
     [Header("Instância")]
     public static GameController Instance;

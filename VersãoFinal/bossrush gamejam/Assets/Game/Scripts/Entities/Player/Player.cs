@@ -572,19 +572,19 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         if (gameController.playerSettings.numEstagiosConcluidos == 0)
         {
-            SceneManager.LoadScene("Boss01");
+            SceneManager.LoadScene("Boss 1");
         }
         if (gameController.playerSettings.numEstagiosConcluidos == 1)
         {
-            SceneManager.LoadScene("Boss03");
+            SceneManager.LoadScene("Boss 2");
         }
         if (gameController.playerSettings.numEstagiosConcluidos == 2)
         {
-            SceneManager.LoadScene("Boss04");
+            SceneManager.LoadScene("Boss 3");
         }
         if (gameController.playerSettings.numEstagiosConcluidos == 3)
         {
-            SceneManager.LoadScene("Boss02");
+            SceneManager.LoadScene("Boss 4");
         }
 
     }
