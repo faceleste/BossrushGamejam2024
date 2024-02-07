@@ -148,7 +148,7 @@ public class StatisticSettings
     public float timeToCompleteGame;
 }
 
-public class GameController : MonoBehaviour, IController
+public class GameController : MonoBehaviour
 {
     [Header("Instância")]
     public static GameController Instance;

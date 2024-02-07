@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BossScript : MonoBehaviour
+public class BossScript : BossSettings
 {
-    public Image barraVida;
     public bool meleeMoment;
     public bool cruzMoment;
     public bool circleMoment;
 
     [Header("Ataque melee")]
-    public float speed;
     public float meleeDamage;
     public bool isInMeleeAtk;
     public float timeToAtkAgain = 0.5f;
@@ -19,7 +17,6 @@ public class BossScript : MonoBehaviour
     public bool isInRangeMelee;
     public GameObject steps;
     public bool canSpawnPegadas = true;
-    public Vector3 lastPlayerPosition;
     public GameObject spriteDashPrefab;
     public ScriptSpriteDash scriptSpriteDash;
     public Sprite[] spriteBossBranco;
@@ -43,47 +40,26 @@ public class BossScript : MonoBehaviour
     public GameObject meleeObjAtk;
     public float rangeToMeleeAtk;
     public LayerMask playerLayer;
-    public Transform playerPosition;
-    public PlayerAttack player;
     public SpriteRenderer sr;
     private Color defaultColor;
-    public Animator anim;
     public bool canSpawnSprite = true;
-    public Animator animCam;
     public GameObject[] sangue;
     public bool canAttackPlayer = true;
     public Player playerMove;
     public GameObject marcaSangue;
     public float cooldownChangeAtk = 12f;
-    public Transform armaMaca;
 
-    public Transform centerBoss;
-    public float vida;
-    public float currentVida;
-    public GameObject splashSangue;
-
-    public ScriptBackLobby lobby;
-    public float f;
 
     [Header("Condições")]
 
-    public bool isFire = false;
-    public bool isBledding;
 
     private int bloodBossCount = 0;
-    public int stacksBlood = 1;
-    public GameController gameController;
-
-    public GameObject sangueSangramento;
-    public GameObject fogoSkill;
-    public GameObject fogoSkillPlayer;
 
     public AudioSource audioAtks;
     public AudioClip somEspadaCortando;
     public AudioClip somEspadaFincada;
     public AudioClip somHitBoss;
 
-    public bool canAtkFogo = false;
     // Start is called before the first frame update
 
     public void PlaySound(AudioClip clip)

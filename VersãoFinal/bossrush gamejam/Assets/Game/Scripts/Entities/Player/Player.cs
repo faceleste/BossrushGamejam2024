@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public int shields;
     public bool canWalk;
     public float playerSpeed;
+    public float dano ; 
 
     public bool canTakeDmg = true;
 
@@ -83,7 +84,7 @@ public class Player : MonoBehaviour
         //camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Cam>();
         Time.timeScale = 1f;
         animDie.SetActive(false);
-        gameControllerObj = GameObject.FindWithTag("GameController");
+        gameControllerObj = GameObject.Find("GameController");
         gameController = gameControllerObj.GetComponent<GameController>();
         numDashs = gameController.playerSettings.qtdDash;
         playerSpeed = gameController.playerSettings.speed;

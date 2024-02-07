@@ -3,25 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Boss3Script : MonoBehaviour
+public class Boss3Script : BossSettings
 {
-    public Image barraVida;
-    public float vida;
-    public float currentVida;
-    public float speed = 0f;
-    public Color defaultColor;
-    public PlayerAttack pAttack;
-    public Animator animCam;
-    public SpriteRenderer sr;
-    public Animator anim;
-    public bool atk01;
-    public bool atk02;
-    public bool atk03;
-
+  
     public GameObject spawnArma;
     public GameObject spawnArma2;
     public GameObject spawnArma3;
-    public Transform playerPosition;
     public bool canSpawnAtkArma;
     public bool canSpawnAtkArma2;
     public bool canSpawnAtkArmaSegue;
@@ -29,8 +16,6 @@ public class Boss3Script : MonoBehaviour
     public float delaySpawnArmaAgain;
     public float delaySpawnArma2Again;
     public float delaySpawnArma3Again;
-
-    public Transform armaMaca;
     public int numArmasSpawnadas;
 
     public float timeChangeAtks = 10;
@@ -39,24 +24,15 @@ public class Boss3Script : MonoBehaviour
     public GameObject marcaSangue;
 
     public bool isFliped;
-    public GameObject splashSangue;
-    public Transform centerBoss;
-    public Player player;
-    public ScriptBackLobby lobby;
-    public float f;
-    public GameController gameController;
+
     [Header("Condições")]
 
-    public bool isFire = false;
-    public bool isBledding;
 
     private int bloodBossCount = 0;
-    public int stacksBlood = 1;
 
-    public GameObject sangueSangramento;
-    public GameObject fogoSkill;
-    public GameObject fogoSkillPlayer;
-    public bool canAtkFogo = false;
+    public int stacksBlood = 1;
+    public SpriteRenderer sr; 
+    public Color defaultColor;
 
     // Start is called before the first frame update
     IEnumerator Rotine()
